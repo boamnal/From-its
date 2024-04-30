@@ -10,10 +10,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
-<script>
-
-
-</script>
 <div class="container">
     <img src="<c:url value="/img/Logo2.svg"/>" width="320px" height="94px">
     <div>
