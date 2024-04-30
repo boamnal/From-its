@@ -16,7 +16,7 @@ body {
 }
 .navbar {
   background-color: #333; /* 배경색은 원하는 색상으로 설정하세요 */
-  padding: 10px 20px; /* 위아래 10px, 좌우 20px의 패딩 */
+  padding: 30px 20px;
   width: 100%; /* 너비 100% */
   position: sticky; /* sticky 위치 지정 */
   top: 0; /* 화면 상단에 고정 */
