@@ -1,8 +1,56 @@
 @charset "UTF-8";
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* 뷰포트 높이에 맞게 설정 */
+  overflow-y: auto; /* 수직 스크롤바 자동 표시 */
+}
+
+.container {
+  background-color: white;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 20px; /* 기본 패딩 20px */
+  box-sizing: border-box;
+}
+.navbar {
+  background-color: #333; /* 배경색은 원하는 색상으로 설정하세요 */
+  padding: 10px 20px; /* 위아래 10px, 좌우 20px의 패딩 */
+  width: 100%; /* 너비 100% */
+  position: sticky; /* sticky 위치 지정 */
+  top: 0; /* 화면 상단에 고정 */
+  z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+}
+
+/* 화면이 360px 이상일 때 */
+@media screen and (min-width: 360px) {
+  .container {
+    max-width: 360px;
+  }
+}
+
+/* 화면이 600px 이상일 때 */
+@media screen and (min-width: 600px) {
+  .container {
+    max-width: 600px;
+  }
+}
+
+/* 화면이 900px 이상일 때 */
+@media screen and (min-width: 900px) {
+  .container {
+    max-width: 900px;
+  }
+}
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ * 진한 핑크 255,148,148; #FF9494
+ * 연한 핑크 100, 82, 82 #FFD1D1
+ * 제일 연한 핑크 100, 89, 88 #FFE3E1
  */
 :root,
 [data-bs-theme=light] {
@@ -29,7 +77,7 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #0d6efd;
+  --bs-primary: #ff9494;
   --bs-secondary: #6c757d;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
@@ -37,7 +85,7 @@
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
-  --bs-primary-rgb: 13, 110, 253;
+  --bs-primary-rgb: 255,148,148;
   --bs-secondary-rgb: 108, 117, 125;
   --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 13, 202, 240;
