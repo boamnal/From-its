@@ -19,7 +19,7 @@
 
 <div class="container">
     <div class="d-flex flex-column">
-        <button class="btn btn-primary mb-4 rounded-3">새로운 그룹을 만들래요</button>
+        <button class="btn btn-primary mb-4 rounded-3 font-weight-bold">새로운 그룹을 만들래요</button>
         <button class="btn btn-primary rounded-3">이미 만든 그룹이 있어요!</button>
     </div>
 </div>
