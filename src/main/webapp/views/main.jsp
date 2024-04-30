@@ -39,30 +39,6 @@
         top: 0; /* 화면 상단에 고정 */
         z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
     }
-
-    /* 화면이 360px 이상일 때 */
-    @media screen and (min-width: 360px) {
-        .container {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    }
-
-    /* 화면이 600px 이상일 때 */
-    @media screen and (min-width: 600px) {
-        .container {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    }
-
-    /* 화면이 900px 이상일 때 */
-    @media screen and (min-width: 900px) {
-        .container {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    }
 </style>
 
 <html>
