@@ -26,13 +26,7 @@
              position: sticky; /* sticky 위치 지정 */
          }
      .col{
-         align-content: center;
-         border-radius: 10px;
-         height:75px;
-         display:grid;
-         align-items:center;
-     }#list{
-                margin-top:20px ;
+
                overflow-y: auto; /* 수직 스크롤바 자동 표시 */
            }
 </style>
@@ -43,7 +37,6 @@
     </div>
 </div>
 <div id="map" class="map"></div>
-<div id="list" >
 
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
