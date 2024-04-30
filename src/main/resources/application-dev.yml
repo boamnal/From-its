@@ -13,7 +13,6 @@ spring:
     cache-duration: 10
     fallback-to-system-locale: false
 
-
   mvc:
     view:
       prefix: /views/
@@ -24,13 +23,13 @@ spring:
     url: jdbc:log4jdbc:mysql://sb2.cp2amkms4f45.ap-northeast-2.rds.amazonaws.com:3306/shopdb?characterEncoding=utf8
     #    driver-class-name: com.mysql.cj.jdbc.D river
     #    url: jdbc:mysql://127.0.0.1:3306/shopdb?characterEncoding=utf8&serverTimezone=Asia/Seoul
-    username: user01
+    username: fromits
     password: 111111
-mybatis:
-  type-aliases-package: com.hana.app.data.dto
-  mapper-locations: classpath:/mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
+#mybatis:
+#  type-aliases-package: com.hana.app.data.dto
+#  mapper-locations: classpath:/mapper/*.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
 logging:
   level:
     root: info
