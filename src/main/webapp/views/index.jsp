@@ -32,13 +32,25 @@
         }
     </style>
 </head>
+<script>
+    let groupSelect = {
+        init: function () {
+            $("#newgroup").click(() => {
+                window.location.href="/newgroup"
+            })
+        }
+    }
+    $(function () {
+        groupSelect.init()
+    })
+</script>
 <div class="container d-flex flex-column">
         <div class="align-self-center">
             <img src="<c:url value="/img/Logo2.svg"/>" style="width: 200px; height: 40px; margin-top: 50px; margin-bottom: 45px" />
         </div>
 
         <div class="d-flex flex-column">
-            <button class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder" style="padding: 12px 0; background-color: #FF9494; color: white">${text1}</button>
+            <button class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder" style="padding: 12px 0; background-color: #FF9494; color: white" id="newgroup">${text1}</button>
             <button class="w-100 btn btn-primary rounded-3 fw-bolder" style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494">${text2}</button>
         </div>
 </div>
