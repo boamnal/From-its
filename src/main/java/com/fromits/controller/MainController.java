@@ -15,7 +15,8 @@ public class MainController {
     }
     @RequestMapping("/initial")
     public String initial(Model model) throws Exception {
-//        model.addAttribute("center","layout");
+        model.addAttribute("text1","새로운 그룹을 만들래요");
+        model.addAttribute("text2","이미 만든 그룹이 있어요!");
         return "index";
     }
 }
