@@ -19,6 +19,10 @@
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
+<!--우편번호 찾기 자바스크립트 파일-->
+<script src="/js/member/zipcode_popup.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
     let id_check = {
         init: function () {
@@ -101,14 +105,16 @@
 
         <%--    우편번호--%>
         <div class="form-group">
-            <label for="zipcode">우편번호</label>
-            <input type="text" class="form-control" id="zipcode" placeholder="Enter zipcode" name="zipcode">
-            <button id="find_zipcode" type="button" class="btn btn-primary" onclick="findZipCode()">우편번호 찾기</button>
+            <label for="sample6_postcode">우편번호</label>
+            <input type="text" class="form-control" id="sample6_postcode" placeholder="Enter zipcode" name="zipcode">
+            <button id="find_zipcode" type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호
+                찾기
+            </button>
 
         </div>
         <div class="form-group">
-            <label for="address">주소</label>
-            <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
+            <label for="sample6_address">주소</label>
+            <input type="text" class="form-control" id="sample6_address" placeholder="Enter address" name="address">
         </div>
 
         <button id="btn_register" type="button" class="btn btn-primary">회원가입</button>
