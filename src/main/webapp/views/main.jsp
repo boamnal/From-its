@@ -77,16 +77,14 @@
     </div>
 </nav>
 <div class="container">
-    <c:if test="${center == null}">
-        <c:choose>
-            <c:when test="${center == null}">
-                <jsp:include page="center.jsp"/>
-            </c:when>
-            <c:otherwise>
-                <jsp:include page="${center}.jsp"/>
-            </c:otherwise>
-        </c:choose>
-    </c:if>
+    <c:choose>
+        <c:when test="${center == null}">
+            <jsp:include page="center.jsp"/>
+        </c:when>
+        <c:otherwise>
+            <jsp:include page="${center}.jsp"/>
+        </c:otherwise>
+    </c:choose>
 </div>
 <%--<footer>--%>
 <%--    --%>
