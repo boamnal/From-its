@@ -37,11 +37,11 @@
                 data: {'id': id},
                 success: (result) => {
                     let msg = "아이디가 존재합니다!";
-                    let color = "blue";
+                    let color = "red";
 
                     if (result == '1') {
-                        msg = "아이디가 존재하지 않습니다.";
-                        color = "red";
+                        msg = "아이디 사용 가능해요.";
+                        color = "blue";
                     }
                     $('#check_id_msg').html(msg).css("color", color);
                 }
@@ -60,13 +60,13 @@
 
             passwordInput.addEventListener('input', function () {
                 let password = passwordInput.value;
-                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_+=])[a-zA-Z][a-zA-Z0-9!@#$%^&*()-_+=]{7,15}$/;
+                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_+=])[a-zA-Z0-9!@#$%^&*()-_+=]{8,16}$/;
 
                 let msg = "비밀번호 사용 가능해요!";
                 let color = "blue";
 
                 if (!passwordRegex.test(password)) {
-                    msg = "영문/숫자/특수문자조합으로 8~16자리, 첫글자는 영문자만 가능해요.";
+                    msg = "영문/숫자/특수문자 조합으로 8~12자리만 가능해요.";
                     color = "red";
                 }
                 $('#check_msg').html(msg).css("color", color);
@@ -78,46 +78,73 @@
         pwd_check.init();
     });
 
+
 </script>
 <div class="container">
+    <div class="d-flex justify-content-center py-4">
+        <h1>회원가입</h1>
+    </div>
+
     <form id="reg_form">
-        <div class="form-group" action="">
-            <label for="id">아이디</label>
-            <%-- name: 서버 전송시 날라가는 데이터/ required: 입력값 유효성 검사--%>
-            <input type="text" class="form-control" id="id" placeholder="Enter id" name="id" required>
-            <span id="id_span"></span>
-            <button id="btn_check" type="button" class="btn btn-primary">확인</button>
-            <span style="color: red;" id="check_id_msg"></span>
+        <div class="join_form px-4" style="margin: 20px 0px">
+            <div class="form-group d-flex align-items-center">
+                <label for="id" class="flex-grow-1 mb-0 text-nowrap fw-medium">아이디</label>
+                <input type="text" class="form-control me-2" id="id" placeholder="ex) 삼식이" name="id" required
+                       style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
+
+                <button id="btn_check" type="button" class="btn btn-primary rounded-3 fw-bolder text-nowrap"
+                        style="background-color: #FEF4F2; color: #FF9494">확인
+                </button>
+            </div>
+            <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
+        </div>
+
+        <div class="join_form px-4" style="margin: 20px 0px">
+            <div class="form-group d-flex align-items-center">
+                <label for="email" class="flex-grow-1 mb-0 text-nowrap fw-medium">이메일</label>
+                <input type="text" class="form-control me-2" id="email" placeholder="ex) fromits@naver.com" name="email"
+                       required
+                       style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
+                <span id="email_span"></span>
+            </div>
+        </div>
+
+        <div class="join_form px-4" style="margin: 20px 0px">
+            <div class="form-group d-flex align-items-center">
+                <label for="pwd" class="flex-grow-1 mb-0 text-nowrap fw-medium">비밀번호</label>
+                <input type="password" class="form-control me-2" id="pwd" placeholder="ex) fromits123!" name="pwd"
+                       required style="margin:12px; padding: 12px; background-color: #F8F8FA; border-style: none">
+            </div>
+            <span id="check_msg" style="color: red; margin-left: 69px; margin-top: 20px"></span>
 
         </div>
 
-        <div class="form-group" action="">
-            <label for="id">이메일</label>
-            <input type="text" class="form-control" id="email" placeholder="Enter id" name="email">
-            <span id="email_span"></span>
+        <div class="join_form px-4" style="margin: 20px 0px">
+            <div class="form-group d-flex align-items-center">
+                <label for="sample6_postcode" class="flex-grow-1 mb-0 text-nowrap fw-medium">우편번호</label>
+                <input type="text" class="form-control me-2" id="sample6_postcode" placeholder="ex) 04778"
+                       name="zipcode" required
+                       style="margin:12px 12px; padding: 12px; background-color: #F8F8FA; border-style: none">
+                <button id="find_zipcode" type="button" class="btn btn-primary rounded-3 fw-bolder text-nowrap"
+                        style="background-color: #FEF4F2; color: #FF9494"
+                        onclick="sample6_execDaumPostcode()">우편번호
+                    찾기
+                </button>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="pwd">비밀번호</label>
-            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
-            <span style="color: red;" id="check_msg"></span>
+        <div class="join_form px-4" style="margin: 20px 0px">
+            <div class="form-group d-flex align-items-center">
+                <label for="sample6_address" class="flex-grow-1 mb-0 text-nowrap text-center fw-medium">주소</label>
+                <input type="text" class="form-control me-2" id="sample6_address" placeholder="ex) 서울 성동구 아차산로 18"
+                       name="address"
+                       required style="margin:12px 40px; padding: 12px; background-color: #F8F8FA; border-style: none">
+            </div>
         </div>
 
-        <%--    우편번호--%>
-        <div class="form-group">
-            <label for="sample6_postcode">우편번호</label>
-            <input type="text" class="form-control" id="sample6_postcode" placeholder="Enter zipcode" name="zipcode">
-            <button id="find_zipcode" type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()">우편번호
-                찾기
-            </button>
-
-        </div>
-        <div class="form-group">
-            <label for="sample6_address">주소</label>
-            <input type="text" class="form-control" id="sample6_address" placeholder="Enter address" name="address">
-        </div>
-
-        <button id="btn_register" type="button" class="btn btn-primary">회원가입</button>
-
+        <button class="w-100 btn btn-primary rounded-3 fw-bolder"
+                style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494">회원가입
+        </button>
+        <%--        <button id="btn_register" type="button" class="btn btn-primary" >회원가입</button>--%>
     </form>
 </div>
