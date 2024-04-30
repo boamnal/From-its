@@ -13,4 +13,9 @@ public class MainController {
 //        model.addAttribute("center","layout");
         return "main";
     }
+    @RequestMapping("/initial")
+    public String initial(Model model) throws Exception {
+//        model.addAttribute("center","layout");
+        return "index";
+    }
 }
