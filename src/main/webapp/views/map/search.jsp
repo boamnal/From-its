@@ -9,7 +9,7 @@
 <div id="list">
 
 </div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
 <script>
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
     const infowindow = new kakao.maps.InfoWindow({zIndex: 1});
