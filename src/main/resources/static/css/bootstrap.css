@@ -12,7 +12,7 @@ body {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  padding: 20px; /* 기본 패딩 20px */
+  padding: 0 20px; /* 기본 패딩 20px */
   box-sizing: border-box;
 }
 .navbar {
@@ -22,27 +22,6 @@ body {
   position: sticky; /* sticky 위치 지정 */
   top: 0; /* 화면 상단에 고정 */
   z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
-}
-
-/* 화면이 360px 이상일 때 */
-@media screen and (min-width: 360px) {
-  .container {
-    max-width: 360px;
-  }
-}
-
-/* 화면이 600px 이상일 때 */
-@media screen and (min-width: 600px) {
-  .container {
-    max-width: 600px;
-  }
-}
-
-/* 화면이 900px 이상일 때 */
-@media screen and (min-width: 900px) {
-  .container {
-    max-width: 900px;
-  }
 }
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
