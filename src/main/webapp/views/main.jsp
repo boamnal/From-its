@@ -43,21 +43,24 @@
     /* 화면이 360px 이상일 때 */
     @media screen and (min-width: 360px) {
         .container {
-            max-width: 360px;
+            padding-left: 20px;
+            padding-right: 20px;
         }
     }
 
     /* 화면이 600px 이상일 때 */
     @media screen and (min-width: 600px) {
         .container {
-            max-width: 600px;
+            padding-left: 20px;
+            padding-right: 20px;
         }
     }
 
     /* 화면이 900px 이상일 때 */
     @media screen and (min-width: 900px) {
         .container {
-            max-width: 900px;
+            padding-left: 20px;
+            padding-right: 20px;
         }
     }
 </style>
