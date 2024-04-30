@@ -5,20 +5,17 @@
 
 <%-- KAKAO Map API   --%>
 
-<link href="css/bootstrap.css" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-
-<script>
-</script>
-
+<link href="css/bootstrap.css" rel="stylesheet">
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-white navbar-light container">
+<nav class="navbar navbar-expand-sm bg-white navbar-light container" style="margin: 0">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><img style="width: 50px" src="img/Logo.PNG"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">

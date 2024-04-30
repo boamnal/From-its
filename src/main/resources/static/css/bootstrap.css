@@ -6,7 +6,6 @@ body {
   height: 100vh; /* 뷰포트 높이에 맞게 설정 */
   overflow-y: auto; /* 수직 스크롤바 자동 표시 */
 }
-
 .container {
   background-color: white;
   width: 100%;
@@ -23,6 +22,7 @@ body {
   top: 0; /* 화면 상단에 고정 */
   z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
 }
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
