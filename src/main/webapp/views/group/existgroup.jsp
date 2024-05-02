@@ -8,29 +8,40 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-    $(document).ready(function() {
-        const $label = $('.label');
-        const $options = $('.optionItem');
-
-        const handleSelect = function(item) {
-            $label.text($(item).text());
-            $label.parent().removeClass('active');
-        };
-
-        $options.each(function() {
-            $(this).on('click', function() {
-                handleSelect(this);
+    const exsitGruop = {
+        init: function() {
+            $('#confirmButton').click(function() {
+                $('#exampleModal').modal('hide'); // 모달 닫기
+                window.location.href = '/map'; // 페이지 이동
             });
-        });
 
-        $label.on('click', function() {
-            const $parent = $label.parent();
-            if ($parent.hasClass('active')) {
-                $parent.removeClass('active');
-            } else {
-                $parent.addClass('active');
-            }
-        });
+            const $label = $('.label');
+            const $options = $('.optionItem');
+
+            const handleSelect = function(item) {
+                $label.text($(item).text());
+                $label.parent().removeClass('active');
+            };
+
+            $options.each(function() {
+                $(this).on('click', function() {
+                    handleSelect(this);
+                });
+            });
+
+            $label.on('click', function() {
+                const $parent = $label.parent();
+                if ($parent.hasClass('active')) {
+                    $parent.removeClass('active');
+                } else {
+                    $parent.addClass('active');
+                }
+            });
+        }
+    };
+
+    $(function() {
+        exsitGruop.init();
     });
 
 </script>
@@ -125,5 +136,21 @@
             </ul>
         </div>
     </div>
-    <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="creategroup" class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; background-color: #FF9494; color: white;" >생성하기</button>
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="creategroup" class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; background-color: #FF9494; color: white;" >확인</button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin: 20px auto;">
+        <div class="modal-dialog" style="max-width: 300px; margin: 20px auto">
+            <div class="modal-content" style="max-width: 400px;">
+                <div class="modal-header" style="border: none">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modalContent" class="modal-body" style="text-align: center; padding: 30px 0; font-size: 16px; color: #333333;">
+                    그룹지도로 이동합니다.
+                </div>
+                <div class="d-flex gap-2 w-100" style="border: none; justify-content: center; padding: 20px">
+                    <button id="confirmButton" type="button" class="w-100 btn btn-primary fw-bolder" style="background-color: #FF9494; color: white; padding: 8.5px 0">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
