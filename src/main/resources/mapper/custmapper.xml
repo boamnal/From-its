@@ -33,4 +33,11 @@
         WHERE userId = #{user_id}
     </delete>
 
+
+    <select id="searchInfoById" parameterType="map">
+        SELECT *
+        FROM user
+        WHERE UPPER(user_id) LIKE CONCAT('%', UPPER(#{searchKeyword}), '%')
+    </select>
+
 </mapper>
