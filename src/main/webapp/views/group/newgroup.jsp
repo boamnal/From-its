@@ -54,10 +54,9 @@
             $('#exampleModal').modal('show'); // 결과 모달이 닫히면 등록 모달을 다시 표시
         });
     });
-
 </script>
 
-<div class="container min-vh-100 d-flex flex-column">
+<div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 20px; margin-bottom: 30px">새 그룹 등록</div>
     <div style="margin-bottom: 40px">
         <div>그룹 이름</div>
