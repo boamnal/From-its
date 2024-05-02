@@ -12,5 +12,6 @@ import java.util.Map;
 @Repository
 @Mapper
 public interface CustRepository extends HanaRepository<String, CustDto> {
+  List<CustDto> searchInfoById(Map<String, Object> searchKeyword);
 
 }
