@@ -80,8 +80,8 @@
 
 
 </script>
-<div class="container">
-    <div class="d-flex justify-content-center py-4">
+<div style="margin: 0px 20px;">
+    <div class="d-flex justify-content-center py-4" style="margin-top: 30px; margin-bottom: 20px;">
         <h1>회원가입</h1>
     </div>
 
@@ -93,7 +93,7 @@
                        style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
 
                 <button id="btn_check" type="button" class="btn btn-primary rounded-3 fw-bolder text-nowrap"
-                        style="background-color: #FEF4F2; color: #FF9494">확인
+                        style="background-color: #FEF4F2; color: #FF9494; padding: 12px; ">확인
                 </button>
             </div>
             <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
@@ -126,7 +126,7 @@
                        name="zipcode" required
                        style="margin:12px 12px; padding: 12px; background-color: #F8F8FA; border-style: none">
                 <button id="find_zipcode" type="button" class="btn btn-primary rounded-3 fw-bolder text-nowrap"
-                        style="background-color: #FEF4F2; color: #FF9494"
+                        style="background-color: #FEF4F2; color: #FF9494; padding: 12px;"
                         onclick="sample6_execDaumPostcode()">우편번호
                     찾기
                 </button>
@@ -135,16 +135,22 @@
 
         <div class="join_form px-4" style="margin: 20px 0px">
             <div class="form-group d-flex align-items-center">
-                <label for="sample6_address" class="flex-grow-1 mb-0 text-nowrap text-center fw-medium">주소</label>
+                <label for="sample6_address" class="flex-grow-1 mb-0 text-nowrap fw-medium">주소</label>
                 <input type="text" class="form-control me-2" id="sample6_address" placeholder="ex) 서울 성동구 아차산로 18"
                        name="address"
                        required style="margin:12px 40px; padding: 12px; background-color: #F8F8FA; border-style: none">
             </div>
         </div>
 
-        <button class="w-100 btn btn-primary rounded-3 fw-bolder"
-                style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494">회원가입
-        </button>
+        <div class="px-4" style="margin-top: 35px">
+            <button class="w-100 btn btn-primary rounded-3 fw-bolder"
+                    style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494">회원가입
+            </button>
+        </div>
+
         <%--        <button id="btn_register" type="button" class="btn btn-primary" >회원가입</button>--%>
     </form>
+
 </div>
+
+
