@@ -11,6 +11,8 @@
 <!-- Bootstrap CSS -->
 <!-- Bootstarp JS -->
 <link href="/css/bootstrap.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>
@@ -77,8 +79,6 @@
     $(function () {
         pwd_check.init();
     });
-
-
 </script>
 <div style="margin: 0px 20px;">
     <div class="d-flex justify-content-center py-4" style="margin-top: 30px; margin-bottom: 20px;">

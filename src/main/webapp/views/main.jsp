@@ -18,6 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="css/bootstrap.css" rel="stylesheet">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
         body {
             font-family: Arial, sans-serif;
