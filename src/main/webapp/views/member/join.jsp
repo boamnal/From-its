@@ -52,7 +52,7 @@
         id_check.init();
     });
 
-
+    // 비밀번호 유효성 검사
     let pwd_check = {
         init: function () {
             let passwordInput = document.getElementById('pwd');
@@ -78,6 +78,41 @@
         pwd_check.init();
     });
 
+    // 회원가입 폼 전송
+    let join = {
+        init: function (url) {
+            // jsp에서 만든 c태그를 url로 던져준다
+            this.url = url;
+
+            $('#join_ok_btn').click(function () { // 로그인 버튼
+                console.log("확인 버튼  함수");
+
+                const profiles = [0, 1, 2];
+                let randomIndex = Math.floor(Math.random() * profiles.length);
+                let selectedProfile = profiles[randomIndex];
+
+                document.getElementById('profile').value = selectedProfile;
+                console.log("selectedProfile");
+
+                join.send();
+            });
+        },
+        send: function () {
+            // html에서의 attribute -> 태그의 여러 속성 의미
+            // 여러개 보낼때는 object 형식으로
+            $('#reg_form').attr({
+                'method': 'post',
+                'action': this.url
+            });
+            $('#reg_form').submit();
+        }
+    };
+
+
+    $(function () {
+        join.init('<c:url value="/member/addimpl"/>');
+    });
+
 
 </script>
 <div style="margin: 0px 20px;">
@@ -89,7 +124,7 @@
         <div class="join_form px-4" style="margin: 20px 0px">
             <div class="form-group d-flex align-items-center">
                 <label for="id" class="flex-grow-1 mb-0 text-nowrap fw-medium">아이디</label>
-                <input type="text" class="form-control me-2" id="id" placeholder="ex) 삼식이" name="id" required
+                <input type="text" class="form-control me-2" id="id" placeholder="ex) 삼식이" name="userId" required
                        style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
 
                 <button id="btn_check" type="button" class="btn btn-primary rounded-3 fw-bolder text-nowrap"
@@ -112,7 +147,7 @@
         <div class="join_form px-4" style="margin: 20px 0px">
             <div class="form-group d-flex align-items-center">
                 <label for="pwd" class="flex-grow-1 mb-0 text-nowrap fw-medium">비밀번호</label>
-                <input type="password" class="form-control me-2" id="pwd" placeholder="ex) fromits123!" name="pwd"
+                <input type="password" class="form-control me-2" id="pwd" placeholder="ex) fromits123!" name="password"
                        required style="margin:12px; padding: 12px; background-color: #F8F8FA; border-style: none">
             </div>
             <span id="check_msg" style="color: red; margin-left: 69px; margin-top: 20px"></span>
@@ -143,12 +178,14 @@
         </div>
 
         <div class="px-4" style="margin-top: 35px">
-            <button class="w-100 btn btn-primary rounded-3 fw-bolder"
+            <input type="hidden" id="profile" name="profile">
+
+            <button class="w-100 btn btn-primary rounded-3 fw-bolder" id="join_ok_btn"
                     style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494">회원가입
             </button>
+
         </div>
 
-        <%--        <button id="btn_register" type="button" class="btn btn-primary" >회원가입</button>--%>
     </form>
 
 </div>

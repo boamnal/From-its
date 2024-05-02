@@ -7,7 +7,7 @@
     <select id="selectOne" parameterType="String" resultType="custDto">
         SELECT *
         FROM user
-        WHERE member_id = #{memberId}
+        WHERE user_id = #{userId}
     </select>
 
     <select id="select" resultType="custDto">
@@ -22,15 +22,15 @@
 
     <update id="update" parameterType="custDto">
         UPDATE user
-        SET memberPw=#{password},
-            memberEmail=#{email}
-        WHERE memberId = #{user_id}
+        SET password=#{password},
+            email=#{email}
+        WHERE userId = #{user_id}
     </update>
 
     <delete id="delete" parameterType="String">
         DELETE
         FROM user
-        WHERE memberId = #{user_id}
+        WHERE userId = #{user_id}
     </delete>
 
 </mapper>
