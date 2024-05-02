@@ -1,6 +1,7 @@
 package com.fromits.controller;
 
 import com.fromits.app.dto.CustDto;
+import com.fromits.app.service.CustService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class MemberController {
   String dir = "member/";
+  final CustService custService;
 
   @RequestMapping("/join")
   public String join(Model m) throws Exception {
 //    m.addAttribute("center", dir + "join");
-
     return "member/join";
   }
 
@@ -29,13 +30,20 @@ public class MemberController {
   @RequestMapping("/checkid")
   public Object registerCheckId(@RequestParam("id") String id) throws Exception {
     String result = "0";
-//    CustDto custDto = custService.get(id);
-//    // db에 없는 값이면(아이디 중복 x)
-//    if (custDto == null) {
-//      result = "1";
-//    }
+    CustDto custDto = custService.get(id);
+    // db에 없는 값이면(아이디 중복 x)
+    if (custDto == null) {
+      result = "1";
+    }
 
     return result;
+  }
+
+  // 회원가입 버튼
+  @RequestMapping("/addimpl")
+  public String addimpl(CustDto custDto) throws Exception {
+    custService.add(custDto);
+    return "redirect:/main";
   }
 
 
