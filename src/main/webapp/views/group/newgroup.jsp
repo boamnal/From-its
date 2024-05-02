@@ -57,16 +57,16 @@
 </script>
 
 <div class="min-vh-100 d-flex flex-column">
-    <div class="fw-bold" style="font-size: 20px; margin-bottom: 30px">새 그룹 등록</div>
+    <div class="fw-bold" style="font-size: 24px; margin-bottom: 30px">새 그룹 등록</div>
     <div style="margin-bottom: 40px">
-        <div>그룹 이름</div>
+        <div class="fw-medium" style="font-size: 18px">그룹 이름</div>
         <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="우행시 모임" />
     </div>
     <div>
-        <div>그룹 친구 등록</div>
+        <div class="fw-medium" style="font-size: 18px">그룹 친구 등록</div>
         <div style="position: relative;">
             <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative" placeholder="친구 아이디를 검색하세요." >
-            <button  style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
+            <button style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                 </svg>
