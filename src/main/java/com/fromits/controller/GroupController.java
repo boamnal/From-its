@@ -13,8 +13,13 @@ public class GroupController {
     String dir = "group/";
 
     @RequestMapping("/newgroup")
-    public String initial(Model model) throws Exception {
+    public String newgroup(Model model) throws Exception {
         model.addAttribute("center",dir+"newgroup");
+        return "main";
+    }
+    @RequestMapping("/existgroup")
+    public String existgroup(Model model) throws Exception {
+        model.addAttribute("center",dir+"existgroup");
         return "main";
     }
 }
