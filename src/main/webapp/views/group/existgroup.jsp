@@ -8,15 +8,122 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-    let existgroup = {
-        init: function () {
-        }
-    };
-    $(function () {
-        existgroup.init();
+    $(document).ready(function() {
+        const $label = $('.label');
+        const $options = $('.optionItem');
+
+        const handleSelect = function(item) {
+            $label.text($(item).text());
+            $label.parent().removeClass('active');
+        };
+
+        $options.each(function() {
+            $(this).on('click', function() {
+                handleSelect(this);
+            });
+        });
+
+        $label.on('click', function() {
+            const $parent = $label.parent();
+            if ($parent.hasClass('active')) {
+                $parent.removeClass('active');
+            } else {
+                $parent.addClass('active');
+            }
+        });
     });
+
 </script>
+<style>
+    .selectBox2 {
+        position: relative;
+        width: 100%;
+        padding: 13px 12px;
+        border-radius: 8px;
+        background-color: #F8F8FA;
+        margin-top: 8px;
+        cursor: pointer;
+    }
 
-<div class="container">
+    .selectBox2:after {
+        content: '';
+        display: block;
+        width: 2px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 35px;
+        /*background: #FF9494;*/
+    }
 
+    .selectBox2 .label {
+        display: flex;
+        align-items: center;
+        width: inherit;
+        height: inherit;
+        border: 0 none;
+        outline: 0 none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .selectBox2 .optionList {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: white;
+        color: #333333;
+        list-style-type: none;
+        padding: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        max-height: 0;
+        transition: .3s ease-in;
+    }
+
+    .selectBox2.active .optionList {
+        max-height: 500px;
+    }
+
+    .selectBox2 .optionItem {
+        border: 1px solid #EEEEEE;
+        border-radius: 8px;
+        padding: 13px 12px;
+        transition: .1s;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    .selectBox2 .optionItem:hover {
+        background: #FEF4F2;
+        color: #FF9494;
+    }
+
+    .selectBox2 .optionItem:last-child {
+        border-bottom: 0 none;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar {width: 6px;}
+    .selectBox2 .optionList::-webkit-scrollbar-track {background: transparent; }
+    .selectBox2 .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
+    .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {background: #303030;}
+</style>
+
+<div class="min-vh-100 d-flex flex-column">
+    <div class="fw-bold" style="font-size: 20px; margin-bottom: 30px">기존 그룹 선택</div>
+    <div class="d-flex flex-column">
+        <div style="font-size: 16px">그룹 이름</div>
+        <div class="selectBox2 w-100">
+            <button class="label">우행시</button>
+
+            <ul class="optionList">
+                <li class="optionItem">만나좌리</li>
+                <li class="optionItem">오랜만이야 ㅎㅎ</li>
+                <li class="optionItem">신촌신촌</li>
+            </ul>
+        </div>
+    </div>
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="creategroup" class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; background-color: #FF9494; color: white;" >생성하기</button>
 </div>
