@@ -11,15 +11,10 @@ import java.sql.Date;
 @AllArgsConstructor
 
 public class CustDto {
-  private Integer memberIdx;
-  private String memberId;
-  private String memberPw;
-  private String memberName;
-  private String memberEmail;
-  private Integer memberEmailReceive;
-  private Integer memberPwQuestion;
-  private String memberPwAnswer;
-  private String memberGender;
-  private Date memberBirthDate;
-  private Date memberJoinDate;
+  private String userId;
+  private String email;
+  private String password;
+  private String address;
+  private String zipcode;
+  private Integer profile;
 }
