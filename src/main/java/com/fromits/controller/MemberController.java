@@ -43,7 +43,8 @@ public class MemberController {
   @RequestMapping("/addimpl")
   public String addimpl(CustDto custDto) throws Exception {
     custService.add(custDto);
-    return "redirect:/main";
+    //
+    return "redirect:/member/join";
   }
 
 
