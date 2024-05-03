@@ -10,37 +10,36 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FriendsService implements HanaService<String, FriendsDto> {
+public class FriendsService implements HanaService<Integer, FriendsDto> {
 
-  final FriendsRepository repository;
+    final FriendsRepository friendsRepository;
 
-  public int addFriend(FriendsDto friendsDto) throws Exception {
-    repository.addFriend(friendsDto);
-    return 0;
-  }
+    @Override
+    public int add(FriendsDto friendsDto) throws Exception {
+        return 0;
+    }
 
-  @Override
-  public int add(FriendsDto friendsDto) throws Exception {
-    return 0;
-  }
+    @Override
+    public int del(Integer integer) throws Exception {
+        return 0;
+    }
 
-  @Override
-  public int del(String s) throws Exception {
-    return repository.delete(s);
-  }
+    @Override
+    public int modify(FriendsDto friendsDto) throws Exception {
+        return 0;
+    }
 
-  @Override
-  public int modify(FriendsDto friendsDto) throws Exception {
-    return 0;
-  }
+    @Override
+    public FriendsDto get(Integer integer) throws Exception {
+        return null;
+    }
 
-  @Override
-  public FriendsDto get(String s) throws Exception {
-    return repository.selectOne(s);
-  }
+    @Override
+    public List<FriendsDto> get() throws Exception {
+        return null;
+    }
 
-  @Override
-  public List<FriendsDto> get() throws Exception {
-    return repository.select();
-  }
+    public List<FriendsDto> getMyFriends(String userId) throws Exception {
+        return friendsRepository.getMyFriends(userId);
+    }
 }

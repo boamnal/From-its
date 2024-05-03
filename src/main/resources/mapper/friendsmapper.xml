@@ -9,12 +9,12 @@
         FROM friends
         WHERE user_id = #{userId}
     </select>
-
-    <select id="select" resultType="FriendsDto">
+    <!--내 친구 보기-->
+    <select id="getMyFriends" parameterType="String" resultType="friendsDto">
         SELECT *
         FROM friends
+        where user_id != #{userId}
     </select>
-
 
     <insert id="addFriend" parameterType="FriendsDto">
         INSERT INTO friends (user_id, user_id2)

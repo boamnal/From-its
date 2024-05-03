@@ -3,6 +3,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // "#list" 내의 버튼에 클릭 이벤트 위임
+        $('#list').on('click', 'button', function() {
+            let hiddenValue = $(this).parent().prev('input[type="hidden"]').val();
+            data = map_data.find(item => item.id === hiddenValue);
+            let devoteId = $("#devote").val()
+            console.log(data)
+
+            $.ajax({
+                url: '/map/addcandidate', // 서버의 URL
+                type: 'POST', // 데이터 전송 방식
+                data: {
+                    "placeName" : data.place_name,
+                    "placeAddress" : data.road_address_name,
+                    "placeId" : data.id,
+                    "lat" : data.x,
+                    "log" : data.y,
+                    "devoteId" : devoteId
+                }, // 전송할 데이터
+                success: function(response) {
+                    console.log('Data sent successfully', response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Data sending failed:', error);
+                }
+            });
+        });
+    });
+</script>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -11,7 +43,11 @@
         height: 100vh; /* 뷰포트 높이에 맞게 설정 */
         overflow-y: auto; /* 수직 스크롤바 자동 표시 */
     }
-
+    li img {
+        height: 15px; /* 이미지 높이 설정 */
+        width: 15px; /* 이미지 너비를 자동으로 설정하여 비율 유지 */
+        margin-right: 10px; /* 이미지와 다른 요소들 사이의 간격 */
+    }
     .container {
         background-color: white;
         width: 100%;
@@ -21,14 +57,39 @@
         box-sizing: border-box;
     }#map{
              width:100%;
-             height:80vh;
+             height:75vh;
              border-radius: 10px;
              position: sticky; /* sticky 위치 지정 */
+            margin-bottom: 10px;
          }
-     .col{
+    ul {
+        list-style-type: none; /* 목록 앞에 불릿(점) 제거 */
+        padding: 0; /* 패딩 제거 */
+    }
 
-               overflow-y: auto; /* 수직 스크롤바 자동 표시 */
-           }
+    li.col {
+        display: flex; /* Flexbox 사용 */
+        justify-content: space-between; /* 요소들을 양 끝으로 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        margin-bottom: 10px; /* 각 항목 사이의 여백 */
+        padding: 10px 20px; /* 내부 여백 설정 */
+        height: 100px;
+        background-color: #FFFCFC; /* 배경색 설정 */
+        border-radius: 10px;
+        border: 1px #FEF4F2 solid;
+    }
+
+    span {
+        /* 텍스트에 관련된 추가 스타일 */
+    }
+
+    button {
+        /* 버튼에 관련된 추가 스타일 */
+    }.right-content {
+         display: flex; /* Flexbox 사용 */
+         align-items: center; /* 세로로 중앙 정렬 */
+     }
+
 </style>
 <div>
     <div class="input-group mb-3">
@@ -38,11 +99,12 @@
 </div>
 <div id="map" class="map"></div>
 
-</div>
+<div id="list"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
 <script>
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
     const infowindow = new kakao.maps.InfoWindow({zIndex: 1});
+    let map_data = [];
 
     const mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
@@ -66,11 +128,13 @@
     // 키워드 검색 완료 시 호출되는 콜백함수 입니다
     function placesSearchCB (data, status, pagination) {
         if (status === kakao.maps.services.Status.OK) {
-
+            map_data = data;
+            console.log(map_data)
             // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
             // LatLngBounds 객체에 좌표를 추가합니다
             var bounds = new kakao.maps.LatLngBounds();
 
+            $("#list").empty();
             for (var i=0; i<data.length; i++) {
                 displayMarker(data[i]);
                 bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
@@ -90,11 +154,12 @@
             map: map,
             position: new kakao.maps.LatLng(place.y, place.x)
         });
-        var newDiv = $("<div class = 'col'>");
 
+        var newDiv = $("<li class = 'col' id" + place.place_id +">");
         // 정보를 텍스트로 추가합니다.
-        newDiv.append("<p><strong>장소 이름:</strong> " + place.place_name + "</p>");
-
+        newDiv.append("<span><strong> " + place.place_name + "</strong></span>");
+        newDiv.append("<input type='hidden' value='"+ place.id +"'>");
+        newDiv.append("<div class='right-content'><button class='btn btn-primary'> " +"<img src='/img/heart-fill.png'/> "+"후보 추가" + "</button></div>");
 
 
         // 새로운 div를 페이지의 "list" div에 추가합니다.
@@ -107,4 +172,5 @@
             infowindow.open(map, marker);
         });
     }
+
 </script>

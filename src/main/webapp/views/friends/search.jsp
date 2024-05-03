@@ -239,12 +239,10 @@
                         <li class="optionItem">${member.userId}
                             <img id="plus_btn" src="<c:url value="/img/plus-circle.svg"/>" width="20px" height="20px">
                         </li>
-
                         <%--<li class="optionItem">${member.email}</li>--%>
 
                     </c:forEach>
                 </ul>
-
             </div>
         </c:otherwise>
     </c:choose>
