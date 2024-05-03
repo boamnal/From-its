@@ -22,7 +22,13 @@ public class FriendsController {
   final CustService custService;
 
   @RequestMapping("/search")
-  public String searchByTitle(Model model, @RequestParam("query") String query, @RequestParam("key") String key) throws Exception {
+  public String search(Model model) {
+    model.addAttribute("center", dir + "search");
+    return "main";
+  }
+
+  @RequestMapping("/searchById")
+  public String searchById(Model model, @RequestParam(value = "query") String query) throws Exception {
 
     Map<String, Object> paramMap = new HashMap<>();
     paramMap.put("searchKeyword", query);
@@ -30,10 +36,13 @@ public class FriendsController {
     List<CustDto> list = null;
 
     try {
-      if ("id".equals(key)) {
-        list = custService.findInfoById(paramMap);
+      list = custService.findInfoById(paramMap);
+
+      if (list.isEmpty()) {
+        model.addAttribute("message", "해당하는 아이디가 없어요.");
+      } else {
+        model.addAttribute("list2", list);
       }
-      model.addAttribute("list2", list);
     } catch (Exception e) {
       e.printStackTrace();
       throw new RuntimeException(e);

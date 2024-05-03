@@ -48,9 +48,9 @@ public class CustService implements HanaService<String, CustDto> {
     // 여러 결과를 반환하도록 수정
     List<CustDto> list = custRepository.searchInfoById(searchKeyword);
     // 검색 결과가 없는 경우 처리
-    if (list == null || list.isEmpty()) {
-      throw new NotFoundException("검색 결과가 없는 경우에요~");
-    }
+//    if (list == null || list.isEmpty()) {
+//      throw new NotFoundException("검색 결과가 없는 경우에요~");
+//    }
     return list;
   }
 }
