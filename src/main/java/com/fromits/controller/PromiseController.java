@@ -22,4 +22,10 @@ public class PromiseController {
         model.addAttribute("center",dir+"newpromise");
         return "main";
     }
+
+    @RequestMapping("/detailpromise")
+    public String detail(Model model) throws Exception {
+        model.addAttribute("center",dir+"detailpromise");
+        return "main";
+    }
 }
