@@ -84,7 +84,7 @@
 </head>
 
 <div class="min-vh-100">
-    <div class="fw-bold" style="color: #333333; font-size: 24px; padding-bottom: 16px" >약속명 신촌 약속</div>
+    <div class="fw-bold" style="color: #333333; font-size: 22px; padding-bottom: 16px" >약속명 신촌 약속</div>
     <div class="d-flex scroll" style="">
         <div class="d-flex align-items-center " style="background-color: #FFFCFC; border-radius: 8px; border: 2px solid #FEF4F2; padding: 10px 10px; margin: 16px 0; margin-right: 20px;">
             <img src="<c:url value="/img/1.png"/>" style="width: 40px; height: 40px; margin-right: 10px"  />
@@ -103,11 +103,11 @@
             <div style="color: #333333;">삼식이</div>
         </div>
     </div>
-    <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="creategroup" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-medium mt-auto"  style="padding: 12px 0; background-color: #FF9494; color: white; font-size: 18px" >2024년 5월 3일</button>
+    <button class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-medium mt-auto"  style="padding: 12px 0; background-color: #FF9494; color: white; font-size: 16px" >2024년 5월 3일</button>
     <input class="w-100" type="text" style="color: #333333; background-color: #FFFCFC; border: 2px solid #FEF4F2; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 16px; min-height: 180px" value="삼식이 생일을 축하하며 맛있는거 먹자!!">
     <div class="d-flex justify-content-end gap-3">
-        <button id="detailModify" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-20 btn btn-primary mb-4 rounded-3 fw-medium mt-auto"  style="padding: 10px 25px; background-color: #FEF4F2; color: #FF9494; font-size: 18px" >수정</button>
-        <button id="detailDelete" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-20 btn btn-primary mb-4 rounded-3 fw-medium mt-auto"  style="padding: 10px 25px; background-color: #FEF4F2; color: #FF9494; font-size: 18px" >삭제</button>
+        <button id="detailModify" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-20 btn btn-primary mb-4 rounded-3 fw-bold mt-auto"  style="padding: 10px 25px; background-color: #FEF4F2; color: #FF9494; font-size: 16px" >수정</button>
+        <button id="detailDelete" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-20 btn btn-primary mb-4 rounded-3 fw-bold mt-auto"  style="padding: 10px 25px; background-color: #FEF4F2; color: #FF9494; font-size: 16px" >삭제</button>
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin: 20px auto;">
         <div class="modal-dialog" style="max-width: 300px; margin: 20px auto">

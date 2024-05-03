@@ -57,13 +57,13 @@
 </script>
 
 <div class="min-vh-100 d-flex flex-column">
-    <div class="fw-bold" style="font-size: 24px; margin-bottom: 30px">새 그룹 등록</div>
+    <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">새 그룹 등록</div>
     <div style="margin-bottom: 40px">
-        <div class="fw-medium" style="font-size: 18px">그룹 이름</div>
+        <div class="fw-medium" style="font-size: 16px">그룹 이름</div>
         <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="우행시 모임" />
     </div>
     <div>
-        <div class="fw-medium" style="font-size: 18px">그룹 친구 등록</div>
+        <div class="fw-medium" style="font-size: 16px">그룹 친구 등록</div>
         <div style="position: relative;">
             <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative" placeholder="친구 아이디를 검색하세요." >
             <button style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
