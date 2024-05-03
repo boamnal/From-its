@@ -17,8 +17,8 @@
     </select>
 
     <insert id="addFriend" parameterType="FriendsDto">
-        INSERT INTO friends
-        VALUES (#{userId}, #{userId2})
+        INSERT INTO friends (user_id, user_id2)
+        VALUES (#{userId}, #{userId2}), (#{userId2}, #{userId})
     </insert>
 
 
