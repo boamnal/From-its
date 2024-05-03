@@ -40,14 +40,14 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-white navbar-light">
     <div class="container-fluid w-100" >
-        <a class="navbar-brand" href="#"><img style="width: 50px" src="img/Logo.PNG"></a>
+        <a class="navbar-brand" href="<c:url value="/"/> "><img style="width: 50px" src="img/Logo.PNG"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">친구맺기</a>
+                    <a class="nav-link" href="<c:url value="/search"/> ">친구맺기</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/map"/>">내 지도</a>
