@@ -135,15 +135,30 @@
 
         // 검색어 입력 없이 제출된 경우
         boardSearch.addEventListener("submit", e => {
-            // e.preventDefault(); // 이거 안하면 form의 기본 submit 발생됨🚨
+
 
             if (searchQuery.value.trim().length == 0) { // 검색어 미입력 시
                 e.preventDefault(); // form 기본 이벤트 제거
                 location.href = location.pathname; // 해당 게시판 1페이지로 이동
                 // location.pathname : 쿼리스트링을 제외한 실제 주소
             }
+
         });
     });
+
+    $(function () {
+        let i = 0;
+        $('#plus_btn').on('click', function () {
+            if (i == 0) {
+                $(this).attr('src', "<c:url value="/img/plus-circle-fill.svg"/>");
+                i++;
+            } else if (i == 1) {
+                $(this).attr('src', "<c:url value="/img/plus-circle.svg"/>" );
+                i--;
+            }
+
+        });
+    })
 
 
 </script>
@@ -155,7 +170,7 @@
         <div style="position: relative;">
             <input type="text" class="w-100"
                    style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative"
-                   name="query" id="searchQuery" value="" placeholder="친구 아이디를 검색하세요." autocomplete="off">
+                   name="query" id="searchQuery" value="${param.query}" placeholder="친구 아이디를 검색하세요." autocomplete="off">
 
 
             <button style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
@@ -179,7 +194,10 @@
                 <ul class="optionList">
                     <!-- 게시글 목록 조회 결과가 있다면 -->
                     <c:forEach var="member" items="${list2}">
-                        <li class="optionItem">${member.userId}</li>
+                        <li class="optionItem">${member.userId}
+                            <img id="plus_btn" src="<c:url value="/img/plus-circle.svg"/>" width="20px" height="20px">
+                        </li>
+
                         <%--<li class="optionItem">${member.email}</li>--%>
 
                     </c:forEach>
