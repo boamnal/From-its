@@ -95,7 +95,8 @@
     }
 
     .selectBox2.active .optionList {
-        max-height: 500px;
+        max-height: fit-content;
+        /*block-size: fit-content;*/
     }
 
     .selectBox2 .optionItem {
@@ -112,10 +113,6 @@
         color: #FF9494;
     }
 
-    .selectBox2 .optionItem:last-child {
-        border-bottom: 0 none;
-    }
-
     .selectBox2 .optionList::-webkit-scrollbar {width: 6px;}
     .selectBox2 .optionList::-webkit-scrollbar-track {background: transparent; }
     .selectBox2 .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
@@ -127,12 +124,11 @@
     <div class="d-flex flex-column">
         <div class="fw-medium" style="font-size: 16px">그룹 이름</div>
         <div class="selectBox2 w-100">
-            <button class="label">우행시</button>
-
+            <button class="label">${group[0].groupName}</button>
             <ul class="optionList">
-                <li class="optionItem">만나좌리</li>
-                <li class="optionItem">오랜만이야 ㅎㅎ</li>
-                <li class="optionItem">신촌신촌</li>
+                <c:forEach var="g" items="${group}">
+                    <li class="optionItem">${g.groupName}</li>
+                </c:forEach>
             </ul>
         </div>
     </div>
