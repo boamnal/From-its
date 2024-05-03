@@ -146,6 +146,20 @@
         });
     });
 
+    $(function () {
+        let i = 0;
+        $('#plus_btn').on('click', function () {
+            if (i == 0) {
+                $(this).attr('src', "<c:url value="/img/plus-circle-fill.svg"/>");
+                i++;
+            } else if (i == 1) {
+                $(this).attr('src', "<c:url value="/img/plus-circle.svg"/>" );
+                i--;
+            }
+
+        });
+    })
+
 
 </script>
 
@@ -180,7 +194,10 @@
                 <ul class="optionList">
                     <!-- 게시글 목록 조회 결과가 있다면 -->
                     <c:forEach var="member" items="${list2}">
-                        <li class="optionItem">${member.userId}</li>
+                        <li class="optionItem">${member.userId}
+                            <img id="plus_btn" src="<c:url value="/img/plus-circle.svg"/>" width="20px" height="20px">
+                        </li>
+
                         <%--<li class="optionItem">${member.email}</li>--%>
 
                     </c:forEach>
