@@ -11,7 +11,58 @@
     input::placeholder {
         color: #CCCCCC;
     }
+
+    .selectBox2 {
+        position: relative;
+    }
+
+    .selectBox2 .optionList {
+        position: absolute;
+        /*top: 60px;*/
+        left: 0;
+        width: 100%;
+        background: white;
+        color: #333333;
+        list-style-type: none;
+        padding: 0;
+        border-radius: 8px;
+        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: 500px; /* Set a maximum height for the list */
+        transition: .3s ease-in;
+    }
+
+
+    .selectBox2 .optionItem {
+        border: 1px solid #EEEEEE;
+        border-radius: 8px;
+        padding: 13px 12px;
+        transition: .1s;
+        font-size: 16px;
+    }
+
+    .selectBox2 .optionItem:hover {
+        background: #FEF4F2;
+        color: #FF9494;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar-thumb {
+        background: #303030;
+        border-radius: 45px;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {
+        background: #303030;
+    }
 </style>
+
 <script>
     let regist = false;
 
@@ -64,7 +115,7 @@
     </div>
     <div>
         <div class="fw-medium" style="font-size: 16px">그룹 친구 등록</div>
-        <div style="position: relative;">
+        <div style="position: relative; margin-bottom: 10px;">
             <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative" placeholder="친구 아이디를 검색하세요." >
             <button style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -72,6 +123,26 @@
                 </svg>
             </button>
         </div>
+        <div class="selectBox2">
+            <ul class="optionList">
+                <c:choose>
+                    <c:when test="${empty friends}">
+                        <div class="friend-management-content" style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div class="text-center" style="font-size: 16px; color: #333333">친구가 아직 없어요!</div>
+                            <button class="fw-bold align-items-center" style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none" onclick="window.location.href='/search'">친구 만들러가기</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="f" items="${friends}">
+                            <li class="optionItem">${f.userId}
+                                <img id="plus_btn" src="<c:url value="/img/plus-circle.svg"/>" width="20px" height="20px">
+                            </li>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
+
     </div>
     <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="creategroup" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; background-color: #FF9494; color: white;" >생성하기</button>
 
