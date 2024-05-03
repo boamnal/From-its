@@ -19,6 +19,11 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
         return 0;
     }
 
+    public int addFriend(FriendsDto friendsDto) throws Exception {
+        friendsRepository.addFriend(friendsDto);
+        return 0;
+    }
+
     @Override
     public int del(Integer integer) throws Exception {
         return 0;
