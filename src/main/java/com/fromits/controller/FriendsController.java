@@ -1,12 +1,14 @@
 package com.fromits.controller;
 
 import com.fromits.app.dto.CustDto;
+import com.fromits.app.dto.FriendsDto;
 import com.fromits.app.service.CustService;
 import com.fromits.app.service.FriendsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +24,6 @@ public class FriendsController {
   String dir = "friends/";
   final CustService custService;
   private final FriendsService friendsService;
-
 
   @RequestMapping("/search")
   public String search(Model model) {
@@ -51,6 +52,25 @@ public class FriendsController {
       throw new RuntimeException(e);
     }
     model.addAttribute("center", dir + "search");
+    return "main";
+  }
+
+  @PostMapping("/addFriend")
+  public String addFriend(Model model, @RequestParam("friendId") String friendId) throws Exception {
+    // To DO
+    // 회원가입 시 세션에 id 저장해둔 값을 가져와야 함
+    // 회원가입 시 id를 세션에 저장해야 함
+    String loggedInUserId = "loggedInUserId";
+
+    FriendsDto dto = FriendsDto.builder().userId(loggedInUserId).userId2(friendId).build();
+    try {
+      friendsService.addFriend(dto);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    model.addAttribute("center", dir + "search");
+
     return "main";
   }
 }

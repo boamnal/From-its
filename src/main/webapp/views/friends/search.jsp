@@ -109,6 +109,9 @@
         $("#confirmButton").click(() => {
             if (regist) {
                 $('#exampleModal').modal('hide');
+                // Add friend here
+                addFriend();
+
                 regist = false;
             } else {
                 regist = true;
@@ -146,6 +149,7 @@
         });
     });
 
+    // 클릭시 plus button 활성화
     $(function () {
         let i = 0;
         $('#plus_btn').on('click', function () {
@@ -153,12 +157,50 @@
                 $(this).attr('src', "<c:url value="/img/plus-circle-fill.svg"/>");
                 i++;
             } else if (i == 1) {
-                $(this).attr('src', "<c:url value="/img/plus-circle.svg"/>" );
+                $(this).attr('src', "<c:url value="/img/plus-circle.svg"/>");
                 i--;
             }
 
         });
-    })
+    });
+
+    $(function () {
+        $('.optionItem').on('click', function () {
+            let userId = $(this).text().trim(); // 클릭한 친구의 userId 가져오기
+            let imgSrc = $(this).find('img').attr('src'); // 이미지의 소스 가져오기
+
+            if (imgSrc.includes('plus-circle-fill')) {
+                // 이미지가 plus-circle-fill이면
+                console.log('친구 추가: ' + userId);
+                addFriend(userId); // 친구 추가 함수 호출
+
+            } else {
+                // 이미지가 plus-circle이면
+                console.log('친구 추가 취소: ' + userId);
+
+            }
+        });
+    });
+
+    function addFriend(userId) {
+        // AJAX를 이용하여 서버에 친구 추가 요청 보내기
+        $.ajax({
+            type: "POST",
+            url: "/addFriend", // 친구 추가를 처리할 컨트롤러 URL
+            data: {
+                friendId: userId // 선택한 친구의 userId 전달
+            },
+            success: function(response) {
+                // 친구 추가가 성공하면 추가된 친구의 목록을 갱신하거나 다른 작업을 수행할 수 있음
+                console.log("친구 추가 성공!");
+            },
+            error: function(xhr, status, error) {
+                // 오류 발생 시 처리할 코드
+                console.error("친구 추가 오류:", error);
+            }
+        });
+    }
+
 
 
 </script>
