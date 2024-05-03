@@ -123,9 +123,9 @@
 </style>
 
 <div class="min-vh-100 d-flex flex-column">
-    <div class="fw-bold" style="font-size: 20px; margin-bottom: 30px">기존 그룹 선택</div>
+    <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">기존 그룹 선택</div>
     <div class="d-flex flex-column">
-        <div style="font-size: 16px">그룹 이름</div>
+        <div class="fw-medium" style="font-size: 16px">그룹 이름</div>
         <div class="selectBox2 w-100">
             <button class="label">우행시</button>
 

@@ -18,6 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="css/bootstrap.css" rel="stylesheet">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,16 +50,16 @@
                     <a class="nav-link" href="<c:url value="/search"/> ">친구맺기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">내 지도</a>
+                    <a class="nav-link" href="<c:url value="/map"/>">내 지도</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">내 그룹</a>
+                    <a class="nav-link" href="<c:url value="/mygroup"/>">내 그룹</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">약속 후보</a>
+                    <a class="nav-link" href="<c:url value="/vote"/>">약속 후보</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">약속 일정</a>
+                    <a class="nav-link" href="<c:url value="/schedule"/>">약속 일정</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">로그아웃</a>
