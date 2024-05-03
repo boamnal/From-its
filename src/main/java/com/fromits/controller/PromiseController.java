@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PromiseController {
     String dir = "promise/";
 
-    @RequestMapping("/schedule" +
-            "")
+    @RequestMapping("/schedule")
     public String promise(Model model) throws Exception {
-        model.addAttribute("center",dir+"promiseschedule");
+        model.addAttribute("center",dir+"schedulepromise");
         return "main";
     }
 
