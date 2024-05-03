@@ -50,16 +50,16 @@
                     <a class="nav-link" href="#">친구맺기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">내 지도</a>
+                    <a class="nav-link" href="<c:url value="/map"/>">내 지도</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">내 그룹</a>
+                    <a class="nav-link" href="<c:url value="/initial"/>">내 그룹</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">약속 후보</a>
+                    <a class="nav-link" href="<c:url value="/vote"/>">약속 후보</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">약속 일정</a>
+                    <a class="nav-link" href="<c:url value="/schedule"/>">약속 일정</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">로그아웃</a>
