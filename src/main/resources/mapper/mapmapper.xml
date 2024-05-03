@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fromits.app.repository.CustRepository">
+
+    <select id="getById" resultType="devoteCandidateDto">
+        SELECT *
+        FROM devote_candidate
+        WHERE pro_id = #{param1} and place_id = #{param2}
+    </select>
+
+    <select id="select" resultType="devoteCandidateDto">
+        SELECT *
+        FROM devote_candidate
+    </select>
+
+    <select id="selectByDevote" parameterType="Integer" resultType="devoteCandidateDto">
+        SELECT *
+        FROM devote_candidate
+        Where devote_id = #{param1}
+    </select>
+
+
+
+    <insert id="insert" parameterType="devoteCandidateDto">
+        INSERT INTO devote_candidate VALUES (0, #{placeName}, #{placeAddress}, #{userId}, #{proId}, #{placeId}, #{devoteId}, NOW(), #{lat}, #{log})
+    </insert>
+
+    <update id="update" parameterType="devoteCandidateDto">
+        UPDATE user
+        SET password=#{password},
+            email=#{email}
+        WHERE userId = #{user_id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM devote_candidate
+        WHERE candidate_id = #{candidateId}
+    </delete>
+</mapper>
