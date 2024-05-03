@@ -16,5 +16,6 @@ public class CustDto {
   private String password;
   private String address;
   private String zipcode;
+  private String name;
   private Integer profile;
 }

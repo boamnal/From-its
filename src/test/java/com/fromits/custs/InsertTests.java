@@ -20,7 +20,7 @@ class InsertTests {
 
   @Test
   void contextLoads() {
-    CustDto custDto = CustDto.builder().userId("id03").email("id03@gmail.com").password("pwd03").address("서울 금천구").zipcode("07544").profile(1).build();
+    CustDto custDto = CustDto.builder().userId("id03").email("id03@gmail.com").password("pwd03").address("서울 금천구").zipcode("07544").profile(1).name("유다영").build();
 
     try {
       custService.add(custDto);
