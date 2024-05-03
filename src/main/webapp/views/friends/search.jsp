@@ -135,13 +135,14 @@
 
         // 검색어 입력 없이 제출된 경우
         boardSearch.addEventListener("submit", e => {
-            // e.preventDefault(); // 이거 안하면 form의 기본 submit 발생됨🚨
+
 
             if (searchQuery.value.trim().length == 0) { // 검색어 미입력 시
                 e.preventDefault(); // form 기본 이벤트 제거
                 location.href = location.pathname; // 해당 게시판 1페이지로 이동
                 // location.pathname : 쿼리스트링을 제외한 실제 주소
             }
+
         });
     });
 
@@ -155,7 +156,7 @@
         <div style="position: relative;">
             <input type="text" class="w-100"
                    style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative"
-                   name="query" id="searchQuery" value="" placeholder="친구 아이디를 검색하세요." autocomplete="off">
+                   name="query" id="searchQuery" value="${param.query}" placeholder="친구 아이디를 검색하세요." autocomplete="off">
 
 
             <button style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
