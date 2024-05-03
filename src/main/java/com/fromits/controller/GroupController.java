@@ -22,4 +22,9 @@ public class GroupController {
         model.addAttribute("center",dir+"existgroup");
         return "main";
     }
+    @RequestMapping("/mygroup")
+    public String mygroup(Model model) throws Exception {
+        model.addAttribute("center",dir+"mygroup");
+        return "main";
+    }
 }
