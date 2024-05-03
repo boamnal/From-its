@@ -2,6 +2,7 @@ package com.fromits.controller;
 
 import com.fromits.app.dto.CustDto;
 import com.fromits.app.service.CustService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -41,9 +42,11 @@ public class MemberController {
 
   // 회원가입 버튼
   @RequestMapping("/addimpl")
-  public String addimpl(CustDto custDto) throws Exception {
+  public String addimpl(CustDto custDto, HttpSession httpSession) throws Exception {
     custService.add(custDto);
-    //
+    // 세션에 id 값 저장
+    httpSession.setAttribute("user_id", custDto.getUserId());
+
     return "redirect:/member/join";
   }
 
