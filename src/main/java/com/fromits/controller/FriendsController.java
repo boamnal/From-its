@@ -2,6 +2,7 @@ package com.fromits.controller;
 
 import com.fromits.app.dto.CustDto;
 import com.fromits.app.service.CustService;
+import com.fromits.app.service.FriendsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class FriendsController {
   String dir = "friends/";
   final CustService custService;
+  private final FriendsService friendsService;
+
 
   @RequestMapping("/search")
   public String search(Model model) {
