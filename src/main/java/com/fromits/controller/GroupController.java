@@ -9,9 +9,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,11 +26,24 @@ public class GroupController {
     final GroupService groupService;
     final FriendsService friendsService;
 
-    @RequestMapping("/newgroup")
-    public String newgroup(Model model) throws Exception {
+    @ResponseBody
+    @RequestMapping("/searchFriends")
+    public List<FriendsDto> searchMyFriends(@RequestParam("searchText") String searchText) throws Exception {
+        List<FriendsDto> searchMyFriends = friendsService.searchMyFriends("id01", searchText);
+        log.info("제대로 가져와짐??");
+        return searchMyFriends;
+    }
+
+    @ResponseBody
+    @RequestMapping("/getAllFriends")
+    public List<FriendsDto> getAllFriends() throws Exception {
         String userId = "id01";
         List<FriendsDto> myFriends = friendsService.getMyFriends(userId);
-        model.addAttribute("friends",myFriends);
+        return myFriends;
+    }
+
+    @RequestMapping("/newgroup")
+    public String newgroup(Model model) throws Exception {
         model.addAttribute("center",dir+"newgroup");
         return "main";
     }
