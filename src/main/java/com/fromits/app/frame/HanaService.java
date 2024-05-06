@@ -1,6 +1,7 @@
 package com.fromits.app.frame;
 
 
+import com.fromits.app.dto.devoteCandidateDto;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public interface HanaService<K, V> {
     int add(V v) throws Exception;
     @Transactional
     int del(K k) throws Exception;
+
     @Transactional
     int modify(V v) throws Exception;
 
