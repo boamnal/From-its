@@ -61,6 +61,12 @@
     .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {
         background: #303030;
     }
+    .optionItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* 세로 중앙 정렬을 위해 추가 */
+    }
+
 </style>
 
 <script>
@@ -106,6 +112,15 @@
         });
     });
 </script>
+<style>
+    .scroll {
+        overflow: auto;
+        white-space: nowrap;
+    }
+    .scroll::-webkit-scrollbar {
+        display: none;
+    }
+</style>
 
 <div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">새 그룹 등록</div>
@@ -115,6 +130,20 @@
     </div>
     <div>
         <div class="fw-medium" style="font-size: 16px">그룹 친구 등록</div>
+        <div class="d-flex scroll">
+            <c:choose>
+                <c:when test="${empty friends}">
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="f" items="${friends}">
+                        <div class="d-flex align-items-center " style="background-color: #FFFCFC; border-radius: 8px; border: 2px solid #FEF4F2; padding: 10px 10px; margin: 16px 0; margin-right: 20px;">
+                            <img src="<c:url value="/img/${f.profile}.png"/>" style="width: 40px; height: 40px; margin-right: 10px"  />
+                            <div style="color: #333333;">${f.name}</div>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </div>
         <div style="position: relative; margin-bottom: 10px;">
             <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative" placeholder="친구 아이디를 검색하세요." >
             <button style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
@@ -134,8 +163,13 @@
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="f" items="${friends}">
-                            <li class="optionItem">${f.userId}
-                                <img id="plus_btn" src="<c:url value="/img/plus-circle.svg"/>" width="20px" height="20px">
+                            <li class="optionItem">
+                                <div class="content">
+                                        ${f.userId} <span style="color: #FF9494">(${f.name})</span>
+                                </div>
+                                <button style="border: none; background: none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle-fill" style="color: #CCCCCC" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                                </svg></button>
                             </li>
                         </c:forEach>
                     </c:otherwise>

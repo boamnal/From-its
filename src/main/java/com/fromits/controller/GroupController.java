@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class GroupController {
     public String newgroup(Model model) throws Exception {
         String userId = "id01";
         List<FriendsDto> myFriends = friendsService.getMyFriends(userId);
+
         model.addAttribute("friends",myFriends);
         model.addAttribute("center",dir+"newgroup");
         return "main";
