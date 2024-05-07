@@ -11,6 +11,7 @@
 
 <script>
     let regist = false;
+    let memberCoordinates = []
 
     function toggleModalContent() {
         if (regist) {
@@ -24,28 +25,42 @@
         }
     }
 
+    function addressToCoordinate(address) {
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        geocoder.addressSearch(address, function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                memberCoordinates.push(coords);
+            }
+        });
+    }
+
+
     // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리
     $('#exampleModal').on('hidden.bs.modal', function () {
         toggleModalContent();
     });
 
-    function addressToCoordinate () {
+    function addressToCoordinate(address) {
         // 주소-좌표 변환 객체
         var geocoder = new kakao.maps.services.Geocoder();
+        var encodedAddress = encodeURIComponent(address); // 주소 인코딩
 
-        geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function (result, status) {
-                if (status === kakao.maps.services.Status.OK) {
-
-                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                    console.log(coords, "제발제발")
-                }
+        geocoder.addressSearch(encodedAddress, function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                memberCoordinates.push(coords);
             }
-        )
+        });
     }
+
 
     let createPromise = {
         init: function () {
+
             toggleModalContent();
+
             $("#confirmButton").click(() => {
                 if (regist) {
                     $('#exampleModal').modal('hide');
@@ -59,13 +74,16 @@
                     let params = new URLSearchParams(queryString);
                     let groupId = params.get('groupId');
 
+
                     $.ajax({
                         url: '/getFriendsAddress',
                         type: 'GET',
                         contentType: 'application/json',
                         data: {groupId: groupId},
                         success: function (res) {
-                            console.log(res)
+                            for (const user of res) {
+                                addressToCoordinate(user.address)
+                            }
                         },
                         error: function (xhr, status, error) {
                         }

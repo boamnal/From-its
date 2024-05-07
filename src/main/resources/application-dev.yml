@@ -34,3 +34,7 @@ mybatis:
 logging:
   level:
     root: info
+
+app:
+  key:
+    kakaokey: 18804eb288163725a4242773721f7eee
