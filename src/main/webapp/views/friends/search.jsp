@@ -156,19 +156,21 @@
                 contentType: 'application/json',
                 data: {friendId: friendId},
                 success: function (response) {
+                    // 등록 여부 flag 업데이트
+                    regist = true;
                     //alert("성공");
+                    // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
+                    toggleModalContent();
                 },
                 error: function (xhr, status, error) {
                 }
             });
-            // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
-            // toggleModalContent();
+
 
             // 모달 화면에 표시
             $('#exampleModal').modal('show');
 
-            // 등록 여부 flag 업데이트
-            regist = true;
+
         });
 
         // 모달 확인 버튼 클릭 이벤트 리스너

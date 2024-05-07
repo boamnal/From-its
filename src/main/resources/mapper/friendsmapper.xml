@@ -34,13 +34,13 @@
     <select id="getOther" parameterType="String" resultMap="friendsResult">
         SELECT u.user_id as user_id, u.name as name, u.profile as profile
         FROM user u
-        WHERE u.user_id NOT IN (SELECT f.user_id
+        WHERE u.user_id NOT IN (SELECT CASE
+                                           WHEN f.user_id = #{userId} THEN f.user_id2
+                                           ELSE f.user_id
+                                           END
                                 FROM friends f
                                 WHERE f.user_id = #{userId}
-                                UNION
-                                SELECT f.user_id2
-                                FROM friends f
-                                WHERE f.user_id2 = #{userId})
+                                   OR f.user_id2 = #{userId})
           AND u.user_id != #{userId};
     </select>
 
