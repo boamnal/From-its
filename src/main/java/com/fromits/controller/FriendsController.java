@@ -66,9 +66,11 @@ public class FriendsController {
       // 로그인된 사용자의 ID가 없으면 로그인 페이지로 리다이렉트 또는 다른 처리
       return "redirect:/login";
     }
-    FriendsDto dto = FriendsDto.builder().userId(loggedInUserId).userId2(friendId).build();
+    String userId = loggedInUserId;
+    String userId2 = friendId;
+
     try {
-      friendsService.addFriend(dto);
+      friendsService.addFriend(userId, userId2);
     } catch (Exception e) {
       e.printStackTrace();
     }

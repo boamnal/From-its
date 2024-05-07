@@ -21,9 +21,8 @@ class addTests {
 
   @Test
   void contextLoads() {
-    FriendsDto dto = FriendsDto.builder().userId("id02").userId2("id03").build();
     try {
-      service.addFriend(dto);
+      service.addFriend("id02", "id03");
 
       log.info("----------OK----------------");
     } catch (Exception e) {
