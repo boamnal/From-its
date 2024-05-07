@@ -94,7 +94,10 @@ public class FriendsController {
     String loggedInUserId = (String) session.getAttribute("user_id");
 
     String userId = loggedInUserId;
+    log.info("-------------------로그인한 사용자 아이디: " + userId);
     List<FriendsDto> searchOthers = friendsService.searchOther(userId, searchText);
+
+    log.info("@@@searchOthers"+searchOthers.toString());
     return searchOthers;
   }
 
