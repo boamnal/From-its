@@ -61,7 +61,8 @@
                 <li class="nav-item">
                     <c:choose>
                         <c:when test="${user_id==null}">
-                            <span><a class="nav-link" href="<c:url value="/member/login"/>">로그인</></span>
+                            <button id="confirmButton" type="button" class="w-100 btn btn-primary fw-bolder" style="background-color: #FF9494; color: white; padding: 8.5px 0">확인</button>
+                            <a class="nav-link" href="<c:url value="/member/login"/>"></a>
                         </c:when>
                         <c:otherwise>
                             <span>  <a class="nav-link" href="<c:url value="/logoutimple"/>">로그아웃</a></span>
