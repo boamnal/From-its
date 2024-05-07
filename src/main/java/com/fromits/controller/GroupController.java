@@ -47,10 +47,10 @@ public class GroupController {
     @RequestMapping("/createNewGroup")
     public int createNewGroup(@RequestBody CreateGroupRequest createGroupRequest) {
         try {
-            groupService.newGroup(createGroupRequest.getGroupName());
+            int groupId = groupService.newGroup(createGroupRequest.getGroupName());
 
             for (String userId : createGroupRequest.getFriendIds()) {
-                groupmemberRepository.newGroupMember(userId);
+                groupmemberRepository.newGroupMember(userId, groupId);
             }
             return 1;
         } catch (Exception e) {

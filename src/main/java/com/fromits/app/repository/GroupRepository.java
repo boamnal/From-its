@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface GroupRepository extends HanaRepository<Integer, PromgroupDto> {
-    void newGroup(String name);
+    int newGroup(String name);
 }
