@@ -5,7 +5,9 @@ import com.fromits.app.repository.GroupmemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +40,11 @@ public class GroupmemberService implements HanaService<String, GroupmemberServic
     }
 
     public void newGroupMember(String userId, int groupId) throws Exception {
-        groupmemberRepository.newGroupMember(userId, groupId);
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("userId", userId);
+        params.put("groupId", groupId);
+
+        groupmemberRepository.newGroupMember(params);
     }
 }
