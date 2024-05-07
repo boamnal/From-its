@@ -38,4 +38,8 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
     public List<PromiseDto> get() throws Exception {
         return null;
     }
+
+    public List<PromiseDto> getPromise(String userId) throws Exception {
+        return promiseRepository.getPromise(userId);
+    }
 }
