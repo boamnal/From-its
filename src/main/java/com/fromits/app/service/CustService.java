@@ -4,8 +4,6 @@ import com.fromits.app.dto.CustDto;
 import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.CustRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.javassist.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

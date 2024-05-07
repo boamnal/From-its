@@ -12,42 +12,43 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FriendsService implements HanaService<Integer, FriendsDto> {
 
-    final FriendsRepository repository;
+  final FriendsRepository repository;
 
-    public int addFriend(FriendsDto friendsDto) throws Exception {
-        repository.addFriend(friendsDto);
-        return 0;
-    }
-    @Override
-    public int add(FriendsDto friendsDto) throws Exception {
-        return 0;
-    }
+  public int addFriend(String userId, String userId2) throws Exception {
+    repository.addFriend(userId, userId2);
+    return 0;
+  }
 
-    @Override
-    public int del(Integer integer) throws Exception {
-        return 0;
-    }
+  @Override
+  public int add(FriendsDto friendsDto) throws Exception {
+    return 0;
+  }
 
-    @Override
-    public int modify(FriendsDto friendsDto) throws Exception {
-        return 0;
-    }
+  @Override
+  public int del(Integer integer) throws Exception {
+    return 0;
+  }
 
-    @Override
-    public FriendsDto get(Integer integer) throws Exception {
-        return null;
-    }
+  @Override
+  public int modify(FriendsDto friendsDto) throws Exception {
+    return 0;
+  }
 
-    @Override
-    public List<FriendsDto> get() throws Exception {
-        return null;
-    }
+  @Override
+  public FriendsDto get(Integer integer) throws Exception {
+    return null;
+  }
 
-    public List<FriendsDto> getMyFriends(String userId) throws Exception {
-        return repository.getMyFriends(userId);
-    }
+  @Override
+  public List<FriendsDto> get() throws Exception {
+    return null;
+  }
 
-    public List<FriendsDto> searchMyFriends(String userId, String searchText) throws Exception {
-        return repository.searchMyFriends(userId, searchText);
-    }
+  public List<FriendsDto> getMyFriends(String userId) throws Exception {
+    return repository.getMyFriends(userId);
+  }
+
+  public List<FriendsDto> searchMyFriends(String userId, String searchText) throws Exception {
+    return repository.searchMyFriends(userId, searchText);
+  }
 }

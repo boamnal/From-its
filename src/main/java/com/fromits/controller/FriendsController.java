@@ -4,6 +4,7 @@ import com.fromits.app.dto.CustDto;
 import com.fromits.app.dto.FriendsDto;
 import com.fromits.app.service.CustService;
 import com.fromits.app.service.FriendsService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -56,16 +57,20 @@ public class FriendsController {
   }
 
   @PostMapping("/addFriend")
-  public String addFriend(Model model, @RequestParam("friendId") String friendId) throws Exception {
+  public String addFriend(Model model, HttpSession session, @RequestParam("friendId") String friendId) throws Exception {
     // To DO
     // 회원가입 시 세션에 id 저장해둔 값을 가져와야 함
     // 회원가입 시 id를 세션에 저장해야 함
-    String loggedInUserId = "loggedInUserId";
+    String loggedInUserId = (String) session.getAttribute("user_id");
+    if (loggedInUserId == null) {
+      // 로그인된 사용자의 ID가 없으면 로그인 페이지로 리다이렉트 또는 다른 처리
+      return "redirect:/login";
+    }
+    String userId = loggedInUserId;
+    String userId2 = friendId;
 
-    FriendsDto dto = FriendsDto.builder().userId(loggedInUserId).userId2(friendId).build();
     try {
-      friendsService.addFriend(dto);
-
+      friendsService.addFriend(userId, userId2);
     } catch (Exception e) {
       e.printStackTrace();
     }

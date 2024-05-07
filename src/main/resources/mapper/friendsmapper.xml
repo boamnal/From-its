@@ -27,7 +27,7 @@
           AND (u.user_id LIKE CONCAT('%', #{searchText}, '%') OR u.name LIKE CONCAT('%', #{searchText}, '%'))
     </select>
 
-    <insert id="addFriend" parameterType="FriendsDto">
+    <insert id="addFriend" parameterType="String">
         INSERT INTO friends (user_id, user_id2)
         VALUES (#{userId}, #{userId2}), (#{userId2}, #{userId})
     </insert>
