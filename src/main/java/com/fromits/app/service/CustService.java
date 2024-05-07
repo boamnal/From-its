@@ -61,4 +61,10 @@ public class CustService implements HanaService<String, CustDto> {
   public String findUserPwd(String id) throws Exception {
     return custRepository.searchPwd(id);
   }
+
+
+  public List<CustDto> getMemberAddress(int groupId) throws Exception {
+    List<CustDto> memberAddress = custRepository.getMemberAddress(groupId);
+    return memberAddress;
+  }
 }

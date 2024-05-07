@@ -5,7 +5,7 @@
 <mapper namespace="com.fromits.app.repository.PromiseRepository">
     <insert id="insert" parameterType="PromiseDto" useGeneratedKeys="true"
             keyProperty="proId">
-        insert into promise(group_id, pro_name, pro_desc, pro_lat, pro_lon, pro_date, candidate_id) values(#{groupId}, #{proName},#{proDesc},null,null, NOW(), null);
+        insert into promise(group_id, pro_name, pro_desc, pro_lat, pro_lon, pro_date, candidate_id) values(#{groupId}, #{proName},#{proDesc}, #{proLat}, #{proLon}, NOW(), null);
     </insert>
 
     <select id = "getPromise" parameterType="PromiseDto">

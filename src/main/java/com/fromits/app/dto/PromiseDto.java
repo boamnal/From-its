@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PromiseDto {
+
     int proId;
     String proLat;
     String proLon;

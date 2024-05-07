@@ -6,4 +6,10 @@
     <insert id="newGroupMember" parameterType="map">
         INSERT INTO group_member (group_id, user_id) VALUES (#{groupId}, #{userId});
     </insert>
+
+    <select id="getGroupMember" parameterType="Integer" resultType="groupMemberDto">
+        select user_id from group_member where group_id=#{groupId};
+    </select>
+
+
 </mapper>
