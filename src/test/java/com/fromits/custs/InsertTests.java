@@ -20,7 +20,8 @@ class InsertTests {
 
   @Test
   void contextLoads() {
-    CustDto custDto = CustDto.builder().userId("id04").email("id03@gmail.com").password("pwd03").address("서울 금천구").zipcode("07544").profile(1).name("유다영").build();
+    // mapper 파라미터 순서는 db 컬럼 순서와 맞혀줘야 함.
+    CustDto custDto = CustDto.builder().userId("id04").email("id03@gmail.com").password("pwd04").address("서울 구로구").zipcode("07544").profile(1).name("김한주").build();
 
     try {
       custService.add(custDto);
