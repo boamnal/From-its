@@ -3,11 +3,13 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fromits.app.repository.GroupRepository">
-    <select id="select" resultType="promgroupDto">
+    <select id="selectOne" resultType="promgroupDto">
         SELECT *
         FROM prom_group
+        WHERE group_id = #{groupId}
     </select>
-    <insert id="newGroup" parameterType="String">
-        insert into prom_group(group_name) values(#{name});
+    <insert id="newGroup" parameterType="PromgroupDto" useGeneratedKeys="true"
+            keyProperty="groupId">
+        insert into prom_group(group_name) values(#{groupName});
     </insert>
 </mapper>
