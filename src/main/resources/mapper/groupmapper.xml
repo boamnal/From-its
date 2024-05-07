@@ -10,4 +10,10 @@
     <insert id="newGroup" parameterType="String">
         insert into prom_group(group_name) values(#{name});
     </insert>
+
+        <select id="getPromisebyGroupId" parameterType="PromiseDto">
+        SELECT *
+        FROM promise
+        WHERE group_id = #{param1}
+    </select>
 </mapper>

@@ -7,7 +7,7 @@
     <select id="getById" resultType="devoteCandidateDto">
         SELECT *
         FROM devote_candidate
-        WHERE pro_id = #{param1} and place_id = #{param2}
+        WHERE devote_id = #{param1} and place_id = #{param2}
     </select>
 
     <select id="select" resultType="devoteCandidateDto">
@@ -24,7 +24,7 @@
 
 
     <insert id="insert" parameterType="devoteCandidateDto">
-        INSERT INTO devote_candidate VALUES (0, #{placeName}, #{placeAddress}, #{userId}, #{proId}, #{placeId}, #{devoteId}, NOW(), #{lat}, #{log})
+        INSERT INTO devote_candidate VALUES (0, #{placeName}, #{placeAddress}, 'id01', #{placeId}, #{devoteId}, NOW(), #{lat}, #{log})
     </insert>
 
     <update id="update" parameterType="devoteCandidateDto">
@@ -39,4 +39,11 @@
         FROM devote_candidate
         WHERE candidate_id = #{candidateId}
     </delete>
+
+    <select id="getDevoteId" resultType="Integer">
+        SELECT devote_id
+        FROM devote
+        where pro_id = #{param1}
+    </select>
+
 </mapper>

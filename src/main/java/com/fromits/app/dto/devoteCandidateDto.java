@@ -14,7 +14,6 @@ public class devoteCandidateDto {
 	String placeName;
     String placeAddress;
     String userId;
-    int proId;
     long placeId;
     int devoteId;
     LocalDate proNow;
