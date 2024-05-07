@@ -47,9 +47,34 @@ public class MemberController {
     // 세션에 id 값 저장
     httpSession.setAttribute("user_id", custDto.getUserId());
 
-    return "redirect:/member/join";
+    return "redirect:/member/login";
   }
 
+  // 로그인 로직
+  @RequestMapping("/login")
+  public String login(Model m) throws Exception {
+    return "member/login";
+  }
+
+  @RequestMapping("/loginimpl")
+  @ResponseBody
+  public String loginimpl(@RequestParam("id") String id, @RequestParam("pwd") String pwd, HttpSession httpSession) {
+    try {
+      CustDto custDto = custService.get(id);
+
+      if (!custDto.getPassword().equals(pwd)) {
+        log.info("비밀번호가 틀렸어요!!!!!!!!!!!");
+        throw new Exception();
+      }
+      log.info("@@@@@@@@@@@@@@@@@로그인 성공@@@@@@@@@@@@@@");
+      //  세션에 id, user 정보 저장
+      httpSession.setAttribute("user_id", custDto.getUserId());
+      httpSession.setAttribute("user", custDto);
+      return "success";
+    } catch (Exception e) {
+      return "비밀번호가 다릅니다.";
+    }
+  }
 
 
 }

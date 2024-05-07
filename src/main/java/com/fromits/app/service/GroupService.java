@@ -7,12 +7,14 @@ import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.CustRepository;
 import com.fromits.app.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class GroupService implements HanaService<Integer, PromgroupDto> {
     final GroupRepository groupRepository;
 
@@ -32,8 +34,8 @@ public class GroupService implements HanaService<Integer, PromgroupDto> {
     }
 
     @Override
-    public PromgroupDto get(Integer integer) throws Exception {
-        return null;
+    public PromgroupDto get(Integer groupId) throws Exception {
+        return groupRepository.selectOne(groupId);
     }
 
     @Override
@@ -44,11 +46,10 @@ public class GroupService implements HanaService<Integer, PromgroupDto> {
     public List<PromiseDto> getPromisebyGroupId(int groupId) throws Exception{
         return groupRepository.getPromisebyGroupId(groupId);
     }
-  
-    public int newGroup(String name) throws Exception {
-        PromgroupDto group = new PromgroupDto();
-        group.setGroupName(name);
-        groupRepository.newGroup(name);
-        return group.getGroupId();
+
+    public int newGroup(PromgroupDto promgroupDto) {
+        groupRepository.newGroup(promgroupDto);
+        return promgroupDto.getGroupId();
     }
+
 }

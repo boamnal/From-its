@@ -5,15 +5,14 @@ import com.fromits.app.dto.FriendsDto;
 import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.service.FriendsService;
 import com.fromits.app.service.GroupService;
+import com.fromits.app.service.GroupmemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.List;
 
 @Controller
@@ -24,6 +23,7 @@ public class GroupController {
     String dir = "group/";
     final GroupService groupService;
     final FriendsService friendsService;
+    final GroupmemberService groupmemberService;
 
     @ResponseBody
     @RequestMapping("/searchFriends")
@@ -40,20 +40,23 @@ public class GroupController {
         return myFriends;
     }
 
-//    @ResponseBody
-//    @RequestMapping("/createNewGroup")
-//    public int createNewGroup(@RequestBody CreateGroupRequest createGroupRequest) {
-//        try {
-//            groupService.newGroup(createGroupRequest.getGroupName());
-//
-//            for (String userId : createGroupRequest.getFriendIds()) {
-//                groupmemberRepository.newGroupMember(userId);
-//            }
-//            return 1;
-//        } catch (Exception e) {
-//            return 0;
-//        }
-//    }
+    @ResponseBody
+    @RequestMapping("/createNewGroup")
+    public int createNewGroup(@RequestParam("groupName") String groupName, @RequestParam("friendIds") List<String> friendIds) {
+        // 그룹 정상적으로 생성: groupId 반환, 그룹 생성 실패: 0 반환
+        try {
+            PromgroupDto promgroupDto = new PromgroupDto(groupName);
+            int groupId = groupService.newGroup(promgroupDto);
+
+            for (String userId : friendIds) {
+                groupmemberService.newGroupMember(userId, groupId);
+            }
+            return groupId;
+        } catch (Exception e) {
+            log.error("그룹 생성 중 오류 발생", e);
+            return 0;
+        }
+    }
 
 
     @RequestMapping("/newgroup")
