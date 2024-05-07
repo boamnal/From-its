@@ -11,5 +11,6 @@ import java.util.List;
 @Mapper
 public interface FriendsRepository extends HanaRepository<String, FriendsDto> {
     List<FriendsDto> getMyFriends(String id) throws Exception;
-
+    List<FriendsDto> searchMyFriends(String userId, String searchText) throws Exception;
+    void addFriend(FriendsDto dto);
 }
