@@ -177,9 +177,11 @@
                     type: 'GET',
                     contentType: 'application/json',
                     data: { groupName: groupName, friendIds: selectedFriends },
-                    success: function(response) {
+                    success: function(res) {
                         console.log("그룹멤버 등록 됨")
-
+                        if(res) {
+                            window.location.href ="/newpromise"
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.log("그룹멤버 등록 실패")

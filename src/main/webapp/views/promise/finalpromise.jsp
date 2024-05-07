@@ -85,30 +85,30 @@
 
 
 <div class="min-vh-100 d-flex flex-column">
-    <div class="fw-bold" style="font-size: 24px; margin-bottom: 30px">약속 만들기</div>
+    <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">약속 만들기</div>
     <div class="d-flex flex-column">
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 18px">약속명</div>
+            <div class="fw-medium" style="font-size: 16px">약속명</div>
             <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우행시 모임" />
         </div>
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 18px">약속장소(자동 로딩!)</div>
+            <div class="fw-medium" style="font-size: 16px">약속장소(자동 로딩!)</div>
             <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >서울시 동교로 33안길 35</div>
         </div>
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 18px">그룹(자동 로딩?)</div>
+            <div class="fw-medium" style="font-size: 16px">그룹(자동 로딩?)</div>
             <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >우행시 모임</div>
         </div>
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 18px">약속 날짜</div>
+            <div class="fw-medium" style="font-size: 16px">약속 날짜</div>
             <input type="date" class="w-100" style="color: #CCCCCC; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="MM/DD/YY" />
         </div>
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 18px">약속 시간</div>
+            <div class="fw-medium" style="font-size: 16px">약속 시간</div>
             <input type="time" class="w-100" style="color: #CCCCCC; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="우행시 모임" />
         </div>
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 18px">약속 내용</div>
+            <div class="fw-medium" style="font-size: 16px">약속 내용</div>
             <textarea rows="5" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우리들의 행복한 시간 ^^~" ></textarea>
         </div>
     </div>

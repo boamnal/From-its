@@ -22,6 +22,13 @@ public class PromiseController {
         return "main";
     }
 
+
+    @RequestMapping("/finalpromise")
+    public String finalpromise(Model model) throws Exception {
+        model.addAttribute("center",dir+"finalpromise");
+        return "main";
+    }
+
     @RequestMapping("/detailpromise")
     public String detail(Model model) throws Exception {
         model.addAttribute("center",dir+"detailpromise");
