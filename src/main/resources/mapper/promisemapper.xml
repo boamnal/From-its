@@ -7,4 +7,10 @@
             keyProperty="proId">
         insert into promise(group_id, pro_name, pro_desc, pro_lat, pro_lon, pro_date, candidate_id) values(#{groupId}, #{proName},#{proDesc},null,null, NOW(), null);
     </insert>
+
+    <select id = "getPromise" parameterType="PromiseDto">
+        SELECT * from promise
+        where group_id = (SELECT group_id FROM group_member
+                          where user_id="id01")
+    </select>
 </mapper>
