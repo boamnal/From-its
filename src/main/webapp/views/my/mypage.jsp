@@ -7,6 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!--우편번호 찾기 자바스크립트 파일-->
+<script src="/js/member/zipcode_popup.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
     let mypage = {
         init: function () {
@@ -28,8 +33,83 @@
             $(this).next(".friend-management-content").toggle();
         });
     });
-</script>
 
+    // 등록여부 flag 변수
+    let regist = false;
+
+    function toggleModalContent() {
+        if (regist) {
+            $("#modalContent").text("등록되었습니다!");
+            $("#confirmButton").text("확인");
+            $("#cancelButton").hide();
+        } else {
+            $("#modalContent").text("등록하시겠습니까?");
+            $("#confirmButton").text("확인");
+            $("#cancelButton").show();
+        }
+    }
+
+    // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리합니다.
+    $('#exampleModal').on('hidden.bs.modal', function () {
+        toggleModalContent();
+    });
+
+    $(function () {
+        toggleModalContent();
+
+        $(".editButton").click(() => {
+            if (regist) {
+                $('#exampleModal').modal('hide');
+                regist = false;
+            } else {
+                let adress = $('#sample6_address').val();
+                let zipcode = $('#sample6_postcode').val();
+                console.log({adress: adress, zipcode: zipcode})
+                let custInfo = {
+                    userId: "${custInfo.userId}",
+                    email: "${custInfo.email}",
+                    password: "${custInfo.password}",
+                    address: adress,
+                    zipcode: zipcode,
+                    name: "${custInfo.name}",
+                    profile: "${custInfo.profile}"
+                };
+                let data = JSON.stringify(custInfo);
+                $.ajax({
+                    url: '/updateAddress',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: data,
+                    success: function () {
+                        console.log("등록 성공");
+                        // 등록 성공 시에는 모달을 숨기지 않고, "등록되었습니다!" 메시지를 보여줍니다.
+                        regist = true;
+                        toggleModalContent();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(" 등록 실패")
+                    }
+                });
+            }
+        });
+
+        $("#confirmButton").click(() => {
+            // "확인" 버튼 클릭 시, 등록 여부에 따라 다른 동작을 수행합니다.
+            if (regist) {
+                $('#exampleModal').modal('hide'); // 등록되었을 때는 모달을 닫습니다.
+            } else {
+                toggleModalContent();
+            }
+        });
+        $("#cancelButton").click(() => {
+            $('#exampleModal').modal('hide');
+        });
+
+        $("#resultModal").on('hidden.bs.modal', function () {
+            $('#exampleModal').modal('show'); // 결과 모달이 닫히면 등록 모달을 다시 표시
+        });
+    });
+</script>
 
 <style>
     input::placeholder {
@@ -38,57 +118,139 @@
 </style>
 
 <div>
-    <div class="fw-bold" style="font-size: 22px; margin-bottom: 16px" >MYPAGE</div>
+    <div class="fw-bold" style="font-size: 22px; margin-bottom: 16px">MYPAGE</div>
     <div class="d-flex flex-column">
         <div class="" style="border: 1px solid #EEEEEE; padding: 25px; border-radius: 12px">
-            <div class="fw-bold text-center" style="font-size: 16px; padding-top: 8px; padding-bottom: 24px; color: #333333">삼식이 님</div>
+            <div class="fw-bold text-center"
+                 style="font-size: 16px; padding-top: 8px; padding-bottom: 24px; color: #333333">${user_id} 님
+            </div>
             <div class="w-100" style="background-color: #EEEEEE; height: 1px; margin-bottom: 24px"></div>
-            <div class="text-center" style="background-color: #FFFCFC; border: 2px solid #FEF4F2; border-radius: 8px; padding: 20px; color: #333333">
+            <div class="text-center"
+                 style="background-color: #FFFCFC; border: 2px solid #FEF4F2; border-radius: 8px; padding: 20px; color: #333333">
                 <div>From-its</div>
                 <div>A better scheduling, From-its</div>
             </div>
         </div>
-        <div class="d-flex justify-content-between align-items-center fw-bold friend-management" style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">친구 관리
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down fw-bold" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
+        <div class="d-flex justify-content-between align-items-center fw-bold friend-management"
+             style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">
+            친구 관리
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-chevron-compact-down fw-bold" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
             </svg>
         </div>
-        <div class="friend-management-content" style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="friend-management-content"
+             style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <div class="text-center" style="font-size: 16px; color: #333333">친구가 아직 없어요!</div>
-            <button class="fw-bold align-items-center" style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none">친구 만들러가기</button>
+            <button class="fw-bold align-items-center"
+                    style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none">
+                친구 만들러가기
+            </button>
 
         </div>
-        <div class="d-flex justify-content-between align-items-center fw-bold friend-management" style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">약속 일정
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down fw-bold" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
+        <div class="d-flex justify-content-between align-items-center fw-bold friend-management"
+             style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">
+            약속 일정
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-chevron-compact-down fw-bold" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
             </svg>
         </div>
-        <div class="friend-management-content" style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="friend-management-content"
+             style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <div class="text-center" style="font-size: 16px; color: #333333">약속이 아직 없어요!</div>
-            <button class="fw-bold align-items-center" style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none">약속 만들러가기</button>
+            <button class="fw-bold align-items-center"
+                    style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none">
+                약속 만들러가기
+            </button>
 
         </div>
-        <div class="d-flex justify-content-between align-items-center fw-bold friend-management" style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">주소록
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down fw-bold" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
+        <div class="d-flex justify-content-between align-items-center fw-bold friend-management"
+             style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">
+            주소록
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-chevron-compact-down fw-bold" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
             </svg>
         </div>
-        <div class="friend-management-content" style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; color: #333333">
-            <div class="fw-bold" style="margin-bottom: 5px; color: #333333">우편번호 찾기</div>
-            <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; color: #333333" placeholder="ex) 우행시 모임" />
-            <div class="fw-bold" style="margin-bottom: 5px; margin-top: 12px; color: #333333">주소</div>
-            <input type="text" class="w-100" style="padding: 13px 14px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우행시 모임" />
+        <div class="friend-management-content"
+             style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; color: #333333">
+            <c:choose>
+                <c:when test="${empty custInfo}">
+                    <p>사용자 정보가 없어요</p>
+                </c:when>
+                <c:otherwise>
 
-            <button class="fw-bold d-flex row justify-content-end" style="margin-top: 20px; padding: 12px 20px; border-radius: 8px; background-color: #FEF4F2; color: #FF9494; border: none; margin-left: auto; margin-right:2px">주소 등록</button>
+                    <!-- 조회 결과가 있다면 -->
+                    <div class="fw-bold" style="margin-bottom: 5px; color: #333333">우편번호</div>
+                    <div class="form-group d-flex align-items-center">
+
+                        <input id="sample6_postcode" class="form-control me-2" type="text"
+                               style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; color: #333333"
+                               placeholder="ex) 우행시 모임" value="${custInfo.zipcode}"/>
+                        <button id="find_zipcode" type="button" class="btn btn-primary rounded-3 fw-bold text-nowrap"
+                                style="background-color: #FEF4F2; color: #FF9494; padding: 12px; margin-top: 8px;"
+                                onclick="sample6_execDaumPostcode()">검색
+                        </button>
+                    </div>
+
+                    <div class="fw-bold" style="margin-bottom: 5px; margin-top: 12px; color: #333333">주소</div>
+                    <input id="sample6_address" type="text" class="w-100"
+                           style="padding: 13px 14px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none"
+                           placeholder="ex) 우행시 모임" value="${custInfo.address}"/>
+
+                    <button class="fw-bold d-flex row justify-content-end  btn btn-primary rounded-3 text-nowrap editButton"
+                            style="margin-top: 20px; padding: 12px 20px; border-radius: 8px; background-color: #FEF4F2; color: #FF9494; margin-left: auto; margin-right:2px"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        주소 수정
+                    </button>
+
+                </c:otherwise>
+            </c:choose>
+
+
         </div>
-        <div class="d-flex justify-content-between align-items-center fw-bold friend-management" style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">약속 그룹
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down fw-bold" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
+        <div class="d-flex justify-content-between align-items-center fw-bold friend-management"
+             style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">
+            약속 그룹
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-chevron-compact-down fw-bold" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
             </svg>
         </div>
-        <div class="friend-management-content" style="background-color: #FFFCFC; border: 2px solid #FEF4F2; border-radius: 8px; margin-top: 16px; padding: 16px 20px; display: none; color: #333333; margin-bottom: 40px">우행시
+        <div class="friend-management-content"
+             style="background-color: #FFFCFC; border: 2px solid #FEF4F2; border-radius: 8px; margin-top: 16px; padding: 16px 20px; display: none; color: #333333; margin-bottom: 40px">
+            우행시
         </div>
     </div>
 
 
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     style="margin: 20px auto;">
+    <div class="modal-dialog" style="max-width: 300px; margin: 20px auto">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header" style="border: none">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modalContent" class="modal-body"
+                 style="text-align: center; padding: 30px 0; font-size: 16px; color: #333333;">
+                등록하시겠습니까?
+            </div>
+            <div class="d-flex gap-2 w-100" style="border: none; justify-content: center; padding: 20px">
+                <button id="confirmButton" type="button" class="w-100 btn btn-primary fw-bolder"
+                        style="background-color: #FF9494; color: white; padding: 8.5px 0">확인
+                </button>
+                <button id="cancelButton" type="button" class="w-100 btn fw-bolder" data-bs-dismiss="modal"
+                        style="background-color: #FEF4F2; color: #FF9494; display: none">취소
+                </button>
+            </div>
+        </div>
     </div>
+</div>
+</div>
