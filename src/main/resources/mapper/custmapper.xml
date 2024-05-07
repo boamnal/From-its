@@ -17,7 +17,8 @@
 
 
     <insert id="insert" parameterType="custDto">
-        INSERT INTO user VALUES (#{userId}, #{email}, #{password}, #{address}, #{zipcode},  #{name}, #{profile})
+        INSERT INTO user
+        VALUES (#{userId}, #{email}, #{password}, #{address}, #{zipcode}, #{profile}, #{name})
     </insert>
 
     <update id="update" parameterType="custDto">

@@ -5,8 +5,10 @@ import com.fromits.app.frame.HanaRepository;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 @Mapper
 public interface GroupmemberRepository extends HanaRepository<String, GroupmemberDto> {
-    void newGroupMember(String userId, int groupId) throws Exception;
+    void newGroupMember(Map<String, Object> params) throws Exception;
 }
