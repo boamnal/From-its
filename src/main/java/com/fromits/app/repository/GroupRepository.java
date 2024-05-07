@@ -1,6 +1,7 @@
 package com.fromits.app.repository;
 
 import com.fromits.app.dto.CustDto;
+import com.fromits.app.dto.FriendsDto;
 import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.frame.HanaRepository;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Repository
 @Mapper
-public interface GroupRepository extends HanaRepository<Integer, PromgroupDto> {
+public interface GroupRepository extends HanaRepository<Integer, PromgroupDto> 
     public List<PromiseDto> getPromisebyGroupId(int groupId) throws Exception;
+    void newGroup(String name);
 }
