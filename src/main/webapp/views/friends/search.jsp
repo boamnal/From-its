@@ -55,6 +55,7 @@
     .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {
         background: #303030;
     }
+
     .optionItem {
         display: flex;
         justify-content: space-between;
@@ -118,7 +119,6 @@
         });
     }
 
-
     // 등록여부 flag 변수
     let regist = false;
 
@@ -143,17 +143,35 @@
         toggleModalContent();
         searchFriends()
 
-        // 친구 버튼을 클릭했을 때의 이벤트 리스너
+        // 친구 목록 클릭했을 때의 이벤트 리스너
         $('.optionList').on('click', '.optionItem', function () {
             let friendId = $(this).data('friendId');
             let friendName = $(this).data('friendName');
             let friendProfile = $(this).data('friendProfile');
+            // 모달 내용 설정
+            $('#modalContent').text(friendId + ' (' + friendName + ')' + '을(를) 등록하시겠습니까?');
+
+            // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
+            // toggleModalContent();
+
+            // 모달 화면에 표시
+            $('#exampleModal').modal('show');
+        });
+
+        // 모달 확인 버튼 클릭 이벤트 리스너
+        $('#confirmButton').click(function () {
+            // 클릭된 친구 항목에서 데이터 가져오기
+            let friendId = $(this).closest('.optionItem').data('friendId');
+
 
             if (regist) {
+                // 모달 닫기
                 $('#exampleModal').modal('hide');
+                // 등록 여부 flag 초기화
                 regist = false;
-            } else {
-                regist = true;
+            }else{
+                // let friendId = $(this).data('friendId');
+                console.log({friendId: friendId});
 
                 $.ajax({
                     url: '/createNewFriend',
@@ -161,13 +179,22 @@
                     contentType: 'application/json',
                     data: {friendId: friendId},
                     success: function (response) {
+                        console.log("친구 등록 됨")
                     },
                     error: function (xhr, status, error) {
+                        console.log("친구 등록 안됨")
                     }
                 });
+                // 등록 여부 flag 업데이트
+                regist = true;
                 // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
                 toggleModalContent();
             }
+        });
+        // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리
+        $('#exampleModal').on('hidden.bs.modal', function () {
+            // 모달 내용 초기화
+            $('#modalContent').text('등록하시겠습니까?');
         });
 
         $("#cancelButton").click(() => {
@@ -185,6 +212,7 @@
         overflow: auto;
         white-space: nowrap;
     }
+
     .scroll::-webkit-scrollbar {
         display: none;
     }
@@ -213,15 +241,15 @@
 
         <div class="selectBox2">
             <!-- 게시글 목록 조회 결과가 있다면 -->
-            <ul class="optionList">
+            <ul data-bs-toggle="modal" data-bs-target="#exampleModal" class="optionList">
             </ul>
         </div>
 
     </div>
 </div>
-<button data-bs-toggle="modal" data-bs-target="#exampleModal" id="creategroup"
+<button id="creategroup"
         class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"
-        style="padding: 12px 0; background-color: #FF9494; color: white;">생성하기
+        style="padding: 12px 0; background-color: #FF9494; color: white;">마이페이지로 이동
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
