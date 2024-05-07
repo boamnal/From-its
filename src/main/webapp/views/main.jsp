@@ -61,8 +61,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/schedule"/>">약속 일정</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#">로그아웃</a>
+                    <c:choose>
+                        <c:when test="${user_id==null}">
+                            <span><a class="nav-link" href="<c:url value="/member/login"/>">로그인</></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span>  <a class="nav-link" href="<c:url value="/logoutimple"/>">로그아웃</a></span>
+                        </c:otherwise>
+                    </c:choose>
                 </li>
             </ul>
         </div>

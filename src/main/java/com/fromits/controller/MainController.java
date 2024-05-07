@@ -1,5 +1,6 @@
 package com.fromits.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,5 +19,14 @@ public class MainController {
         model.addAttribute("text1","새로운 그룹을 만들래요");
         model.addAttribute("text2","이미 만든 그룹이 있어요!");
         return "index";
+    }
+    // 로그아웃
+    @RequestMapping("/logoutimple")
+    public String logoutimple(Model model, HttpSession httpSession) {
+        log.info("로그아웃하면 로그가 찍혀요~");
+        httpSession.invalidate(); // 로그아웃하면 서버에서 세션 정보 삭제
+        log.info("로그아웃이 끝났어요~~");
+        return "redirect:/";
+
     }
 }

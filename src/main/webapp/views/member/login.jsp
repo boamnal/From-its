@@ -23,7 +23,6 @@
             let id = $('input[name="userId"]').val();
             let pwd = $('input[name="password"]').val();
 
-            console.log(id, pwd);
             $.ajax({
                 url: '<c:url value="/member/loginimpl"/>',
                 type: 'POST',
@@ -47,8 +46,6 @@
         init: function () {
             $('#userId').keyup(() => {
                 let id = $('#userId').val();
-                console.log(id)
-
                 id_check.send(id);
             })
         },
