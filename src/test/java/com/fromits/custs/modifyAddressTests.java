@@ -12,27 +12,23 @@ import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class SelectOneTests {
+class modifyAddressTests {
 
   @Autowired
   CustService custService;
 
   @Test
   void contextLoads() throws Exception {
-    // get 메서드 호출 결과를 변수에 저장
-    CustDto custDto = custService.get("chuncoo");
+    CustDto id01 = custService.get("id01");
+    id01.setAddress("서울 동작구 남부순환로 2003");
+    id01.setZipcode("07021");
 
-    String address = custDto.getAddress();
-    String zipcode = custDto.getZipcode();
+     custService.modifyAddress(id01);
 
-    // 반환된 CustDto를 로그에 출력
-    log.info("CustDto: {}", custDto);
-    log.info("_______" + address + "______" + zipcode);
-
-    log.info("----------OK----------------");
 
     try {
-//      custService.add(custDto);
+      log.info("CustDto: {}", id01);
+
       log.info("----------OK----------------");
     } catch (Exception e) {
       if (e instanceof SQLException) {
