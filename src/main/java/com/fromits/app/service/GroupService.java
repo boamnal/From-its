@@ -46,11 +46,10 @@ public class GroupService implements HanaService<Integer, PromgroupDto> {
     public List<PromiseDto> getPromisebyGroupId(int groupId) throws Exception{
         return groupRepository.getPromisebyGroupId(groupId);
     }
-  
-    public int newGroup(String name) throws Exception {
-        PromgroupDto group = new PromgroupDto();
-        group.setGroupName(name);
-        groupRepository.newGroup(name);
-        return group.getGroupId();
+
+    public int newGroup(PromgroupDto promgroupDto) {
+        groupRepository.newGroup(promgroupDto);
+        return promgroupDto.getGroupId();
     }
+
 }

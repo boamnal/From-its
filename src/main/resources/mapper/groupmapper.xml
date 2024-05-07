@@ -7,7 +7,8 @@
         SELECT *
         FROM prom_group
     </select>
-    <insert id="newGroup" parameterType="String">
-        insert into prom_group(group_name) values(#{name});
+    <insert id="newGroup" parameterType="PromgroupDto" useGeneratedKeys="true"
+            keyProperty="groupId">
+        insert into prom_group(group_name) values(#{groupName});
     </insert>
 </mapper>

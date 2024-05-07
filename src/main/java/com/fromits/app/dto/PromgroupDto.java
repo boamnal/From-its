@@ -9,4 +9,8 @@ import lombok.*;
 public class PromgroupDto {
     private int groupId;
     private String groupName;
+
+    public PromgroupDto(String groupName) {
+        this.groupName = groupName;
+    }
 }
