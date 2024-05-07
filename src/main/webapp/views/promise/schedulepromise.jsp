@@ -34,7 +34,7 @@
                 <div style="color: #999999;">서울 마포구 동교로 38안길 22</div>
             </div>
         </div>
-    </c:forEach>>
+    </c:forEach>
 
     <div class="fw-medium" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px; font-size: 16px; text-align: center">
         <div>약속이 아직 없어요!</div>

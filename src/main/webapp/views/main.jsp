@@ -43,6 +43,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/search"/> ">친구맺기</a>
                 </li>
                 <li class="nav-item">
@@ -57,15 +58,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/schedule"/>">약속 일정</a>
                 </li>
-
-                <li class="nav-item">
+                <span>  <a class="nav-link" href="<c:url value="/logoutimple"/>">로그아웃</a></span>
                     <c:choose>
                         <c:when test="${user_id==null}">
-                            <button id="confirmButton" type="button" class="w-100 btn btn-primary fw-bolder" style="background-color: #FF9494; color: white; padding: 8.5px 0">확인</button>
-                            <a class="nav-link" href="<c:url value="/member/login"/>"></a>
+                        <div class="d-flex justify-content-center" style="margin-top: 20px; font-size: 20px">From-its를 찾아주셔서 감사해요!</div>
+                        <a class="nav-link" href="<c:url value="/member/login"/>">
+                                <button type="button" class="w-100 btn btn-primary fw-bolder" style="background-color: #FF9494; color: white; padding: 8.5px 0">로그인</button>
+                            </a>
                         </c:when>
                         <c:otherwise>
-                            <span>  <a class="nav-link" href="<c:url value="/logoutimple"/>">로그아웃</a></span>
+
                         </c:otherwise>
                     </c:choose>
                 </li>
