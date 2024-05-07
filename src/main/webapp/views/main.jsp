@@ -61,10 +61,7 @@
                 <span>  <a class="nav-link" href="<c:url value="/logoutimple"/>">로그아웃</a></span>
                     <c:choose>
                         <c:when test="${user_id==null}">
-                        <div class="d-flex justify-content-center" style="margin-top: 20px; font-size: 20px">From-its를 찾아주셔서 감사해요!</div>
-                        <a class="nav-link" href="<c:url value="/member/login"/>">
-                                <button type="button" class="w-100 btn btn-primary fw-bolder" style="background-color: #FF9494; color: white; padding: 8.5px 0">로그인</button>
-                            </a>
+
                         </c:when>
                         <c:otherwise>
 
