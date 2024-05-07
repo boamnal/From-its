@@ -12,7 +12,7 @@ public class PromiseDto {
 
     int proId;
     String proLat;
-    String proLog;
+    String proLon;
     String proName;
     LocalDate proDate;
     String proDesc;

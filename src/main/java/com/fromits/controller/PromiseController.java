@@ -1,8 +1,11 @@
 package com.fromits.controller;
 import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.dto.PromiseDto;
+import com.fromits.app.dto.devoteCandidateDto;
 import com.fromits.app.service.GroupService;
+import com.fromits.app.service.MapService;
 import com.fromits.app.service.PromiseService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,6 +47,14 @@ public class PromiseController {
         return "main";
     }
 
+    @RequestMapping("/schedulepromise")
+    public String schedulepromise(Model model, HttpSession session) throws Exception {
+        List<PromiseDto> list = promiseService.getPromise("id01");
+        model.addAttribute("list", list);
+        model.addAttribute("center",dir+"schedulepromise");
+        return "main";
+    }
+
     @ResponseBody
     @RequestMapping("/createpromise")
     public int createpromise(Model model, @RequestParam("promiseName") String promiseName, @RequestParam("promiseContent") String promiseContent, @RequestParam("groupId") int groupId, @RequestParam("midpointLat") double midpointLat, @RequestParam("midpointLon") double midpointLon) throws Exception {
@@ -70,7 +81,9 @@ public class PromiseController {
 
     @RequestMapping("/finalpromise")
     public String finalpromise(Model model) throws Exception {
+        List<PromiseDto> list = promiseService.getPromise("id01");
         model.addAttribute("center",dir+"finalpromise");
+        model.addAttribute("list",list);
         return "main";
     }
 
