@@ -88,7 +88,7 @@
             $('#join_ok_btn').click(function () { // 로그인 버튼
                 console.log("확인 버튼  함수");
 
-                const profiles = [0, 1, 2];
+                const profiles = [1, 2, 3];
                 let randomIndex = Math.floor(Math.random() * profiles.length);
                 let selectedProfile = profiles[randomIndex];
 

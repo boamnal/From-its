@@ -17,4 +17,7 @@ public interface FriendsRepository extends HanaRepository<String, FriendsDto> {
 
     // 친구 추가
     void addFriend(String userId, String userId2) throws Exception;
+    List<FriendsDto> getOther(String id) throws Exception;
+    List<FriendsDto> searchOther(String userId, String searchText) throws Exception;
+
 }
