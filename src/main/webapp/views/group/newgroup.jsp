@@ -61,9 +61,73 @@
     .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {
         background: #303030;
     }
+    .optionItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* 세로 중앙 정렬을 위해 추가 */
+    }
+
 </style>
 
 <script>
+
+    function searchFriends() {
+        let searchText = $('#searchText').val()
+
+        // 검색어가 비어있는 경우, 전체 조회 URL을 사용
+        let apiUrl = searchText ? '/searchFriends' : '/getAllFriends';
+
+        $.ajax({
+            url: apiUrl,
+            type: 'GET',
+            data: {
+                searchText: searchText
+            },
+            success: function(response) {
+                console.log(response)
+                // 검색 결과를 표시할 요소의 내용을 초기화
+                $(".optionList").empty();
+
+                if (response && response.length > 0) {
+                    // response 배열을 반복하면서 각 친구 정보를 화면에 추가
+                    response.forEach(function (friend) {
+                        console.log(friend)
+                        var friendElement = '<li class="optionItem">' +
+                            '<div class="content">' +
+                            '<img src="/img/' + friend.profile + '.png" style="width: 40px; height: 40px; margin-right: 10px; border: 1px solid #CCCCCC; padding: 2px; border-radius: 99px" />' +
+                            friend.userId + ' <span style="color: #FF9494">(' + friend.name + ')</span>' +
+                            '</div>' +
+                            '<button style="border: none; background: none">' +
+                            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle-fill" style="color: #CCCCCC" viewBox="0 0 16 16">' +
+                            '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>' +
+                            '</svg>' +
+                            '</button>' +
+                            '</li>';
+                        $(".optionList").append(friendElement);
+                    });
+                } else {
+                    // 검색 결과가 비어있는 경우
+                    let noResult = `
+                    <div className="friend-management-content"
+                         style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div className="text-center" style="font-size: 16px; color: #333333">친구가 존재하지 않아요!</div>
+                        <button className="fw-bold align-items-center"
+                                style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none"
+                                onClick="window.location.href='/search'">친구 만들러가기
+                        </button>
+                    </div>
+                    `
+                    $(".optionList").append(noResult);
+                }
+
+            }
+        });
+    }
+
+    $(function () {
+        searchFriends()
+    })
+
     let regist = false;
 
     function toggleModalContent() {
@@ -106,6 +170,15 @@
         });
     });
 </script>
+<style>
+    .scroll {
+        overflow: auto;
+        white-space: nowrap;
+    }
+    .scroll::-webkit-scrollbar {
+        display: none;
+    }
+</style>
 
 <div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">새 그룹 등록</div>
@@ -115,8 +188,22 @@
     </div>
     <div>
         <div class="fw-medium" style="font-size: 16px">그룹 친구 등록</div>
+        <div class="d-flex scroll">
+            <c:choose>
+                <c:when test="${empty friends}">
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="f" items="${friends}">
+                        <div class="d-flex align-items-center " style="background-color: #FFFCFC; border-radius: 8px; border: 2px solid #FEF4F2; padding: 10px 10px; margin: 16px 0; margin-right: 20px;">
+                            <img src="<c:url value="/img/${f.profile}.png"/>" style="width: 40px; height: 40px; margin-right: 10px"  />
+                            <div style="color: #333333;">${f.name}</div>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </div>
         <div style="position: relative; margin-bottom: 10px;">
-            <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative" placeholder="친구 아이디를 검색하세요." >
+            <input oninput="searchFriends()" id="searchText" type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative" placeholder="친구 아이디를 검색하세요." >
             <button style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
@@ -125,21 +212,6 @@
         </div>
         <div class="selectBox2">
             <ul class="optionList">
-                <c:choose>
-                    <c:when test="${empty friends}">
-                        <div class="friend-management-content" style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <div class="text-center" style="font-size: 16px; color: #333333">친구가 아직 없어요!</div>
-                            <button class="fw-bold align-items-center" style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none" onclick="window.location.href='/search'">친구 만들러가기</button>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach var="f" items="${friends}">
-                            <li class="optionItem">${f.userId}
-                                <img id="plus_btn" src="<c:url value="/img/plus-circle.svg"/>" width="20px" height="20px">
-                            </li>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
             </ul>
         </div>
 

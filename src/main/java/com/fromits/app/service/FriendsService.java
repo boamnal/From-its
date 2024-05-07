@@ -47,4 +47,8 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
     public List<FriendsDto> getMyFriends(String userId) throws Exception {
         return friendsRepository.getMyFriends(userId);
     }
+
+    public List<FriendsDto> searchMyFriends(String userId, String searchText) throws Exception {
+        return friendsRepository.searchMyFriends(userId, searchText);
+    }
 }
