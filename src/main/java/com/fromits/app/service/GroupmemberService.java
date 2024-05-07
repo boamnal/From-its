@@ -49,6 +49,7 @@ public class GroupmemberService implements HanaService<Integer, GroupmemberDto> 
         groupmemberRepository.newGroupMember(params);
     }
 
+
     public List<String> getGroupMember(int groupId) throws Exception {
         List<String> groupMember = groupmemberRepository.getGroupMember(groupId);
         return groupMember;
