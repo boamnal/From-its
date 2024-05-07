@@ -11,8 +11,8 @@ import java.time.LocalDate;
 public class PromiseDto {
 
     int proId;
-    double proLat;
-    double proLon;
+    String proLat;
+    String proLog;
     String proName;
     LocalDate proDate;
     String proDesc;

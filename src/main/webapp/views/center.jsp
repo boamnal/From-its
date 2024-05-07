@@ -13,7 +13,8 @@
 <div class="container">
     <img src="<c:url value="/img/Logo2.svg"/>" width="320px" height="94px">
     <div>
-        <button id="btn_go_login" type="button" class="btn btn-primary">로그인</button>
+        <button id="btn_go_login" type="button" class="btn btn-primary"><span><a href="<c:url value="/member/login"/>">로그인</a></span>
+        </button>
         <button id="btn_go_join" type="button" class="btn btn-primary">
             <span><a href="<c:url value="/member/join"/>">회원가입</a></span>
         </button>

@@ -14,4 +14,5 @@ import java.util.Map;
 public interface MapRepository extends HanaRepository<Integer, devoteCandidateDto> {
     public devoteCandidateDto getById(Integer proId, long placeId);
     public List<devoteCandidateDto> selectByDevote(Integer devoteId);
+    public int getDevoteId(int proId);
 }
