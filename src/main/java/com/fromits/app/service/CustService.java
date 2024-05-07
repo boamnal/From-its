@@ -13,7 +13,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CustService implements HanaService<String, CustDto> {
 
-
   final CustRepository custRepository;
 
   @Override
@@ -62,9 +61,12 @@ public class CustService implements HanaService<String, CustDto> {
     return custRepository.searchPwd(id);
   }
 
-
   public List<CustDto> getMemberAddress(int groupId) throws Exception {
     List<CustDto> memberAddress = custRepository.getMemberAddress(groupId);
     return memberAddress;
+  }
+
+  public void modifyAddress(CustDto custDto) throws Exception {
+    custRepository.updateAddress(custDto);
   }
 }
