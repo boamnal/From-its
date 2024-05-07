@@ -24,7 +24,7 @@
 
 
     <insert id="insert" parameterType="devoteCandidateDto">
-        INSERT INTO devote_candidate VALUES (0, #{placeName}, #{placeAddress}, 'id01', #{placeId}, #{devoteId}, NOW(), #{lat}, #{log})
+        INSERT INTO devote_candidate VALUES (0, #{placeName}, #{placeAddress}, #{userId}, #{placeId}, #{devoteId}, NOW(), #{lat}, #{log})
     </insert>
 
     <update id="update" parameterType="devoteCandidateDto">
