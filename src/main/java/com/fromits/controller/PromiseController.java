@@ -28,9 +28,10 @@ public class PromiseController {
     final FriendsService friendsService;
     final GroupmemberService groupmemberService;
     final CustService custService;
-
-    @Value("${app.key.kakaokey}")
-    private String kakaoKey;
+//
+//
+//    @Value("${app.key.kakaokey}")
+//    private String kakaoKey;
 
     @RequestMapping("/schedule")
     public String promise(Model model) throws Exception {
