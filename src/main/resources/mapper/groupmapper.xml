@@ -16,4 +16,10 @@
             keyProperty="groupId">
         insert into prom_group(group_name) values(#{groupName});
     </insert>
+
+        <select id="getPromisebyGroupId" parameterType="PromiseDto">
+        SELECT *
+        FROM promise
+        WHERE group_id = #{param1}
+    </select>
 </mapper>

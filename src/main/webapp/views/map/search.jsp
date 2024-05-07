@@ -12,9 +12,8 @@ http://suldo.com/411-->
         $('#list').on('click', 'button', function() {
             let hiddenValue = $(this).parent().prev('input[type="hidden"]').val();
             data = map_data.find(item => item.id === hiddenValue);
-            let devoteId = $("#devote").val()
             console.log(data)
-
+            let devoteId = $('#devote').val()
             $.ajax({
                 url: '/map/addcandidate', // 서버의 URL
                 type: 'POST', // 데이터 전송 방식
@@ -28,10 +27,15 @@ http://suldo.com/411-->
                 }, // 전송할 데이터
                 success: function(response) {
                     console.log('Data sent successfully', response);
-                    if(response == 1)
+                    if(response == 1) {
                         alert("추가에 성공했습니다.")
+                        return
+                    }
                     else (response == 0)
-                    alert("이미 추가 된 장소입니다")
+                    {
+                        alert("이미 추가 된 장소입니다")
+                        return;
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.error('Data sending failed:', error);
@@ -98,6 +102,7 @@ http://suldo.com/411-->
 </style>
 <div>
     <div class="input-group mb-3">
+        <input type="hidden" id = devote value="${devote}">
         <input type="text" id="key" class="form-control" placeholder="Search">
         <button type="button" class="btn btn-primary" id="search-input">찾기</button>
     </div>
