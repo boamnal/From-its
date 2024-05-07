@@ -122,6 +122,14 @@
     <form id="reg_form">
         <div class="join_form px-4" style="margin: 20px 0px">
             <div class="form-group d-flex align-items-center">
+                <label for="name" class="flex-grow-1 mb-0 text-nowrap fw-medium">이름</label>
+                <input type="text" class="form-control me-2" id="name" placeholder="ex) 홍길동"
+                       name="name"
+                       required style="margin:12px 40px; padding: 12px; background-color: #F8F8FA; border-style: none">
+            </div>
+        </div>
+        <div class="join_form px-4" style="margin: 20px 0px">
+            <div class="form-group d-flex align-items-center">
                 <label for="id" class="flex-grow-1 mb-0 text-nowrap fw-medium">아이디</label>
                 <input type="text" class="form-control me-2" id="id" placeholder="ex) 삼식이" name="userId" required
                        style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
