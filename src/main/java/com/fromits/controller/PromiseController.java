@@ -1,5 +1,4 @@
 package com.fromits.controller;
-
 import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.service.GroupService;
@@ -11,12 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.List;
 
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-
 public class PromiseController {
+    final MapService mapService;
     String dir = "promise/";
     final GroupService groupService;
     final PromiseService promiseService;
@@ -59,5 +59,13 @@ public class PromiseController {
     public String detail(Model model) throws Exception {
         model.addAttribute("center",dir+"detailpromise");
         return "main";
+    }
+
+    @ResponseBody
+    @RequestMapping("/getpromise")
+    public Object getpromise(Model model, @RequestParam("option") int proId) throws Exception {
+        int devoteId = mapService.getDevoteId(proId);
+        List<devoteCandidateDto> list = mapService.selectByDevote(devoteId);
+        return list;
     }
 }

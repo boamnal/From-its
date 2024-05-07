@@ -47,4 +47,8 @@ public class MapService implements HanaService<Integer, devoteCandidateDto> {
   public List<devoteCandidateDto> selectByDevote(Integer devoteId) throws Exception {
     return mapRepository.selectByDevote(devoteId);
   }
+
+  public int getDevoteId(int proId) throws Exception{
+    return mapRepository.getDevoteId(proId);
+  }
 }
