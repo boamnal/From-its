@@ -44,6 +44,18 @@
                 let groupId = params.get('groupId');
 
                 $.ajax({
+                    url: '/getFriendsAddress',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    data: { groupId: groupId },
+                    success: function(res) {
+                        print(res)
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                })
+
+                $.ajax({
                     url: '/createpromise',
                     type: 'GET',
                     contentType: 'application/json',

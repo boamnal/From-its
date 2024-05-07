@@ -1,5 +1,6 @@
 package com.fromits.app.service;
 
+import com.fromits.app.dto.GroupmemberDto;
 import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.GroupmemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,31 +12,31 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class GroupmemberService implements HanaService<String, GroupmemberService> {
+public class GroupmemberService implements HanaService<Integer, GroupmemberDto> {
     final GroupmemberRepository groupmemberRepository;
 
     @Override
-    public int add(GroupmemberService groupmemberService) throws Exception {
+    public int add(GroupmemberDto groupmemberDto) throws Exception {
         return 0;
     }
 
     @Override
-    public int del(String string) throws Exception {
+    public int del(Integer integer) throws Exception {
         return 0;
     }
 
     @Override
-    public int modify(GroupmemberService groupmemberService) throws Exception {
+    public int modify(GroupmemberDto groupmemberDto) throws Exception {
         return 0;
     }
 
     @Override
-    public GroupmemberService get(String string) throws Exception {
+    public GroupmemberDto get(Integer groupId) throws Exception {
         return null;
     }
 
     @Override
-    public List<GroupmemberService> get() throws Exception {
+    public List<GroupmemberDto> get() throws Exception {
         return null;
     }
 
@@ -46,5 +47,10 @@ public class GroupmemberService implements HanaService<String, GroupmemberServic
         params.put("groupId", groupId);
 
         groupmemberRepository.newGroupMember(params);
+    }
+
+    public List<String> getGroupMember(int groupId) throws Exception {
+        List<String> groupMember = groupmemberRepository.getGroupMember(groupId);
+        return groupMember;
     }
 }
