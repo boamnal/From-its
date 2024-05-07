@@ -91,8 +91,8 @@
                 if (response && response.length > 0) {
                     // response 배열을 반복하면서 각 친구 정보를 화면에 추가
                     response.forEach(function (friend) {
-                        console.log(friend)
-                        var friendElement = '<li class="optionItem">' +
+                        // console.log(friend)
+                        var friendElement = '<li class="optionItem" data-friend-id="' + friend.id + '" data-friend-name="' + friend.name + '" data-friend-profile="' + friend.profile + '">' +
                             '<div class="content">' +
                             '<img src="/img/' + friend.profile + '.png" style="width: 40px; height: 40px; margin-right: 10px; border: 1px solid #CCCCCC; padding: 2px; border-radius: 99px" />' +
                             friend.userId + ' <span style="color: #FF9494">(' + friend.name + ')</span>' +
@@ -104,6 +104,7 @@
                             '</button>' +
                             '</li>';
                         $(".optionList").append(friendElement);
+
                     });
                 } else {
                     // 검색 결과가 비어있는 경우
@@ -119,15 +120,9 @@
                     `
                     $(".optionList").append(noResult);
                 }
-
             }
         });
     }
-
-    $(function () {
-        searchFriends()
-    })
-
     let regist = false;
 
     function toggleModalContent() {
@@ -150,14 +145,44 @@
     $(function () {
         toggleModalContent();
 
+        searchFriends()
+
+        let selectedFriends = [];
+        // 친구 버튼을 클릭했을 때의 이벤트 리스너
+        $('.optionList').on('click', '.optionItem', function() {
+            let friendId = $(this).data('friendId');
+            let friendName = $(this).data('friendName');
+            let friendProfile = $(this).data('friendProfile');
+            selectedFriends.push(friendId);
+
+            var selectedFriendHtml = '<div class="d-flex align-items-center" style="background-color: #FFFCFC; border-radius: 8px; border: 2px solid #FEF4F2; padding: 10px 10px; margin: 16px 0; margin-right: 20px;">' +
+                '<img src="/img/' + friendProfile + '.png" style="width: 40px; height: 40px; margin-right: 10px"  />' +
+                '<div style="color: #333333;">' + friendName + '</div>' +
+                '</div>';
+
+            $('#selectedFriends').append(selectedFriendHtml);
+
+        });
+
         $("#confirmButton").click(() => {
             if (regist) {
                 $('#exampleModal').modal('hide');
                 regist = false;
             } else {
                 regist = true;
-                toggleModalContent();
+                let groupName = $("#groupName").val()
+                $.ajax({
+                    url: '/createNewGroup',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ groupName: groupName, friendIds: selectedFriends }),
+                    success: function(response) {
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
                 // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
+                toggleModalContent();
             }
         });
 
@@ -184,23 +209,13 @@
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">새 그룹 등록</div>
     <div style="margin-bottom: 40px">
         <div class="fw-medium" style="font-size: 16px">그룹 이름</div>
-        <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="우행시 모임" />
+        <input id="groupName" type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="우행시 모임" />
     </div>
     <div>
         <div class="fw-medium" style="font-size: 16px">그룹 친구 등록</div>
         <div class="d-flex scroll">
-            <c:choose>
-                <c:when test="${empty friends}">
-                </c:when>
-                <c:otherwise>
-                    <c:forEach var="f" items="${friends}">
-                        <div class="d-flex align-items-center " style="background-color: #FFFCFC; border-radius: 8px; border: 2px solid #FEF4F2; padding: 10px 10px; margin: 16px 0; margin-right: 20px;">
-                            <img src="<c:url value="/img/${f.profile}.png"/>" style="width: 40px; height: 40px; margin-right: 10px"  />
-                            <div style="color: #333333;">${f.name}</div>
-                        </div>
-                    </c:forEach>
-                </c:otherwise>
-            </c:choose>
+            <div id="selectedFriends" class="d-flex"></div>
+
         </div>
         <div style="position: relative; margin-bottom: 10px;">
             <input oninput="searchFriends()" id="searchText" type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative" placeholder="친구 아이디를 검색하세요." >
@@ -216,7 +231,7 @@
         </div>
 
     </div>
-    <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="creategroup" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; background-color: #FF9494; color: white;" >생성하기</button>
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="submitNewGroup" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; background-color: #FF9494; color: white;" >생성하기</button>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin: 20px auto;">
         <div class="modal-dialog" style="max-width: 300px; margin: 20px auto">
