@@ -43,6 +43,7 @@ public class GroupController {
     @ResponseBody
     @RequestMapping("/createNewGroup")
     public int createNewGroup(@RequestParam("groupName") String groupName, @RequestParam("friendIds") List<String> friendIds) {
+        // 그룹 정상적으로 생성: groupId 반환, 그룹 생성 실패: 0 반환
         try {
             PromgroupDto promgroupDto = new PromgroupDto(groupName);
             int groupId = groupService.newGroup(promgroupDto);
@@ -50,7 +51,7 @@ public class GroupController {
             for (String userId : friendIds) {
                 groupmemberService.newGroupMember(userId, groupId);
             }
-            return 1;
+            return groupId;
         } catch (Exception e) {
             log.error("그룹 생성 중 오류 발생", e);
             return 0;

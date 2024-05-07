@@ -36,27 +36,8 @@
                 regist = false;
             } else {
                 regist = true;
-                let promiseName = $("#promiseName").val();
-                let promiseContent = $("#promiseContent").val();
-
-                let queryString = window.location.search;
-                let params = new URLSearchParams(queryString);
-                let groupId = params.get('groupId');
-
-                $.ajax({
-                    url: '/createpromise',
-                    type: 'GET',
-                    contentType: 'application/json',
-                    data: { promiseName: promiseName, promiseContent: promiseContent, groupId: groupId },
-                    success: function(res) {
-                        print(res)
-                    },
-                    error: function(xhr, status, error) {
-                    }
-                });
-                // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
                 toggleModalContent();
-                window.location.href ="/map?groupId="+groupId
+                // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
             }
         });
 
@@ -97,7 +78,7 @@
     });
 </script>
 <style>
-    input::placeholder, textarea::placeholder {
+    input::placeholder {
         color: #CCCCCC;
     }
 </style>
@@ -108,20 +89,30 @@
     <div class="d-flex flex-column">
         <div style="margin-bottom: 40px">
             <div class="fw-medium" style="font-size: 16px">약속명</div>
-            <input id="promiseName" type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우행시 모임" />
+            <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우행시 모임" />
         </div>
-
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 16px">그룹명</div>
-            <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >${groupName}</div>
+            <div class="fw-medium" style="font-size: 16px">약속장소(자동 로딩!)</div>
+            <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >서울시 동교로 33안길 35</div>
         </div>
-
+        <div style="margin-bottom: 40px">
+            <div class="fw-medium" style="font-size: 16px">그룹(자동 로딩?)</div>
+            <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >우행시 모임</div>
+        </div>
+        <div style="margin-bottom: 40px">
+            <div class="fw-medium" style="font-size: 16px">약속 날짜</div>
+            <input type="date" class="w-100" style="color: #CCCCCC; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="MM/DD/YY" />
+        </div>
+        <div style="margin-bottom: 40px">
+            <div class="fw-medium" style="font-size: 16px">약속 시간</div>
+            <input type="time" class="w-100" style="color: #CCCCCC; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="우행시 모임" />
+        </div>
         <div style="margin-bottom: 40px">
             <div class="fw-medium" style="font-size: 16px">약속 내용</div>
-            <textarea id="promiseContent" rows="5" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우리들의 행복한 시간 ^^~" ></textarea>
+            <textarea rows="5" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우리들의 행복한 시간 ^^~" ></textarea>
         </div>
     </div>
-    <button id="makePromise" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0;" >생성하기</button>
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0;" >생성하기</button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin: 20px auto;">
         <div class="modal-dialog" style="max-width: 300px; margin: 20px auto">
             <div class="modal-content" style="max-width: 400px;">
