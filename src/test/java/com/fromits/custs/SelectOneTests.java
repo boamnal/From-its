@@ -8,23 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class InsertTests {
+class SelectOneTests {
 
   @Autowired
   CustService custService;
 
   @Test
-  void contextLoads() {
-    // mapper 파라미터 순서는 db 컬럼 순서와 맞혀줘야 함.
-    CustDto custDto = CustDto.builder().userId("id04").email("id03@gmail.com").password("pwd04").address("서울 구로구").zipcode("07544").profile(1).name("김한주").build();
+  void contextLoads() throws Exception {
+    // get 메서드 호출 결과를 변수에 저장
+    CustDto custDto = custService.get("chuncoo");
+    // 반환된 CustDto를 로그에 출력
+    log.info("CustDto: {}", custDto);
+    log.info("----------OK----------------");
 
     try {
-      custService.add(custDto);
+//      custService.add(custDto);
       log.info("----------OK----------------");
     } catch (Exception e) {
       if (e instanceof SQLException) {
