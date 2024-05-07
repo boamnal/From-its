@@ -39,11 +39,11 @@
                 data: {'id': id},
                 success: (result) => {
                     let msg = "아이디가 존재합니다!";
-                    let color = "red";
+                    let color = "#E05938";
 
                     if (result == '1') {
                         msg = "아이디 사용 가능해요.";
-                        color = "blue";
+                        color = "#0819B8";
                     }
                     $('#check_id_msg').html(msg).css("color", color);
                 }
@@ -116,6 +116,12 @@
         join.init('<c:url value="/member/addimpl"/>');
     });
 </script>
+<style>
+    .form-control::placeholder {
+        color: #CCCCCC;
+    }
+
+</style>
 <div style="margin: 0px 20px;">
     <div class="d-flex justify-content-center py-4" style="margin-top: 30px; margin-bottom: 20px;">
         <h1>회원가입</h1>
@@ -138,7 +144,7 @@
                        style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
 
                 <button id="btn_check" type="button" class="btn btn-primary rounded-3 fw-bolder text-nowrap"
-                        style="background-color: #FEF4F2; color: #FF9494; padding: 12px; ">확인
+                        style="padding: 12px; ">확인
                 </button>
             </div>
             <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
@@ -171,7 +177,7 @@
                        name="zipcode" required
                        style="margin:12px 12px; padding: 12px; background-color: #F8F8FA; border-style: none">
                 <button id="find_zipcode" type="button" class="btn btn-primary rounded-3 fw-bolder text-nowrap"
-                        style="background-color: #FEF4F2; color: #FF9494; padding: 12px;"
+                        style="padding: 12px;"
                         onclick="sample6_execDaumPostcode()">우편번호
                     찾기
                 </button>
@@ -191,7 +197,7 @@
             <input type="hidden" id="profile" name="profile">
 
             <button class="w-100 btn btn-primary rounded-3 fw-bolder" id="join_ok_btn"
-                    style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494">회원가입
+                    style="padding: 12px 0;">회원가입
             </button>
 
         </div>

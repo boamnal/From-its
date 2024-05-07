@@ -29,8 +29,7 @@
                 data: {id: id, pwd: pwd},
                 success: function (response) {
                     if (response == "success") {
-                        alert("로그인 성공");
-                        window.location.href = '/';
+                        window.location.href = '/schedule';
                     } else {
                         alert(response); // 서버에서 반환한 오류 메시지를 표시합니다.
                     }
@@ -54,12 +53,12 @@
                 url: '<c:url value="/member/checkid"/>',
                 data: {'id': id},
                 success: (result) => {
-                    let msg = "아이디가 존재합니다!";
+                    let msg = "";
                     let color = "blue";
 
                     if (result == '1') {
                         msg = "아이디가 존재하지 않습니다.";
-                        color = "red";
+                        color = "#E05938";
                     }
                     $('#check_msg').html(msg).css("color", color);
                 }
@@ -70,6 +69,13 @@
         id_check.init();
     });
 </script>
+
+<style>
+    .form-control::placeholder {
+        color: #CCCCCC;
+    }
+
+</style>
 <div style="margin: 0px 20px;">
     <div class="d-flex justify-content-center py-4" style="margin-top: 30px; margin-bottom: 20px;">
         <h1>로그인</h1>
@@ -97,13 +103,10 @@
             <input type="hidden" id="profile" name="profile">
 
             <button class="w-100 btn btn-primary rounded-3 fw-bolder" id="ok_btn"
-                    style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494">로그인
+                    style="padding: 12px 0;">로그인
             </button>
-
         </div>
-
     </form>
-
 </div>
 
 
