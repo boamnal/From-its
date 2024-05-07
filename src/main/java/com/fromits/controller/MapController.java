@@ -39,8 +39,9 @@ public class MapController {
 
     @ResponseBody
     @RequestMapping("/addcandidate")
-    public Object candidate(devoteCandidateDto dto) throws Exception {
-        dto.setDevoteId(0);
+    public Object candidate(devoteCandidateDto dto, HttpSession session) throws Exception {
+        String userId = session.getAttribute("user_id");
+        dto.setUserId(userId);
         System.out.println(dto.toString());
         devoteCandidateDto dto2 = mapService.getById(dto.getDevoteId(), dto.getPlaceId());
         if(dto2 == null) {
