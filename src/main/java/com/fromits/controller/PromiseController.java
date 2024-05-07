@@ -1,12 +1,10 @@
 package com.fromits.controller;
 
-import com.fromits.app.dto.CustDto;
-import com.fromits.app.dto.GroupmemberDto;
-import com.fromits.app.dto.PromgroupDto;
-import com.fromits.app.dto.PromiseDto;
+import com.fromits.app.dto.*;
 import com.fromits.app.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,6 @@ import java.util.List;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-
 public class PromiseController {
     String dir = "promise/";
     final GroupService groupService;
@@ -26,6 +23,9 @@ public class PromiseController {
     final FriendsService friendsService;
     final GroupmemberService groupmemberService;
     final CustService custService;
+
+    @Value("${app.key.kakaokey}")
+    private String kakaoKey;
 
     @RequestMapping("/schedule")
     public String promise(Model model) throws Exception {
@@ -57,12 +57,10 @@ public class PromiseController {
 
     @ResponseBody
     @RequestMapping("/getFriendsAddress")
-    public int getFriendsAddress(Model model, @RequestParam("groupId") int groupId) throws Exception {
+    public List<CustDto> getFriendsAddress(Model model, @RequestParam("groupId") int groupId) throws Exception {
         // 각 멤버의 주소를 리스트에 저장
-        List<String> memberAddress = custService.getMemberAddress(groupId);
-        log.info(memberAddress.toString());
-
-        return 1;
+        List<CustDto> memberAddress = custService.getMemberAddress(groupId);
+        return memberAddress;
     }
 
 

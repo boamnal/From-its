@@ -63,8 +63,8 @@ public class CustService implements HanaService<String, CustDto> {
   }
 
 
-  public List<String> getMemberAddress(int groupId) throws Exception {
-    List<String> memberAddress = custRepository.getMemberAddress(groupId);
+  public List<CustDto> getMemberAddress(int groupId) throws Exception {
+    List<CustDto> memberAddress = custRepository.getMemberAddress(groupId);
     return memberAddress;
   }
 }

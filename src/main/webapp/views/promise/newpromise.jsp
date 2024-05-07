@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
+
 <script>
     let regist = false;
 
@@ -22,85 +24,76 @@
         }
     }
 
-    // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리합니다.
+    // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리
     $('#exampleModal').on('hidden.bs.modal', function () {
         toggleModalContent();
     });
 
-    $(function () {
-        toggleModalContent();
+    function addressToCoordinate () {
+        // 주소-좌표 변환 객체
+        var geocoder = new kakao.maps.services.Geocoder();
 
-        $("#confirmButton").click(() => {
-            if (regist) {
-                $('#exampleModal').modal('hide');
-                regist = false;
-            } else {
-                regist = true;
-                let promiseName = $("#promiseName").val();
-                let promiseContent = $("#promiseContent").val();
+        geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
 
-                let queryString = window.location.search;
-                let params = new URLSearchParams(queryString);
-                let groupId = params.get('groupId');
-
-                $.ajax({
-                    url: '/getFriendsAddress',
-                    type: 'GET',
-                    contentType: 'application/json',
-                    data: { groupId: groupId },
-                    success: function(res) {
-                        print(res)
-                    },
-                    error: function(xhr, status, error) {
-                    }
-                })
-
-                $.ajax({
-                    url: '/createpromise',
-                    type: 'GET',
-                    contentType: 'application/json',
-                    data: { promiseName: promiseName, promiseContent: promiseContent, groupId: groupId },
-                    success: function(res) {
-                        print(res)
-                    },
-                    error: function(xhr, status, error) {
-                    }
-                });
-                // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
-                toggleModalContent();
-                window.location.href ="/map?groupId="+groupId
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    console.log(coords, "제발제발")
+                }
             }
-        });
+        )
+    }
 
-        $("#cancelButton").click(() => {
-            $('#exampleModal').modal('hide');
-        });
-
-        $("#resultModal").on('hidden.bs.modal', function () {
-            $('#exampleModal').modal('show'); // 결과 모달이 닫히면 등록 모달을 다시 표시
-        });
-    });
     let createPromise = {
         init: function () {
-            // date input 요소의 onchange 이벤트 처리
-
-            $('input[type="date"]').on('change', function() {
-                // 값이 변경되면 placeholder 색상을 변경
-                if ($(this).val() !== '') {
-                    $(this).css('color', '#333333');
+            toggleModalContent();
+            $("#confirmButton").click(() => {
+                if (regist) {
+                    $('#exampleModal').modal('hide');
+                    regist = false;
                 } else {
-                    $(this).css('color', '#CCCCCC');
-                }
-            });
+                    regist = true;
+                    let promiseName = $("#promiseName").val();
+                    let promiseContent = $("#promiseContent").val();
 
-            // time input 요소의 onchange 이벤트 처리
-            $('input[type="time"]').on('change', function() {
-                // 값이 변경되면 placeholder 색상을 변경
-                if ($(this).val() !== '') {
-                    $(this).css('color', '#333333');
-                } else {
-                    $(this).css('color', '#CCCCCC');
+                    let queryString = window.location.search;
+                    let params = new URLSearchParams(queryString);
+                    let groupId = params.get('groupId');
+
+                    $.ajax({
+                        url: '/getFriendsAddress',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        data: {groupId: groupId},
+                        success: function (res) {
+                            console.log(res)
+                        },
+                        error: function (xhr, status, error) {
+                        }
+                    })
+
+                    $.ajax({
+                        url: '/createpromise',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        data: {promiseName: promiseName, promiseContent: promiseContent, groupId: groupId},
+                        success: function (res) {
+                            print(res)
+                        },
+                        error: function (xhr, status, error) {
+                        }
+                    });
+                    // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
+                    toggleModalContent();
+                    // window.location.href ="/map?groupId="+groupId
                 }
+
+                $("#cancelButton").click(() => {
+                    $('#exampleModal').modal('hide');
+                });
+
+                $("#resultModal").on('hidden.bs.modal', function () {
+                    $('#exampleModal').modal('show'); // 결과 모달이 닫히면 등록 모달을 다시 표시
+                });
             });
         }
     };
@@ -113,7 +106,6 @@
         color: #CCCCCC;
     }
 </style>
-
 
 <div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">약속 만들기</div>
