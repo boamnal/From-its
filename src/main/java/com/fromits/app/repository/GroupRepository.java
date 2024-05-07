@@ -13,6 +13,10 @@ import java.util.List;
 @Repository
 @Mapper
 public interface GroupRepository extends HanaRepository<Integer, PromgroupDto> {
+
+    int newGroup(String name);
+
     public List<PromiseDto> getPromisebyGroupId(int groupId) throws Exception;
     void newGroup(String name);
+
 }

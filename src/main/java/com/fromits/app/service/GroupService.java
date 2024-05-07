@@ -7,12 +7,14 @@ import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.CustRepository;
 import com.fromits.app.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class GroupService implements HanaService<Integer, PromgroupDto> {
     final GroupRepository groupRepository;
 
