@@ -17,6 +17,7 @@
         WHERE u.user_id = f.user_id AND u.user_id != #{userId}
     </select>
 
+
     <!-- 사용자가 입력한 텍스트를 포함하는 친구 아이디, 이름 검색 -->
     <select id="searchMyFriends" parameterType="String">
         SELECT u.user_id as user_id, u.name as name, u.profile as profile
@@ -25,6 +26,12 @@
           AND u.user_id != #{userId}
           AND (u.user_id LIKE CONCAT('%', #{searchText}, '%') OR u.name LIKE CONCAT('%', #{searchText}, '%'))
     </select>
+
+    <insert id="addFriend" parameterType="FriendsDto">
+        INSERT INTO friends (user_id, user_id2)
+        VALUES (#{userId}, #{userId2}), (#{userId2}, #{userId})
+    </insert>
+
 
 
     <delete id="delete" parameterType="String">

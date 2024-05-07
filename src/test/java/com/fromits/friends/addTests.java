@@ -22,9 +22,9 @@ class addTests {
   @Test
   void contextLoads() {
     FriendsDto dto = FriendsDto.builder().userId("id01").userId2("id02").build();
-
     try {
       service.addFriend(dto);
+
       log.info("----------OK----------------");
     } catch (Exception e) {
       if (e instanceof SQLException) {
