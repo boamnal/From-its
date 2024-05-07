@@ -1,4 +1,5 @@
-
+<!--추가 시 호출되는 페이지 get 방식을 이용해 약속 id 전달 필요
+http://suldo.com/411-->
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
@@ -27,6 +28,10 @@
                 }, // 전송할 데이터
                 success: function(response) {
                     console.log('Data sent successfully', response);
+                    if(response == 1)
+                        alert("추가에 성공했습니다.")
+                    else (response == 0)
+                    alert("이미 추가 된 장소입니다")
                 },
                 error: function(xhr, status, error) {
                     console.error('Data sending failed:', error);
@@ -100,7 +105,7 @@
 <div id="map" class="map"></div>
 
 <div id="list"></div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
 <script>
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
     const infowindow = new kakao.maps.InfoWindow({zIndex: 1});
