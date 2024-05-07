@@ -27,11 +27,47 @@
           AND (u.user_id LIKE CONCAT('%', #{searchText}, '%') OR u.name LIKE CONCAT('%', #{searchText}, '%'))
     </select>
 
+    <!-- 사용자와 친구가 아닌 사용자 아이디, 이름, 프로필 검색 -->
+    <select id="getOther" parameterType="String" resultMap="friendsResult">
+        SELECT u.user_id as user_id, u.name as name, u.profile as profile
+        FROM user u
+        WHERE u.user_id NOT IN (SELECT f.user_id
+                                FROM friends f
+                                WHERE f.user_id = #{userId}
+                                UNION
+                                SELECT f.user_id2
+                                FROM friends f
+                                WHERE f.user_id2 = #{userId})
+          AND u.user_id != #{userId};
+    </select>
+
+    <!-- 사용자가 입력한 텍스트의 친구가 아닌 사용자 아이디, 이름, 프로필 검색 -->
+    <select id="searchOther" parameterType="String" resultMap="friendsResult">
+        SELECT u.user_id as userId, u.name as name, u.profile as profile
+        FROM user u
+        WHERE u.user_id NOT IN (SELECT f.user_id
+                                FROM friends f
+                                WHERE f.user_id = #{userId}
+                                UNION
+                                SELECT f.user_id2
+                                FROM friends f
+                                WHERE f.user_id2 = #{userId})
+          AND u.user_id != #{userId}
+          AND (u.user_id LIKE CONCAT('%'
+            , #{searchText}
+            , '%')
+           OR u.name LIKE CONCAT('%'
+            , #{searchText}
+            , '%'))
+    </select>
+
+
+    <!-- 사용자와 친구 맺기-->
     <insert id="addFriend" parameterType="String">
         INSERT INTO friends (user_id, user_id2)
-        VALUES (#{userId}, #{userId2}), (#{userId2}, #{userId})
+        VALUES (#{userId}, #{userId2}),
+               (#{userId2}, #{userId})
     </insert>
-
 
 
     <delete id="delete" parameterType="String">
