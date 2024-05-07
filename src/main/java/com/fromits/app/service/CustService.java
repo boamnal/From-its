@@ -4,8 +4,6 @@ import com.fromits.app.dto.CustDto;
 import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.CustRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.javassist.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +41,7 @@ public class CustService implements HanaService<String, CustDto> {
     return custRepository.select();
   }
 
-  // id로 찾기
+  // 친구-id로 찾기
   public List<CustDto> findInfoById(Map<String, Object> searchKeyword) throws Exception {
     // 여러 결과를 반환하도록 수정
     List<CustDto> list = custRepository.searchInfoById(searchKeyword);
@@ -52,5 +50,15 @@ public class CustService implements HanaService<String, CustDto> {
 //      throw new NotFoundException("검색 결과가 없는 경우에요~");
 //    }
     return list;
+  }
+
+  // ID 찾기
+  public String findUserId(String name, String email) throws Exception {
+    return custRepository.searchId(name, email);
+  }
+
+  // pwd 찾기
+  public String findUserPwd(String id) throws Exception {
+    return custRepository.searchPwd(id);
   }
 }

@@ -88,7 +88,8 @@
             $('#join_ok_btn').click(function () { // 로그인 버튼
                 console.log("확인 버튼  함수");
 
-                const profiles = [0, 1, 2];
+                const profiles = [1, 2, 3];
+
                 let randomIndex = Math.floor(Math.random() * profiles.length);
                 let selectedProfile = profiles[randomIndex];
 
@@ -101,6 +102,7 @@
         send: function () {
             // html에서의 attribute -> 태그의 여러 속성 의미
             // 여러개 보낼때는 object 형식으로
+
             $('#reg_form').attr({
                 'method': 'post',
                 'action': this.url
@@ -128,6 +130,7 @@
                        required style="margin:12px 40px; padding: 12px; background-color: #F8F8FA; border-style: none">
             </div>
         </div>
+      
         <div class="join_form px-4" style="margin: 20px 0px">
             <div class="form-group d-flex align-items-center">
                 <label for="id" class="flex-grow-1 mb-0 text-nowrap fw-medium">아이디</label>

@@ -4,21 +4,69 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fromits.app.repository.FriendsRepository">
 
-    <select id="selectOne" parameterType="String" resultType="custDto">
-        SELECT user_id
-        FROM friends
-        WHERE user_id = #{userId}
+    <!--내 친구 보기 (아이디, 이름, 프로필 사진 조회)-->
+    <resultMap id="friendsResult" type="com.fromits.app.dto.FriendsDto">
+        <result column="user_id" property="userId" />
+        <result column="name" property="name" />
+        <result column="profile" property="profile" />
+    </resultMap>
+
+    <select id="getMyFriends" parameterType="String" resultMap="friendsResult">
+        SELECT u.user_id as user_id, u.name as name, u.profile as profile
+        FROM user u, friends f
+        WHERE u.user_id = f.user_id AND u.user_id != #{userId}
     </select>
 
-    <select id="select" resultType="custDto">
-        SELECT *
-        FROM friends
+
+    <!-- 사용자가 입력한 텍스트를 포함하는 친구 아이디, 이름 검색 -->
+    <select id="searchMyFriends" parameterType="String">
+        SELECT u.user_id as user_id, u.name as name, u.profile as profile
+        FROM user u, friends f
+        WHERE u.user_id = f.user_id
+          AND u.user_id != #{userId}
+          AND (u.user_id LIKE CONCAT('%', #{searchText}, '%') OR u.name LIKE CONCAT('%', #{searchText}, '%'))
+    </select>
+
+    <!-- 사용자와 친구가 아닌 사용자 아이디, 이름, 프로필 검색 -->
+    <select id="getOther" parameterType="String" resultMap="friendsResult">
+        SELECT u.user_id as user_id, u.name as name, u.profile as profile
+        FROM user u
+        WHERE u.user_id NOT IN (SELECT f.user_id
+                                FROM friends f
+                                WHERE f.user_id = #{userId}
+                                UNION
+                                SELECT f.user_id2
+                                FROM friends f
+                                WHERE f.user_id2 = #{userId})
+          AND u.user_id != #{userId};
+    </select>
+
+    <!-- 사용자가 입력한 텍스트의 친구가 아닌 사용자 아이디, 이름, 프로필 검색 -->
+    <select id="searchOther" parameterType="String" resultMap="friendsResult">
+        SELECT u.user_id as userId, u.name as name, u.profile as profile
+        FROM user u
+        WHERE u.user_id NOT IN (SELECT f.user_id
+                                FROM friends f
+                                WHERE f.user_id = #{userId}
+                                UNION
+                                SELECT f.user_id2
+                                FROM friends f
+                                WHERE f.user_id2 = #{userId})
+          AND u.user_id != #{userId}
+          AND (u.user_id LIKE CONCAT('%'
+            , #{searchText}
+            , '%')
+           OR u.name LIKE CONCAT('%'
+            , #{searchText}
+            , '%'))
     </select>
 
 
-    <insert id="insert" parameterType="custDto">
-        INSERT INTO friends
-        VALUES (#{userId}, #{userId})
+    <!-- 사용자와 친구 맺기-->
+    <insert id="addFriend" parameterType="String">
+        INSERT INTO friends (user_id, user_id2)
+        VALUES (#{userId}, #{userId2}),
+               (#{userId2}, #{userId})
     </insert>
 
 

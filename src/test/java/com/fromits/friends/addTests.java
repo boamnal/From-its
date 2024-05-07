@@ -1,30 +1,29 @@
-package com.fromits.custs;
+package com.fromits.friends;
 
 import com.fromits.app.dto.CustDto;
+import com.fromits.app.dto.FriendsDto;
 import com.fromits.app.service.CustService;
+import com.fromits.app.service.FriendsService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class InsertTests {
+class addTests {
 
   @Autowired
-  CustService custService;
+  FriendsService service;
 
   @Test
   void contextLoads() {
-    // mapper 파라미터 순서는 db 컬럼 순서와 맞혀줘야 함.
-    CustDto custDto = CustDto.builder().userId("id04").email("id03@gmail.com").password("pwd04").address("서울 구로구").zipcode("07544").profile(1).name("김한주").build();
-
     try {
-      custService.add(custDto);
+      service.addFriend("id02", "id03");
+
       log.info("----------OK----------------");
     } catch (Exception e) {
       if (e instanceof SQLException) {

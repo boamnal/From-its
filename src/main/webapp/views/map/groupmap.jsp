@@ -1,5 +1,4 @@
-<!--추가 시 호출되는 페이지 get 방식을 이용해 약속 id 전달 필요
-http://suldo.com/411-->
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
@@ -8,33 +7,17 @@ http://suldo.com/411-->
 
 <script>
     $(document).ready(function() {
-        // "#list" 내의 버튼에 클릭 이벤트 위임
-        $('#list').on('click', 'button', function() {
-            let hiddenValue = $(this).parent().prev('input[type="hidden"]').val();
-            data = map_data.find(item => item.id === hiddenValue);
-            let devoteId = $("#devote").val()
-            console.log(data)
-
+        $('#optionsDropdown').change(function() {
+            var selectedOption = $(this).val(); // 선택된 옵션 값
             $.ajax({
-                url: '/map/addcandidate', // 서버의 URL
-                type: 'POST', // 데이터 전송 방식
-                data: {
-                    "placeName" : data.place_name,
-                    "placeAddress" : data.road_address_name,
-                    "placeId" : data.id,
-                    "lat" : data.x,
-                    "log" : data.y,
-                    "devoteId" : devoteId
-                }, // 전송할 데이터
+                url: '/getpromise', // 서버의 데이터를 가져올 URL
+                type: 'GET', // 요청 방식
+                data: { option: selectedOption }, // 서버로 전송할 데이터
                 success: function(response) {
-                    console.log('Data sent successfully', response);
-                    if(response == 1)
-                        alert("추가에 성공했습니다.")
-                    else (response == 0)
-                    alert("이미 추가 된 장소입니다")
+                    placesSearchCB(response)
                 },
-                error: function(xhr, status, error) {
-                    console.error('Data sending failed:', error);
+                error: function() {
+                    alert('Error fetching data.'); // 에러 발생시 알림
                 }
             });
         });
@@ -98,14 +81,23 @@ http://suldo.com/411-->
 </style>
 <div>
     <div class="input-group mb-3">
-        <input type="text" id="key" class="form-control" placeholder="Search">
-        <button type="button" class="btn btn-primary" id="search-input">찾기</button>
+        <select class="form-select" aria-label="Default select example">
+            <c:when test="${options == null}">
+                <option value="">아직 약속이 없습니다. 약속을 만들어주세요</option>
+            </c:when>
+            <c:otherwise>
+                <option value="">약속을 선택하세요</option>
+                <c:forEach var="option" items="${options}">
+                    <option value="${option}">${option}</option>
+                </c:forEach>
+            </c:otherwise>
+        </select>
     </div>
 </div>
 <div id="map" class="map"></div>
 
 <div id="list"></div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
 <script>
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
     const infowindow = new kakao.maps.InfoWindow({zIndex: 1});
@@ -135,7 +127,7 @@ http://suldo.com/411-->
         if (status === kakao.maps.services.Status.OK) {
             map_data = data;
             console.log(map_data)
-            // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+            // 검색된 장소 위치를 기준으로    지도 범위를 재설정하기위해
             // LatLngBounds 객체에 좌표를 추가합니다
             var bounds = new kakao.maps.LatLngBounds();
 
