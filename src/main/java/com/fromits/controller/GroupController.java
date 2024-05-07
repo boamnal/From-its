@@ -1,7 +1,6 @@
 package com.fromits.controller;
 
 
-import com.fromits.app.dto.CreateGroupRequest;
 import com.fromits.app.dto.FriendsDto;
 import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.repository.GroupmemberRepository;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,12 +43,14 @@ public class GroupController {
 
     @ResponseBody
     @RequestMapping("/createNewGroup")
-    public int createNewGroup(@RequestBody CreateGroupRequest createGroupRequest) {
+    public int createNewGroup(@RequestParam("groupName") String groupName, @RequestParam("friendIds") List<String> friendIds) {
+        log.info("-------------------", groupName);
+        log.info("-------------------", friendIds);
         try {
-            groupService.newGroup(createGroupRequest.getGroupName());
+            int groupId = groupService.newGroup(groupName);
 
-            for (String userId : createGroupRequest.getFriendIds()) {
-                groupmemberRepository.newGroupMember(userId);
+            for (String userId : friendIds) {
+                groupmemberRepository.newGroupMember(userId, groupId);
             }
             return 1;
         } catch (Exception e) {

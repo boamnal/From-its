@@ -173,9 +173,9 @@
                 let groupName = $("#groupName").val()
                 $.ajax({
                     url: '/createNewGroup',
-                    type: 'POST',
+                    type: 'GET',
                     contentType: 'application/json',
-                    data: JSON.stringify({ groupName: groupName, friendIds: selectedFriends }),
+                    data: { groupName: groupName, friendIds: selectedFriends },
                     success: function(response) {
                     },
                     error: function(xhr, status, error) {
