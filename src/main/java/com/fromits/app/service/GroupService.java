@@ -34,8 +34,8 @@ public class GroupService implements HanaService<Integer, PromgroupDto> {
     }
 
     @Override
-    public PromgroupDto get(Integer integer) throws Exception {
-        return null;
+    public PromgroupDto get(Integer groupId) throws Exception {
+        return groupRepository.selectOne(groupId);
     }
 
     @Override
