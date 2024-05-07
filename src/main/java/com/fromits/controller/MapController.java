@@ -19,6 +19,12 @@ public class MapController {
         return "main";
     }
 
+    @RequestMapping("/group")
+    public String group(Model model, @RequestParam("id") int groupId) throws Exception {
+        model.addAttribute("center", dir + "groupmap");
+        return "main";
+    }
+
     @ResponseBody
     @RequestMapping("/addcandidate")
     public Object candidate(devoteCandidateDto dto){
