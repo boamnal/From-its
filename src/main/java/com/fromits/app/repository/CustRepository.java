@@ -18,4 +18,7 @@ public interface CustRepository extends HanaRepository<String, CustDto> {
 
   String searchPwd(String id);
 
+  // 해당 그룹 멤버의 주소 목록 반환
+  List<String> getMemberAddress(int groupId) throws Exception;
+
 }

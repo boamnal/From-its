@@ -10,4 +10,6 @@
     <select id="getGroupMember" parameterType="Integer" resultType="groupMemberDto">
         select user_id from group_member where group_id=#{groupId};
     </select>
+
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.fromits.app.service;
 
+import com.fromits.app.dto.CustDto;
 import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.PromiseRepository;
@@ -38,4 +39,5 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
     public List<PromiseDto> get() throws Exception {
         return null;
     }
+
 }

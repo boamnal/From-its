@@ -41,4 +41,11 @@
         WHERE UPPER(user_id) LIKE CONCAT('%', UPPER(#{searchKeyword}), '%')
     </select>
 
+    <!--해당 그룹 멤버의 주소 목록 반환-->
+    <select id="getMemberAddress"  parameterType="Integer" resultType="custDto">
+        SELECT address
+        FROM user JOIN group_member ON user.user_id = group_member.user_id
+        WHERE group_member.group_id = #{groupId};
+    </select>
+
 </mapper>

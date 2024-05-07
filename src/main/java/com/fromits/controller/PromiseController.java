@@ -1,12 +1,10 @@
 package com.fromits.controller;
 
+import com.fromits.app.dto.CustDto;
 import com.fromits.app.dto.GroupmemberDto;
 import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.dto.PromiseDto;
-import com.fromits.app.service.FriendsService;
-import com.fromits.app.service.GroupService;
-import com.fromits.app.service.GroupmemberService;
-import com.fromits.app.service.PromiseService;
+import com.fromits.app.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,6 +25,7 @@ public class PromiseController {
     final PromiseService promiseService;
     final FriendsService friendsService;
     final GroupmemberService groupmemberService;
+    final CustService custService;
 
     @RequestMapping("/schedule")
     public String promise(Model model) throws Exception {
@@ -59,10 +58,9 @@ public class PromiseController {
     @ResponseBody
     @RequestMapping("/getFriendsAddress")
     public int getFriendsAddress(Model model, @RequestParam("groupId") int groupId) throws Exception {
-        // 그룹 멤버들을 받아오고
-        List<String> getGroupMember = groupmemberService.getGroupMember(groupId);
-        log.info(getGroupMember.toString());
         // 각 멤버의 주소를 리스트에 저장
+        List<String> memberAddress = custService.getMemberAddress(groupId);
+        log.info(memberAddress.toString());
 
         return 1;
     }
