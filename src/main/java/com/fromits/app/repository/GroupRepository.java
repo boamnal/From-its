@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @Mapper
-public interface GroupRepository extends HanaRepository<Integer, PromgroupDto> 
+public interface GroupRepository extends HanaRepository<Integer, PromgroupDto> {
     public List<PromiseDto> getPromisebyGroupId(int groupId) throws Exception;
     void newGroup(String name);
 }
