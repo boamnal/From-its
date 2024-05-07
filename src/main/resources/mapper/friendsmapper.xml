@@ -46,7 +46,7 @@
 
     <!-- 사용자가 입력한 텍스트의 친구가 아닌 사용자 아이디, 이름, 프로필 검색 -->
     <select id="searchOther" parameterType="Map" resultMap="friendsResult">
-        SELECT u.user_id as userId, u.name as name, u.profile as profile
+        SELECT u.user_id as user_id, u.name as name, u.profile as profile
         FROM user u
         WHERE u.user_id NOT IN (SELECT CASE
                                            WHEN f.user_id = #{userId} THEN f.user_id2

@@ -106,7 +106,7 @@
                     // response 배열을 반복하면서 각 친구 정보를 화면에 추가
                     response.forEach(function (friend) {
                         // console.log(friend)
-                        var friendElement = '<li class="optionItem" data-friend-id="' + friend.id + '" data-friend-name="' + friend.name + '" data-friend-profile="' + friend.profile + '">' +
+                        var friendElement = '<li class="optionItem" data-friend-id="' + friend.userId + '" data-friend-name="' + friend.name + '" data-friend-profile="' + friend.profile + '">' +
                             '<div class="content">' +
                             '<img src="/img/' + friend.profile + '.png" style="width: 40px; height: 40px; margin-right: 10px; border: 1px solid #CCCCCC; padding: 2px; border-radius: 99px" />' +
                             friend.userId + ' <span style="color: #FF9494">(' + friend.name + ')</span>' +
