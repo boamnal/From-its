@@ -177,16 +177,17 @@
                     type: 'GET',
                     contentType: 'application/json',
                     data: { groupName: groupName, friendIds: selectedFriends },
-                    success: function(gruopId) {
+                    success: function(groupId) {
                         console.log("그룹멤버 등록 됨")
+                        // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
+                        toggleModalContent();
+                        window.location.href ="/newpromise?groupId="+groupId
                     },
                     error: function(xhr, status, error) {
                         console.log("그룹멤버 등록 실패")
                     }
                 });
-                // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
-                toggleModalContent();
-                window.location.href ="/newpromise?groupId="+gruopId
+
             }
         });
 

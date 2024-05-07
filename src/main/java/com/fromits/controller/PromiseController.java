@@ -43,12 +43,14 @@ public class PromiseController {
 
     @ResponseBody
     @RequestMapping("/createpromise")
-    public int createpromise(Model model, @RequestParam("promiseName") String promiseName, @RequestParam("promiseContent") String promiseContent, @RequestParam("groupId") int groupId) throws Exception {
+    public int createpromise(Model model, @RequestParam("promiseName") String promiseName, @RequestParam("promiseContent") String promiseContent, @RequestParam("groupId") int groupId, @RequestParam("midpointLat") double midpointLat, @RequestParam("midpointLon") double midpointLon) throws Exception {
         // 약속 생성 성공했을 시 1 반환
         PromiseDto promise = PromiseDto.builder()
                 .proName(promiseName)
                 .proDesc(promiseContent)
                 .groupId(groupId)
+                .proLat(midpointLat)
+                .proLon(midpointLon)
                 .build();
 
         promiseService.add(promise);
@@ -62,8 +64,6 @@ public class PromiseController {
         List<CustDto> memberAddress = custService.getMemberAddress(groupId);
         return memberAddress;
     }
-
-
 
     @RequestMapping("/finalpromise")
     public String finalpromise(Model model) throws Exception {

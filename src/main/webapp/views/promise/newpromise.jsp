@@ -13,6 +13,46 @@
     let regist = false;
     let memberCoordinates = []
 
+    function findMidpoint(locations) {
+        let sumX = 0, sumY = 0, sumZ = 0;
+        console.log("locationsssss", locations)
+
+        for (let i = 0; i < locations.length; i++) {
+            console.log("ㄸㅇ2",locations[i].La)
+
+        }
+
+        locations.forEach(location => {
+            // 라디안 단위로 변환
+            const latRad = location.Ma * Math.PI / 180;
+            const lonRad = location.La * Math.PI / 180;
+
+            // 3D 벡터로 변환
+            sumX += Math.cos(latRad) * Math.cos(lonRad);
+            sumY += Math.cos(latRad) * Math.sin(lonRad);
+            sumZ += Math.sin(latRad);
+        });
+
+        const avgX = sumX / locations.length;
+        const avgY = sumY / locations.length;
+        const avgZ = sumZ / locations.length;
+
+        // 중간 지점의 경도와 위도(라디안) 계산
+        const lon = Math.atan2(avgY, avgX);
+        const hyp = Math.sqrt(avgX * avgX + avgY * avgY);
+        const lat = Math.atan2(avgZ, hyp);
+
+
+
+        // 라디안을 도로 변환
+        const finalLat = lat * 180 / Math.PI;
+        const finalLon = lon * 180 / Math.PI;
+
+        return {La: finalLon, Ma: finalLat};
+    }
+
+
+
     function toggleModalContent() {
         if (regist) {
             $("#modalContent").text("생성되었습니다!");
@@ -25,17 +65,6 @@
         }
     }
 
-    function addressToCoordinate(address) {
-        var geocoder = new kakao.maps.services.Geocoder();
-
-        geocoder.addressSearch(address, function(result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                memberCoordinates.push(coords);
-            }
-        });
-    }
-
 
     // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리
     $('#exampleModal').on('hidden.bs.modal', function () {
@@ -43,29 +72,28 @@
     });
 
     function addressToCoordinate(address) {
-        // 주소-좌표 변환 객체
-        var geocoder = new kakao.maps.services.Geocoder();
-        var encodedAddress = encodeURIComponent(address); // 주소 인코딩
-
-        geocoder.addressSearch(encodedAddress, function(result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-                let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                memberCoordinates.push(coords);
-            }
+        return new Promise((resolve, reject) => {
+            var geocoder = new kakao.maps.services.Geocoder();
+            geocoder.addressSearch(address, function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    resolve(coords); // 좌표 변환 성공
+                } else {
+                    reject(new Error("주소 변환 실패")); // 좌표 변환 실패
+                }
+            });
         });
     }
 
 
+
     let createPromise = {
         init: function () {
-
+            console.log(memberCoordinates)
             toggleModalContent();
 
             $("#confirmButton").click(() => {
-                if (regist) {
-                    $('#exampleModal').modal('hide');
-                    regist = false;
-                } else {
+                if (!regist) {
                     regist = true;
                     let promiseName = $("#promiseName").val();
                     let promiseContent = $("#promiseContent").val();
@@ -74,35 +102,50 @@
                     let params = new URLSearchParams(queryString);
                     let groupId = params.get('groupId');
 
-
                     $.ajax({
                         url: '/getFriendsAddress',
                         type: 'GET',
                         contentType: 'application/json',
                         data: {groupId: groupId},
-                        success: function (res) {
-                            for (const user of res) {
-                                addressToCoordinate(user.address)
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                        }
-                    })
+                        success: async (res) => {
+                            try {
+                                let coordinatePromises = res.map(user => addressToCoordinate(user.address));
+                                let coordinates = await Promise.all(coordinatePromises); // 모든 좌표 변환 작업이 완료될 때까지 기다립니다.
+                                memberCoordinates = coordinates; // memberCoordinates 배열을 업데이트
+                                console.log(memberCoordinates);
+                                const midpoint = findMidpoint(memberCoordinates); // 비동기 함수가 아니므로 await 제거
+                                console.log(midpoint);
 
-                    $.ajax({
-                        url: '/createpromise',
-                        type: 'GET',
-                        contentType: 'application/json',
-                        data: {promiseName: promiseName, promiseContent: promiseContent, groupId: groupId},
-                        success: function (res) {
-                            print(res)
-                        },
-                        error: function (xhr, status, error) {
+                                // 여기에서 createPromise API 호출
+                                $.ajax({
+                                    url: '/createpromise',
+                                    type: 'GET',
+                                    contentType: 'application/json',
+                                    data: {
+                                        promiseName: promiseName,
+                                        promiseContent: promiseContent,
+                                        groupId: groupId,
+                                        midpointLat: midpoint.Ma, // 중간지점 위도
+                                        midpointLon: midpoint.La // 중간지점 경도
+                                    },
+                                    success: function (res) {
+                                        toggleModalContent();
+                                        setTimeout(() => {
+                                            window.location.href ="/map?groupId="+groupId
+                                        }, 1500);
+
+                                    }
+                                });
+                            } catch (error) {
+                                console.error("좌표 변환 실패:", error);
+                            }
                         }
                     });
-                    // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
-                    toggleModalContent();
-                    // window.location.href ="/map?groupId="+groupId
+
+
+                } else {
+                    $('#exampleModal').modal('hide');
+                    regist = false;
                 }
 
                 $("#cancelButton").click(() => {
@@ -118,6 +161,7 @@
     $(function () {
         createPromise.init();
     });
+
 </script>
 <style>
     input::placeholder, textarea::placeholder {
