@@ -27,6 +27,9 @@
           AND (u.user_id LIKE CONCAT('%', #{searchText}, '%') OR u.name LIKE CONCAT('%', #{searchText}, '%'))
     </select>
 
+
+    <!--친구 추가 로직-->
+
     <!-- 사용자와 친구가 아닌 모든 사용자 아이디, 이름, 프로필 검색 -->
     <select id="getOther" parameterType="String" resultMap="friendsResult">
         SELECT u.user_id as user_id, u.name as name, u.profile as profile
@@ -38,20 +41,20 @@
                                 SELECT f.user_id2
                                 FROM friends f
                                 WHERE f.user_id2 = #{userId})
-          AND u.user_id = #{userId};
+          AND u.user_id != #{userId};
     </select>
 
-    <!-- 사용자가 검색한 텍스트의 친구가 아닌 사용자 아이디, 이름, 프로필 검색 -->
-    <select id="searchOther" parameterType="String" resultMap="friendsResult">
-        SELECT u.user_id as userId, u.name as name, u.profile as profile
+    <!-- 사용자가 입력한 텍스트의 친구가 아닌 사용자 아이디, 이름, 프로필 검색 -->
+    <select id="searchOther" parameterType="Map" resultMap="friendsResult">
+        SELECT u.user_id as user_id, u.name as name, u.profile as profile
         FROM user u
-        WHERE u.user_id NOT IN (SELECT f.user_id
+        WHERE u.user_id NOT IN (SELECT CASE
+                                           WHEN f.user_id = #{userId} THEN f.user_id2
+                                           ELSE f.user_id
+                                           END
                                 FROM friends f
                                 WHERE f.user_id = #{userId}
-                                UNION
-                                SELECT f.user_id2
-                                FROM friends f
-                                WHERE f.user_id2 = #{userId})
+                                   OR f.user_id2 = #{userId})
           AND u.user_id != #{userId}
           AND (u.user_id LIKE CONCAT('%'
             , #{searchText}
