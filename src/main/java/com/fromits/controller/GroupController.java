@@ -79,7 +79,10 @@ public class GroupController {
         return "main";
     }
     @RequestMapping("/mygroup")
-    public String mygroup(Model model) throws Exception {
+    public String mygroup(Model model, HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
+        List<PromgroupDto> group = groupService.getMyGroup(userId);
+        model.addAttribute("mygroup",group);
         model.addAttribute("center",dir+"mygroup");
         return "main";
     }
