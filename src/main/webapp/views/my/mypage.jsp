@@ -34,6 +34,48 @@
         });
     });
 
+    // 친구 목록 조회
+    function searchFriends() {
+
+        $.ajax({
+            url: '/getAllFriends',
+            type: 'GET',
+
+            success: function (response) {
+                console.log(response)
+                // 검색 결과를 표시할 요소의 내용을 초기화
+                $(".optionList").empty();
+
+                if (response && response.length > 0) {
+                    // response 배열을 반복하면서 각 친구 정보를 화면에 추가
+                    response.forEach(function (friend) {
+                        // console.log(friend)
+                        var friendElement = '<li class="optionItem" data-friend-id="' + friend.userId + '" data-friend-name="' + friend.name + '" data-friend-profile="' + friend.profile + '">' +
+                            '<div class="content">' +
+                            '<img src="/img/' + friend.profile + '.png" style="width: 40px; height: 40px; margin-right: 10px; border: 1px solid #CCCCCC; padding: 2px; border-radius: 99px" />' +
+                            friend.userId + ' <span style="color: #FF9494">(' + friend.name + ')</span>' +
+                            '</div>' +
+                            '</li>';
+                        $(".optionList").append(friendElement);
+                    });
+                } else {
+                    // 검색 결과가 비어있는 경우
+                    let noResult = `
+
+                        <div className="text-center" style="font-size: 16px; color: #333333">친구가 존재하지 않아요!</div>
+                        <button className="fw-bold align-items-center"
+                                style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none"
+                                onClick="window.location.href='/search'">친구 만들러가기
+                        </button>
+                    </div>
+                    `
+                    $(".optionList").append(noResult);
+                }
+            }
+        });
+    }
+
+
     // 등록여부 flag 변수
     let regist = false;
 
@@ -56,6 +98,7 @@
 
     $(function () {
         toggleModalContent();
+        searchFriends();
 
         $(".editButton").click(() => {
             if (regist) {
@@ -115,6 +158,71 @@
     input::placeholder {
         color: #CCCCCC;
     }
+
+    .scroll {
+        overflow: auto;
+        white-space: nowrap;
+    }
+
+    .scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .selectBox2 {
+        position: relative;
+    }
+
+    .selectBox2 .optionList {
+        /*position: absolute;*/
+        /*top: 60px;*/
+        left: 0;
+        width: 100%;
+        background: white;
+        color: #333333;
+        list-style-type: none;
+        padding: 0;
+        border-radius: 8px;
+        overflow-y: auto;
+        height: 200px;
+        transition: .3s ease-in;
+    }
+
+    .selectBox2 .optionItem {
+        border: 1px solid #EEEEEE;
+        border-radius: 8px;
+        padding: 13px 12px;
+        transition: .1s;
+        font-size: 16px;
+    }
+
+    .selectBox2 .optionItem:hover {
+        background: #FEF4F2;
+        color: #FF9494;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar-thumb {
+        background: #303030;
+        border-radius: 45px;
+    }
+
+    .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {
+        background: #303030;
+    }
+
+    .optionItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* 세로 중앙 정렬을 위해 추가 */
+    }
+
 </style>
 
 <div>
@@ -122,7 +230,7 @@
     <div class="d-flex flex-column">
         <div class="" style="border: 1px solid #EEEEEE; padding: 25px; border-radius: 12px">
             <div class="fw-bold text-center"
-                 style="font-size: 16px; padding-top: 8px; padding-bottom: 24px; color: #333333">${user_id} 님
+                 style="font-size: 16px; padding-top: 8px; padding-bottom: 24px; color: #333333">${custInfo.name} 님
             </div>
             <div class="w-100" style="background-color: #EEEEEE; height: 1px; margin-bottom: 24px"></div>
             <div class="text-center"
@@ -139,16 +247,18 @@
                 <path fill-rule="evenodd"
                       d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
             </svg>
-        </div>
-        <div class="friend-management-content"
-             style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <div class="text-center" style="font-size: 16px; color: #333333">친구가 아직 없어요!</div>
-            <button class="fw-bold align-items-center"
-                    style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none">
-                친구 만들러가기
-            </button>
 
         </div>
+        <div class="friend-management-content"
+             style="padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <input type="hidden" oninput="searchFriends()">
+
+            <div class="selectBox2">
+                <ul class="optionList">
+                </ul>
+            </div>
+        </div>
+
         <div class="d-flex justify-content-between align-items-center fw-bold friend-management"
              style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">
             약속 일정
