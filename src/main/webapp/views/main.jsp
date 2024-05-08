@@ -53,8 +53,6 @@
         $(document).click(() => {
             $("#myPageButton").removeClass("d-block");
             $("#myPageButton").addClass("d-none");
-
-            console.log("click")
         });
 
         // 마이페이지 버블을 클릭해도 문서 전체에 대한 클릭 이벤트가 발생하지 않도록 방지합니다.
