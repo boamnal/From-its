@@ -28,8 +28,10 @@
         <c:forEach items="${list}" var = "item">
             <div class="candidate" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px">
                 <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
-                    <div>판다딤섬</div>
-                    <div>서울 마포구 동교로 38안길 22</div>
+                    <div>${item.placeName}</div>
+                    <div>${item.placeAddress}</div>
+                    <input type="hidden" id = "devoteId" value="${item.devoteId}">
+                    <input type="hidden" id = "candidateId" value="${item.candidateId}">
                 </div>
             </div>
         </c:forEach>

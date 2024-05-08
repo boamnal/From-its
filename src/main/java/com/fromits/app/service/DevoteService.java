@@ -43,5 +43,9 @@ public class DevoteService implements HanaService<Integer, DevoteDto> {
         return devoteRepository.select();
     }
 
+    public int getStart(int id){
+        return devoteRepository.getStart(id);
+    }
+
 
 }

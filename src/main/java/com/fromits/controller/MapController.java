@@ -58,4 +58,11 @@ public class MapController {
     }
 
 
+
+    @ResponseBody
+    @RequestMapping("/getdevote")
+    public DevoteDto getdevote(Model model, @RequestParam("devoteId") int devoteId) throws Exception {
+        DevoteDto status = devoteService.get(devoteId);
+        return status;
+    }
 }

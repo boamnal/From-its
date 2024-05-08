@@ -132,80 +132,7 @@
         });
     }
     $(document).ready(function() {
-        $('#getBtn').click(function (){
-            let devoteId = $('#devoteId').val(); // 선택된 옵션 값
-            let url = '<c:url value="/map"/>'+ "?id="+ devoteId
-            location.href =url
-        });
 
-
-        $('#getVote').click(function (){
-            let devoteId = $('#devoteId').val(); // 선택된 옵션 값
-            let url = '<c:url value="/vote"/>'+ "?id="+ devoteId
-            location.href =url
-        });
-
-        $('#getStart').click(function (){
-            let devoteId = $('#devoteId').val();
-            $.ajax({
-                url: '<c:url value="/getCount"/>', // 서버의 데이터를 가져올 URL
-                type: 'GET', // 요청 방식
-                data: { devoteId: devoteId }, // 서버로 전송할 데이터
-                success: function(response) {
-                    if(response === 0){
-                        startDevote()
-                    }else {
-                        alert("아직 다른 친구가 후보를 추가하지 않았어요")
-                    }
-                },
-                error: function() {
-                    alert('Error fetching data.'); // 에러 발생시 알림
-                }
-            });
-        });
-
-        let startDevote = function (){
-
-            let devoteId = $('#devoteId').val();
-            $.ajax({
-                url: '<c:url value="/getStart"/>', // 서버의 데이터를 가져올 URL
-                type: 'GET', // 요청 방식
-                data: { devoteId: devoteId }, // 서버로 전송할 데이터
-                success: function(response) {
-                    location.href = '<c:url value="/vote"/>?id='+devoteId;
-                },
-                error: function() {
-                    alert('Error fetching data.'); // 에러 발생시 알림
-                }
-            });
-        }
-
-        let getdevote = function (){
-
-            let devoteId = $('#devoteId').val();
-            $.ajax({
-                url: '<c:url value="/map/getdevote"/>', // 서버의 데이터를 가져올 URL
-                type: 'GET', // 요청 방식
-                data: { devoteId: devoteId }, // 서버로 전송할 데이터
-                success: function(response) {
-                    console.log(response)
-                    if(response.devoteState == 1) {
-                        $('#getBtn').css('display', 'none');
-                        $('#getStart').css('display', 'none');
-                        $('#getVote').css('display', 'block');
-                    }
-
-                    else if(response.devoteState == 0) {
-                        $('#getBtn').css('display', 'block');
-                        $('#getStart').css('display', 'block');
-                        $('#getVote').css('display', 'none');
-                    }
-                },
-                error: function() {
-                    alert('Error fetching data.'); // 에러 발생시 알림
-                }
-            });
-        }
 
         $('#optionsDropdown').change(function() {
             var selectedOption = $(this).val(); // 선택된 옵션 값
@@ -218,7 +145,7 @@
             if(selectedOption === 'none')
                 return
             $.ajax({
-                url: '<c:url value="/getpromise"/>', // 서버의 데이터를 가져올 URL
+                url: '<c:url value="/getAllpromise"/>', // 서버의 데이터를 가져올 URL
                 type: 'GET', // 요청 방식
                 data: { option: selectedOption }, // 서버로 전송할 데이터
                 success: function(response) {
