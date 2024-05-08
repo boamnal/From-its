@@ -1,35 +1,20 @@
-package com.fromits.controller;
+package com.fromits.app.service;
 
-import com.fromits.app.dto.devoteCandidateDto;
-import com.fromits.app.service.MapService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.List;
+import javax.mail.internet.*;
 import java.util.Properties;
-import com.sun.mail.util.MailLogger;
 
-@Controller
 @RequiredArgsConstructor
-@Slf4j
-public class VoteController {
-    final MapService mapService;
-    String dir = "vote/";
+public class MailSender {
 
     @Value("${app.key.username}")
-    String mail;
+    static String mail;
     @Value("${app.key.password}")
-    String pwd;
-    public static void sendEmail(String to, String from, String host, String subject, String text, String pwd) {
+    static String pwd;
+    public static void sendEmail(String to, String from, String host, String subject, String text) {
         // 메일 서버 연결을 위한 프로퍼티 설정
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -40,8 +25,7 @@ public class VoteController {
         // 인증 정보
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-
-                return new PasswordAuthentication(from, pwd); // 발신자 이메일 계정과 비밀번호 입력
+                return new PasswordAuthentication(mail, pwd); // 발신자 이메일 계정과 비밀번호 입력
             }
         });
 
@@ -59,23 +43,13 @@ public class VoteController {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
-
-
-//        sendEmail("rkdalswn0833@gmail.com", mail, "smtp.gmail.com", "From-its", "투표가 완료되었습니다. 확인하세요", pwd);
-
     }
 
+    public static void main(String[] args) {
+        String to = "rkdalswn0833@naver.com"; // 수신자 이메일 주소
+        String from = mail; // 발신자 이메일 주소
+        String host = "smtp.gmail.com"; // 사용할 SMTP 서버 주소
 
-    @RequestMapping("/vote")
-    public String vote(Model model, @RequestParam("id") int devoteId) throws Exception {
-        List<devoteCandidateDto> list = mapService.selectByDevote(devoteId);
-
-        model.addAttribute("list", list);
-        model.addAttribute("devoteId", devoteId);
-        model.addAttribute("center",dir+"vote");
-        return "main";
+        sendEmail(to, from, host, "Test Subject", "Hello, this is sample email to send email using JavaMailAPI");
     }
-
-
-
 }

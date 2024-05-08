@@ -12,6 +12,17 @@ spring:
     encoding: utf-8
     cache-duration: 10
     fallback-to-system-locale: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(K2vOFcdhsJXrWY+3AwBN/rHU91Y1T3CIJLerrOjJ3Ms=)
+    password: ENC(nas9F6cfJ82OV0Gzjfe9unmiwooozI3BI0wLyc2y6II=)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   mvc:
     view:
@@ -38,3 +49,5 @@ logging:
 app:
   key:
     kakaokey: 18804eb288163725a4242773721f7eee
+    username: ENC(K2vOFcdhsJXrWY+3AwBN/rHU91Y1T3CIJLerrOjJ3Ms=)
+    password: ENC(nas9F6cfJ82OV0Gzjfe9unmiwooozI3BI0wLyc2y6II=)
