@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PromiseDto {
     int proId;
-    String proLat;
-    String proLon;
+    double proLat;
+    double proLon;
     String proName;
     LocalDate proDate;
     String proDesc;

@@ -1,19 +1,47 @@
 package com.fromits.controller;
 
-
+import com.fromits.app.dto.CustDto;
+import com.fromits.app.service.CustService;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @Slf4j
-public class MypageController {
-    String dir = "my/";
+@RequiredArgsConstructor
 
-    @RequestMapping("/mypage")
-    public String mypage(Model model) throws Exception {
-        model.addAttribute("center",dir+"mypage");
-        return "main";
-    }
+public class MypageController {
+  String dir = "my/";
+  final CustService custService;
+
+  @RequestMapping("/mypage")
+  public String mypage(Model model, HttpSession session) throws Exception {
+    String loggedInUserId = (String) session.getAttribute("user_id");
+    CustDto custDto = custService.get(loggedInUserId);
+
+    model.addAttribute("custInfo", custDto);
+    model.addAttribute("center", dir + "mypage");
+    return "main";
+  }
+
+  // 주소록 업데이트
+  @PostMapping("/updateAddress")
+  @ResponseBody
+  public String updateAddress(@RequestBody CustDto custDto, HttpSession session) throws Exception {
+    log.info("$$$$$$$$$");
+    log.info(custDto.toString());
+
+    custService.modifyAddress(custDto);
+
+    return "주소가 업데이트되었습니다.";
+  }
 }

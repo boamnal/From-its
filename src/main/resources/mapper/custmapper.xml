@@ -10,6 +10,13 @@
         WHERE user_id = #{userId}
     </select>
 
+    <!-- 마이페이지 주소록 업데이트 -->
+    <update id="updateAddress" parameterType="custDto">
+        UPDATE user
+        SET address = #{address}, zipcode = #{zipcode}
+        WHERE user_id = #{userId}
+    </update>
+
     <select id="select" resultType="custDto">
         SELECT *
         FROM user
@@ -39,6 +46,13 @@
         SELECT *
         FROM user
         WHERE UPPER(user_id) LIKE CONCAT('%', UPPER(#{searchKeyword}), '%')
+    </select>
+
+    <!--해당 그룹 멤버의 주소 목록 반환-->
+    <select id="getMemberAddress"  parameterType="Integer" resultType="custDto">
+        SELECT address
+        FROM user JOIN group_member ON user.user_id = group_member.user_id
+        WHERE group_member.group_id = #{groupId};
     </select>
 
 </mapper>

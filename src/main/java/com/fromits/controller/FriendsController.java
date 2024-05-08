@@ -94,7 +94,10 @@ public class FriendsController {
     String loggedInUserId = (String) session.getAttribute("user_id");
 
     String userId = loggedInUserId;
+    log.info("-------------------로그인한 사용자 아이디: " + userId);
     List<FriendsDto> searchOthers = friendsService.searchOther(userId, searchText);
+
+    log.info("@@@searchOthers"+searchOthers.toString());
     return searchOthers;
   }
 
@@ -102,6 +105,7 @@ public class FriendsController {
   @RequestMapping("/getAll")
   public List<FriendsDto> getAll(HttpSession session) throws Exception {
     String loggedInUserId = (String) session.getAttribute("user_id");
+    log.info("@@@@@@@@@@@@@@@@@@@@@@"+loggedInUserId);
     String userId = loggedInUserId;
     List<FriendsDto> myFriends = friendsService.getOther(userId);
     return myFriends;
@@ -110,13 +114,12 @@ public class FriendsController {
   // 친구 추가
   @ResponseBody
   @RequestMapping("/createNewFriend")
-  public int createNewFriend(@RequestParam("friendIds") String friendIds, HttpSession session) {
-    log.info("-------------------선택한 친구 아이디: ", friendIds);
+  public int createNewFriend(@RequestParam("friendId") String friendId, HttpSession session) {
+    log.info("-------------------선택한 친구 아이디: ", friendId);
 
     String loggedInUserId = (String) session.getAttribute("user_id");
-    String userId = loggedInUserId;
     try {
-      friendsService.addFriend(loggedInUserId, friendIds);
+      friendsService.addFriend(loggedInUserId, friendId);
 
       return 1;
     } catch (Exception e) {

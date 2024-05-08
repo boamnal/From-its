@@ -21,8 +21,14 @@ class SelectOneTests {
   void contextLoads() throws Exception {
     // get 메서드 호출 결과를 변수에 저장
     CustDto custDto = custService.get("chuncoo");
+
+    String address = custDto.getAddress();
+    String zipcode = custDto.getZipcode();
+
     // 반환된 CustDto를 로그에 출력
     log.info("CustDto: {}", custDto);
+    log.info("_______" + address + "______" + zipcode);
+
     log.info("----------OK----------------");
 
     try {

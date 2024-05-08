@@ -6,6 +6,7 @@ import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.service.FriendsService;
 import com.fromits.app.service.GroupService;
 import com.fromits.app.service.GroupmemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,26 +28,30 @@ public class GroupController {
 
     @ResponseBody
     @RequestMapping("/searchFriends")
-    public List<FriendsDto> searchMyFriends(@RequestParam("searchText") String searchText) throws Exception {
-        List<FriendsDto> searchMyFriends = friendsService.searchMyFriends("id01", searchText);
+    public List<FriendsDto> searchMyFriends(@RequestParam("searchText") String searchText, HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
+        List<FriendsDto> searchMyFriends = friendsService.searchMyFriends(userId, searchText);
         return searchMyFriends;
     }
 
     @ResponseBody
     @RequestMapping("/getAllFriends")
-    public List<FriendsDto> getAllFriends() throws Exception {
-        String userId = "id01";
+    public List<FriendsDto> getAllFriends(HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
         List<FriendsDto> myFriends = friendsService.getMyFriends(userId);
         return myFriends;
     }
 
     @ResponseBody
     @RequestMapping("/createNewGroup")
-    public int createNewGroup(@RequestParam("groupName") String groupName, @RequestParam("friendIds") List<String> friendIds) {
+    public int createNewGroup(@RequestParam("groupName") String groupName, @RequestParam("friendIds") List<String> friendIds, HttpSession httpSession) {
         // 그룹 정상적으로 생성: groupId 반환, 그룹 생성 실패: 0 반환
         try {
             PromgroupDto promgroupDto = new PromgroupDto(groupName);
             int groupId = groupService.newGroup(promgroupDto);
+            String myId = (String) httpSession.getAttribute("user_id");
+
+            groupmemberService.newGroupMember(myId, groupId);
 
             for (String userId : friendIds) {
                 groupmemberService.newGroupMember(userId, groupId);
@@ -66,14 +71,18 @@ public class GroupController {
     }
 
     @RequestMapping("/existgroup")
-    public String existgroup(Model model) throws Exception {
-        List<PromgroupDto> group = groupService.get();
+    public String existgroup(Model model, HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
+        List<PromgroupDto> group = groupService.getMyGroup(userId);
         model.addAttribute("group", group);
         model.addAttribute("center",dir+"existgroup");
         return "main";
     }
     @RequestMapping("/mygroup")
-    public String mygroup(Model model) throws Exception {
+    public String mygroup(Model model, HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
+        List<PromgroupDto> group = groupService.getMyGroup(userId);
+        model.addAttribute("mygroup",group);
         model.addAttribute("center",dir+"mygroup");
         return "main";
     }
