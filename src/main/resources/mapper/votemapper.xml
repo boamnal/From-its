@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fromits.app.repository.VoteRepository">
+
+    <select id="checkVote" parameterType="VoteDto" resultType="Integer">
+        select count(user_id)
+        from vote
+        where devote_id=#{devote_id} and user_id=#{user_id};
+    </select>
+
+    <!--투표-->
+    <insert id="insert" parameterType="VoteDto">
+        insert into vote(user_id, candidate_id, devote_id) values(#{userId}, #{candidateId}, #{devoteId});
+    </insert>
+
+    <!--최종 약속 장소 확정-->
+    <select id = "getVoteCount" parameterType="VoteDto">
+        SELECT count(user_id)
+        FROM group_member
+        WHERE group_id = (
+            SELECT group_id
+            FROM promise
+            WHERE pro_id = (
+                SELECT pro_id
+                FROM devote
+                WHERE devote_id = 0
+            )
+        )
+          AND user_id NOT IN (
+            SELECT DISTINCT user_id
+            FROM vote
+            WHERE devote_id = 0
+        );
+
+    </select>
+</mapper>
