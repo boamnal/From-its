@@ -9,24 +9,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
     let regist = false;
-    function toggleModalContent() {
-        $("#confirmButton").off("click");
 
-        if (regist) {
-            $("#modalContent").text("최종 약속 장소가 결정되었습니다.");
-            $("#confirmButton").text("확인").click(function() {
-                // 약속 확정하기 페이지로 리다이렉트
-                window.location.href = "/finalpromise"; // 이 부분은 실제 페이지 URL로 변경해야 합니다.
-            });
-            $("#cancelButton").hide();
-        } else {
-            $("#modalContent").text("그룹 멤버가 투표를 완료하지 않았습니다!");
-            $("#confirmButton").text("확인").click(function() {
-                // 모달 닫기
-                $('#exampleModal').modal('hide');
-            });
-        }
-    }
+
     // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리합니다.
     $('#exampleModal').on('hidden.bs.modal', function () {
         toggleModalContent();
@@ -36,11 +20,29 @@
         init: function () {
             let devoteId = $("#devoteId").val();
             let candidateId = $("#candidateId").val();
-
             let data = {
                 "candidateId": candidateId,
                 "userId": '',
                 "devoteId": devoteId
+            }
+
+            console.log("dsfsdfsdxfsd", devoteId)
+
+            $("#confirmButton").off("click");
+
+            if (regist) {
+                $("#modalContent").text("최종 약속 장소가 결정되었습니다.");
+                $("#confirmButton").text("확인").click(function() {
+                    // 약속 확정하기 페이지로 리다이렉트
+                    window.location.href = "/finalplace?devoteId="+devoteId; // 이 부분은 실제 페이지 URL로 변경해야 합니다.
+                });
+                $("#cancelButton").hide();
+            } else {
+                $("#modalContent").text("그룹 멤버가 투표를 완료하지 않았습니다!");
+                $("#confirmButton").text("확인").click(function() {
+                    // 모달 닫기
+                    $('#exampleModal').modal('hide');
+                });
             }
 
             $('.candidate').on('click', function() {
@@ -85,7 +87,10 @@
                     },
                 })
             })
-        }
+        },
+        toggleModalContent: function (){
+
+    }
     };
     $(function () {
         vote.init();

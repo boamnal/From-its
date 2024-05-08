@@ -43,4 +43,15 @@
             WHERE devote_id = #{param1}
         );
     </select>
+
+    <!--투표 결과 구하기-->
+    <select id="finalplace" parameterType="Integer">
+        SELECT dc.place_name, dc.place_address, dc.candidate_id, v.devote_id, COUNT(v.devote_id) AS total_votes, dc.pro_now AS registration_date
+        FROM devote_candidate dc
+                 JOIN vote v ON dc.devote_id = v.devote_id
+        WHERE dc.devote_id = #{devoteId}
+        GROUP BY dc.candidate_id, dc.place_name, dc.pro_now
+        ORDER BY total_votes DESC, dc.pro_now ASC
+            LIMIT 1;
+    </select>
 </mapper>
