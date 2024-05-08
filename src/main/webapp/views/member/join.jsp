@@ -45,7 +45,9 @@
                         msg = "아이디 사용 가능해요.";
                         color = "#0819B8";
                     }
-                    $('#check_id_msg').html(msg).css("color", color);
+                    $('#check_id_msg').html(msg).css({
+                        "color": color,
+                    });
                 }
             })
         }
@@ -62,16 +64,19 @@
 
             passwordInput.addEventListener('input', function () {
                 let password = passwordInput.value;
-                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_+=])[a-zA-Z0-9!@#$%^&*()-_+=]{8,16}$/;
+                // 수정된 비밀번호 정규식
+                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,12}$/;
 
                 let msg = "비밀번호 사용 가능해요!";
-                let color = "blue";
+                let color = "#0819B8";
 
-                if (!passwordRegex.test(password)) {
-                    msg = "영문/숫자/특수문자 조합으로 8~12자리만 가능해요.";
-                    color = "red";
+                if (password.length > 12 || !passwordRegex.test(password)) {
+                    msg = "영문/숫자로 8~12자리여야 해요.";
+                    color = "#E05938";
                 }
-                $('#check_msg').html(msg).css("color", color);
+                $('#check_msg').html(msg).css({
+                    "color": color,
+                });
             });
         }
     }
@@ -169,7 +174,7 @@
                        name="name"
                        required style="margin:12px 40px; padding: 12px; background-color: #F8F8FA; border-style: none">
             </div>
-            <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
+            <span id="" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
 
         </div>
 
@@ -183,6 +188,8 @@
                         style="padding: 12px; ">확인
                 </button>
             </div>
+            <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;"></span>
+
         </div>
 
         <div class="join_form px-4" style="margin: 20px 0px">
