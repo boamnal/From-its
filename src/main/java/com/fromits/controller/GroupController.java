@@ -28,15 +28,16 @@ public class GroupController {
 
     @ResponseBody
     @RequestMapping("/searchFriends")
-    public List<FriendsDto> searchMyFriends(@RequestParam("searchText") String searchText) throws Exception {
-        List<FriendsDto> searchMyFriends = friendsService.searchMyFriends("id01", searchText);
+    public List<FriendsDto> searchMyFriends(@RequestParam("searchText") String searchText, HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
+        List<FriendsDto> searchMyFriends = friendsService.searchMyFriends(userId, searchText);
         return searchMyFriends;
     }
 
     @ResponseBody
     @RequestMapping("/getAllFriends")
-    public List<FriendsDto> getAllFriends() throws Exception {
-        String userId = "id01";
+    public List<FriendsDto> getAllFriends(HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
         List<FriendsDto> myFriends = friendsService.getMyFriends(userId);
         return myFriends;
     }
@@ -70,8 +71,9 @@ public class GroupController {
     }
 
     @RequestMapping("/existgroup")
-    public String existgroup(Model model) throws Exception {
-        List<PromgroupDto> group = groupService.get();
+    public String existgroup(Model model, HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
+        List<PromgroupDto> group = groupService.getMyGroup(userId);
         model.addAttribute("group", group);
         model.addAttribute("center",dir+"existgroup");
         return "main";

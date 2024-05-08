@@ -3,9 +3,10 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fromits.app.repository.GroupRepository">
-    <select id="select">
-        SELECT *
-        FROM prom_group
+    <select id="getMyGroup" parameterType="promgroupDto">
+        select p.group_id as group_id, p.group_name as group_name
+        from prom_group p join (select * from group_member where user_id = #{userId}) m
+        where p.group_id = m.group_id;
     </select>
     <select id="selectOne" resultType="promgroupDto">
         SELECT *
