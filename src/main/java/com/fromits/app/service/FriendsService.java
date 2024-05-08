@@ -58,7 +58,7 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
     return repository.getOther(userId);
   }
 
-  public List<FriendsDto> searchOther(String userId, String searchText) throws Exception {
+  public List<FriendsDto> searchOther(@Param("userId") String userId, @Param("searchText") String searchText) throws Exception {
     return repository.searchOther(userId, searchText);
   }
 }
