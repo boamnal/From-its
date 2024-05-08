@@ -168,11 +168,6 @@
                 regist = false;
             }
         });
-        // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리
-        $('#exampleModal').on('hidden.bs.modal', function () {
-            // 모달 내용 초기화
-            $('#modalContent').text('등록하시겠습니까?');
-        });
 
         $("#cancelButton").click(() => {
             $('#exampleModal').modal('hide');
