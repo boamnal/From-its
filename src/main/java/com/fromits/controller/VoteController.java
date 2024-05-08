@@ -1,7 +1,10 @@
 package com.fromits.controller;
 
+import com.fromits.app.dto.VoteDto;
 import com.fromits.app.dto.devoteCandidateDto;
 import com.fromits.app.service.MapService;
+import com.fromits.app.service.VoteService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +25,6 @@ import com.sun.mail.util.MailLogger;
 @RequiredArgsConstructor
 @Slf4j
 public class VoteController {
-    final MapService mapService;
     String dir = "vote/";
 
     @Value("${app.key.username}")
@@ -64,6 +66,8 @@ public class VoteController {
 //        sendEmail("rkdalswn0833@gmail.com", mail, "smtp.gmail.com", "From-its", "투표가 완료되었습니다. 확인하세요", pwd);
 
     }
+    final MapService mapService;
+    final VoteService voteService;
 
 
     @RequestMapping("/vote")
@@ -76,6 +80,36 @@ public class VoteController {
         return "main";
     }
 
+    @ResponseBody
+    @RequestMapping("/checkVote")
+    public int checkVote(VoteDto vote, HttpSession httpSession) throws Exception {
+        // 이미 투표했으면 0, 처음 투표하면 1
+        String userId = (String) httpSession.getAttribute("user_id");
 
+        int devoteId = vote.getDevoteId();
+        VoteDto voteDto = VoteDto.builder().userId(userId).devoteId(devoteId).build();
+        Integer check = voteService.checkVote(voteDto);
+
+        if (check == 1) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/candidateVote")
+    public int candidateVote(VoteDto vote, HttpSession httpSession) throws Exception {
+        // 투표 성공: 1, 투표 실패: 0
+        String userId = (String) httpSession.getAttribute("user_id");
+
+        int devoteId = vote.getDevoteId();
+        int candidateId = vote.getCandidateId();
+        VoteDto voteDto = VoteDto.builder().userId(userId).devoteId(devoteId).candidateId(candidateId).build();
+
+        Integer devoteCheck = voteService.add(voteDto);
+
+        return devoteCheck;
+    }
 
 }

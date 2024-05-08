@@ -168,11 +168,6 @@
                 regist = false;
             }
         });
-        // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리
-        $('#exampleModal').on('hidden.bs.modal', function () {
-            // 모달 내용 초기화
-            $('#modalContent').text('등록하시겠습니까?');
-        });
 
         $("#cancelButton").click(() => {
             $('#exampleModal').modal('hide');
@@ -182,12 +177,6 @@
             $('#exampleModal').modal('show'); // 결과 모달이 닫히면 등록 모달을 다시 표시
         });
     });
-
-    // goToMyPage 버튼 클릭 시 마이페이지로 이동하는 함수
-    function goToMyPage() {
-        window.location.href = "/mypage";
-    }
-
 </script>
 <style>
     .scroll {
@@ -231,7 +220,7 @@
 </div>
 <button id="creategroup"
         class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"
-        style="padding: 12px 0; background-color: #FF9494; color: white;" onclick="goToMyPage()">마이페이지로 이동
+        style="padding: 12px 0; background-color: #FF9494; color: white;" onclick="window.location.href = '/initial'">약속 생성하기
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"

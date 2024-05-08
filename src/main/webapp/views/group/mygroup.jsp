@@ -24,10 +24,10 @@
         <c:choose>
             <c:when test="${empty mygroup}">
                 <div style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <div className="text-center" style="font-size: 16px; color: #333333">친구가 존재하지 않아요!</div>
+                    <div className="text-center" style="font-size: 16px; color: #333333">약속 그룹이 존재하지 않아요!</div>
                     <button className="fw-bold align-items-center"
                             style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none"
-                            onClick="window.location.href='/search'">친구 만들러가기
+                            onClick="window.location.href='/initial'">약속 만들러가기
                     </button>
                 </div>
             </c:when>

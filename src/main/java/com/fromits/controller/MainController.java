@@ -11,14 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
     @RequestMapping("/")
     public String main(Model model) throws Exception {
-//        model.addAttribute("center","layout");
-        return "main";
+        model.addAttribute("text1","로그인");
+        model.addAttribute("text2","회원가입");
+        return "center";
     }
     @RequestMapping("/initial")
     public String initial(Model model) throws Exception {
         model.addAttribute("text1","새로운 그룹을 만들래요");
         model.addAttribute("text2","이미 만든 그룹이 있어요!");
-        return "index";
+        model.addAttribute("center","index");
+        return "main";
     }
     // 로그아웃
     @RequestMapping("/logoutimple")

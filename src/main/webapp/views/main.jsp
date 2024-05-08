@@ -25,8 +25,46 @@
             z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
             max-width: 1500px;
         }
+        @media (max-width: 575px) {
+            #myPageButton, #logOutButton {
+                display: none;
+            }
+            #mypageLink, #logOutButton {
+                pointer-events: none;
+            }
+            .navbar-nav {
+                padding: 10px;
+            }
+        }
+
     </style>
 </head>
+<script>
+    $(document).ready(function() {
+        // 사용자 이름을 클릭할 때마다 마이페이지 버블을 토글합니다.
+        $("#mypageLink").click(function(event) {
+            event.stopPropagation(); // 부모 요소에 이벤트 전파를 방지합니다.
+
+            $("#myPageButton").addClass("d-block");
+            $("#myPageButton").removeClass("d-none");
+        });
+
+        // 문서를 클릭할 때마다 마이페이지 버블을 숨깁니다.
+        $(document).click(() => {
+            $("#myPageButton").removeClass("d-block");
+            $("#myPageButton").addClass("d-none");
+
+            console.log("click")
+        });
+
+        // 마이페이지 버블을 클릭해도 문서 전체에 대한 클릭 이벤트가 발생하지 않도록 방지합니다.
+        $("#myPageButton").click(function(event) {
+            event.stopPropagation();
+        });
+    });
+
+</script>
+
 <body>
 <nav class="navbar navbar-expand-sm bg-white navbar-light">
     <div class="container-fluid w-100" >
@@ -49,17 +87,34 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/schedule"/>">약속 일정</a>
                 </li>
-                <span>  <a class="nav-link" href="<c:url value="/logoutimple"/>">로그아웃</a></span>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/initial"/>">약속 생성</a>
+                </li>
+                <li>
                     <c:choose>
-                        <c:when test="${user_id==null}">
-
+                        <c:when test="${sessionScope.user_id == null}">
                         </c:when>
                         <c:otherwise>
+                            <div id="userInfo" style="position: relative;">
+                                <button style="border: none; background: none" id="mypageLink" class="nav-link">
+                                    <span class="fw-medium" style="color: #FF9494">${sessionScope.user.name}</span> 님
+                                </button>
+                                <ul id="myPageButton" class="text-center d-none position-absolute" style="background-color: #FEF4F2; padding: 10px; border-radius: 12px; z-index: 99; top: 100%; left: 0; list-style: none;">
+                                    <li class="text-nowrap"><a class="text-decoration-none fw-medium" href="<c:url value='/mypage' />" style="color: #FF9494">마이페이지</a></li>
+                                </ul>
+                                <ul id="logOutButton" class="text-center d-none position-absolute" style="background-color: #FEF4F2; padding: 10px; border-radius: 12px; z-index: 99; top: 100%; left: 0; list-style: none;">
+                                    <li class="text-nowrap"><a class="text-decoration-none fw-medium" href="<c:url value='/mypage' />" style="color: #FF9494">로그아웃</a></li>
+                                </ul>
+                            </div>
+                            <a class="nav-link d-md-none d-sm-none" href="<c:url value="/mypage"/>">마이페이지</a>
+                            <a class="nav-link d-md-none d-sm-none" href="<c:url value="/logoutimple"/>">로그아웃</a>
 
                         </c:otherwise>
                     </c:choose>
                 </li>
+
             </ul>
+
         </div>
     </div>
 </nav>
