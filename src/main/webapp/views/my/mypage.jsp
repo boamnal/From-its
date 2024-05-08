@@ -65,15 +65,13 @@
                     });
                 } else {
                     // 검색 결과가 비어있는 경우
-                    let noResult = `
-
-                        <div className="text-center" style="font-size: 16px; color: #333333">친구가 존재하지 않아요!</div>
-                        <button className="fw-bold align-items-center"
-                                style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none"
-                                onClick="window.location.href='/search'">친구 만들러가기
-                        </button>
-                    </div>
-                    `
+                    let noResult =
+                        `
+                        <div class="noResult-container">
+                        <div class="noResult-message">친구가 존재하지 않아요!</div>
+                        <button class="noResult-button" onclick="window.location.href='/search'">친구 만들러가기</button>
+                        </div>
+                        `;
                     $(".optionList").append(noResult);
                 }
             }
@@ -202,22 +200,29 @@
         display: none;
     }
 
+    /*noResult: 조회 결과가 없을 때의 CSS*/
+    .friend-management-content {
+        width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+    }
+
     .selectBox2 {
         position: relative;
+        width: 100%; /* 부모 요소와 동일한 너비로 설정 */
+
     }
 
     .selectBox2 .optionList {
         /*position: absolute;*/
         /*top: 60px;*/
         left: 0;
-        width: 100%;
+        width: 100%; /* 부모 요소와 동일한 너비로 설정 */
         background: white;
         color: #333333;
         list-style-type: none;
         padding: 0;
         border-radius: 8px;
         overflow-y: auto;
-        height: 200px;
+        /*height: 200px;*/
         transition: .3s ease-in;
     }
 
@@ -257,6 +262,36 @@
         align-items: center; /* 세로 중앙 정렬을 위해 추가 */
     }
 
+    .noResult-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .noResult-message {
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .noResult-button {
+        font-weight: bold;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin-top: 32px;
+        background-color: #FEF4F2;
+        color: #FF9494;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .noResult-button:hover {
+        background-color: #FF9494;
+        color: white;
+    }
+
 </style>
 
 <div>
@@ -283,9 +318,9 @@
             </svg>
 
         </div>
+
         <div class="friend-management-content"
-             style="margin: 20px 0px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <input type="hidden" oninput="searchFriends()">
+             style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
             <div class="selectBox2">
                 <ul class="optionList">
