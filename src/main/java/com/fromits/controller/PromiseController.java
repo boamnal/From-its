@@ -96,6 +96,7 @@ public class PromiseController {
         promiseService.updateResult(placeresult);
         FinalPromiseDto finalPromiseInfo = promiseService.finalPromiseInfo(proId);
 
+        model.addAttribute("proId",proId );
         model.addAttribute("promiseInfo",finalPromiseInfo );
         model.addAttribute("center",dir+"finalpromise");
         return "main";
@@ -127,5 +128,20 @@ public class PromiseController {
     public Object getCount(Model model, @RequestParam("devoteId") String id) throws Exception {
         int count = promiseService.getCount(id);
         return count;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/confirmPromise")
+    public int confirmPromise(Model model, @RequestParam("proDate") String proDate, @RequestParam("proId") String proId) throws Exception {
+        // 최종 약속 결정:1 , 이 과정 실패: 0
+        Map<String, Object> params = new HashMap<>();
+        params.put("proDate", proDate);
+        params.put("proId", proId);
+
+        int result = promiseService.finalPromiseSchedule(
+                params);
+
+        return result;
     }
 }
