@@ -1,6 +1,7 @@
 package com.fromits.app.service;
 
 import com.fromits.app.dto.PromiseDto;
+import com.fromits.app.dto.devoteCandidateDto;
 import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.PromiseRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
         return null;
     }
 
-    public List<PromiseDto> getPromise(String userId) throws Exception {
+    public List<devoteCandidateDto> getPromise(String userId) throws Exception {
         return promiseRepository.getPromise(userId);
     }
 }

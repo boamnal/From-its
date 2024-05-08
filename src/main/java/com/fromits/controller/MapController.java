@@ -4,6 +4,7 @@ import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.dto.devoteCandidateDto;
 import com.fromits.app.service.GroupService;
 import com.fromits.app.service.MapService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class MapController {
     @ResponseBody
     @RequestMapping("/addcandidate")
     public Object candidate(devoteCandidateDto dto, HttpSession session) throws Exception {
-        String userId = session.getAttribute("user_id");
+        String userId = (String) session.getAttribute("user_id");
         dto.setUserId(userId);
         System.out.println(dto.toString());
         devoteCandidateDto dto2 = mapService.getById(dto.getDevoteId(), dto.getPlaceId());
@@ -52,10 +53,5 @@ public class MapController {
         }
     }
 
-    @ResponseBody
-    @RequestMapping("/getpromise")
-    public Object getpromise(@RequestParam("option") String id) throws Exception {
-        System.out.println(id);
-        return 1;
-    }
+
 }

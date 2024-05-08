@@ -40,7 +40,7 @@ public class PromiseController {
 
     @RequestMapping("/schedulepromise")
     public String schedulepromise(Model model, HttpSession session) throws Exception {
-        List<PromiseDto> list = promiseService.getPromise("id01");
+        List<devoteCandidateDto> list = promiseService.getPromise("id01");
         model.addAttribute("list", list);
         model.addAttribute("center",dir+"schedulepromise");
         return "main";
@@ -61,8 +61,9 @@ public class PromiseController {
 
 
     @RequestMapping("/finalpromise")
-    public String finalpromise(Model model) throws Exception {
-        List<PromiseDto> list = promiseService.getPromise("id01");
+    public String finalpromise(Model model, HttpSession session) throws Exception {
+        String userId = (String) session.getAttribute("user_id");
+        List<devoteCandidateDto> list = promiseService.getPromise(userId);
         model.addAttribute("center",dir+"finalpromise");
         model.addAttribute("list",list);
         return "main";
