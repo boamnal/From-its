@@ -67,4 +67,7 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
     public FinalPromiseDto finalPromiseInfo(Integer proId) throws Exception {
         return promiseRepository.finalPromiseInfo(proId);
     }
+    public int finalPromiseSchedule(Map<String, Object> scheduler) throws Exception {
+        return promiseRepository.finalPromiseSchedule(scheduler);
+    }
 }

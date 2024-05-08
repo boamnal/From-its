@@ -72,4 +72,9 @@
         WHERE pro_id = #{proId};
     </select>
 
+    <!--일정받아서 최종 약속-->
+    <update id="finalPromiseSchedule" parameterType="map">
+        update promise set pro_date=#{proDate} where pro_id=#{proId};
+    </update>
+
 </mapper>
