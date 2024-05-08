@@ -54,4 +54,5 @@
         ORDER BY total_votes DESC, dc.pro_now ASC
             LIMIT 1;
     </select>
+
 </mapper>

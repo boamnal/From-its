@@ -47,5 +47,8 @@ public class DevoteService implements HanaService<Integer, DevoteDto> {
         return devoteRepository.getStart(id);
     }
 
+    public DevoteDto getProId(int devoteId) throws Exception {
+        return devoteRepository.getProId(devoteId);
+    }
 
 }
