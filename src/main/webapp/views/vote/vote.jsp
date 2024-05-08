@@ -8,9 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-    let regist = false;
-
-
     // 모달이 닫히는 이벤트를 감지하고, 닫힌 후에 처리합니다.
     $('#exampleModal').on('hidden.bs.modal', function () {
         toggleModalContent();
@@ -29,21 +26,6 @@
             console.log("dsfsdfsdxfsd", devoteId)
 
             $("#confirmButton").off("click");
-
-            if (regist) {
-                $("#modalContent").text("최종 약속 장소가 결정되었습니다.");
-                $("#confirmButton").text("확인").click(function() {
-                    // 약속 확정하기 페이지로 리다이렉트
-                    window.location.href = "/finalplace?devoteId="+devoteId; // 이 부분은 실제 페이지 URL로 변경해야 합니다.
-                });
-                $("#cancelButton").hide();
-            } else {
-                $("#modalContent").text("그룹 멤버가 투표를 완료하지 않았습니다!");
-                $("#confirmButton").text("확인").click(function() {
-                    // 모달 닫기
-                    $('#exampleModal').modal('hide');
-                });
-            }
 
             $('.candidate').on('click', function() {
                 $.ajax({
@@ -80,16 +62,19 @@
                     data: data,
                     success: function (res) {
                         if (res === 1) {
-                            regist = true; // 서버의 응답에 따라 regist 상태를 설정
-                            toggleModalContent(); // 상태에 따라 모달의 내용을 변경
+                            $("#modalContent").text("최종 약속 장소가 결정되었습니다.");
+
                             $('#exampleModal').modal('show'); // 모달을 보여줌
+                            $("#confirmButton").text("확인").click(function() {
+                                window.location.href = "/finalplace?devoteId="+devoteId; // 이 부분은 실제 페이지 URL로 변경해야 합니다.
+                            });
                             // 최종 약속 장소가 결정되었습니다. 모달에서 확인 누르면 ?
                             // 약속 확정하기 페이지로 이동합니다로 결과모달
                         } else {
-                            regist = false;
-                            toggleModalContent();
-                            $('#exampleModal').modal('show');
-                            // 그룹 멤버가 아직 투표를 하지 않았습니다!
+                            $("#modalContent").text("그룹 멤버가 투표를 완료하지 않았습니다!");
+                            $("#confirmButton").text("확인").click(function() {
+                                $('#exampleModal').modal('hide');
+                            });
                         }
                         console.log(res,"<-1이면 투표상태 바뀐것임")
                     },
@@ -124,7 +109,7 @@
             </div>
         </c:forEach>
     </div>
-    <button id="vote" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; font-size: 16px" >투표하기</button>
+    <button id="vote" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; font-size: 16px" >투표 종료</button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin: 20px auto;">
         <div class="modal-dialog" style="max-width: 300px; margin: 20px auto">
             <div class="modal-content" style="max-width: 400px;">
