@@ -60,4 +60,16 @@
         update promise set candidate_id=#{candidateId} where pro_id=#{proId};
     </update>
 
+    <!--최종약속 만들기 위해 이전 필요한 정보들 조인해서 가져옴 -->
+    <select id="finalPromiseInfo" parameterType="Integer" resultType="FinalPromiseDto">
+        SELECT d.place_address, a.pro_name, a.pro_desc, a.group_name
+        FROM devote_candidate d
+                 JOIN (
+            SELECT p.pro_id, p.pro_name, p.pro_desc, p.group_id, g.group_name, p.candidate_id
+            FROM promise p
+                     JOIN prom_group g ON p.group_id = g.group_id
+        ) a ON d.candidate_id = a.candidate_id
+        WHERE pro_id = #{proId};
+    </select>
+
 </mapper>

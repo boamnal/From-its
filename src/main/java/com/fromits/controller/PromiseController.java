@@ -93,8 +93,10 @@ public class PromiseController {
         placeresult.put("proId", proId);
         placeresult.put("candidateId", candidateId);
 
-        Integer ss = promiseService.updateResult(placeresult);
+        promiseService.updateResult(placeresult);
+        FinalPromiseDto finalPromiseInfo = promiseService.finalPromiseInfo(proId);
 
+        model.addAttribute("promiseInfo",finalPromiseInfo );
         model.addAttribute("center",dir+"finalpromise");
         return "main";
     }
