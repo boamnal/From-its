@@ -55,4 +55,9 @@
             LIMIT 1;
     </select>
 
+    <!--투표된 최종 약속 장소의 아이디를 약속 테이블에 저장-->
+    <update id="updateResult" parameterType="map">
+        update promise set candidate_id=#{candidateId} where pro_id=#{proId};
+    </update>
+
 </mapper>
