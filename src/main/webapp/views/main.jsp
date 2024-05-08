@@ -79,7 +79,7 @@
                     <a class="nav-link" href="<c:url value="/search"/> ">친구맺기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/map"/>">내 지도</a>
+                    <a class="nav-link" href="<c:url value="/map/groupmp"/>">내 지도</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/mygroup"/>">내 그룹</a>
