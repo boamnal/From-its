@@ -42,7 +42,7 @@ public class VoteService implements HanaService<Integer, VoteDto>  {
         return null;
     }
 
-    public Integer checkVote(String userId, int devoteId) throws Exception {
-        return voteRepository.checkVote(userId, devoteId);
+    public Integer checkVote(VoteDto voteDto) throws Exception {
+        return voteRepository.checkVote(voteDto);
     }
 }

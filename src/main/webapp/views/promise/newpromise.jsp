@@ -79,6 +79,7 @@
                     let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                     resolve(coords); // 좌표 변환 성공
                 } else {
+                    alert("주소 변환실패. 실제 주소값이 아님")
                     reject(new Error("주소 변환 실패")); // 좌표 변환 실패
                 }
             });

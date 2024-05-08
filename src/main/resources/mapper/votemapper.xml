@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fromits.app.repository.VoteRepository">
 
-    <select id="checkVote" parameterType="VoteDto" resultType="Integer">
-        select count(user_id)
+    <select id="checkVote" resultType="Integer">
+        select count(user_id) as count_user
         from vote
-        where devote_id=#{devote_id} and user_id=#{user_id};
+        where devote_id=#{devoteId} and user_id=#{userId};
     </select>
 
     <!--투표-->

@@ -1,5 +1,6 @@
 package com.fromits.controller;
 
+import com.fromits.app.dto.VoteDto;
 import com.fromits.app.dto.devoteCandidateDto;
 import com.fromits.app.service.MapService;
 import com.fromits.app.service.VoteService;
@@ -27,6 +28,7 @@ public class VoteController {
     @RequestMapping("/vote")
     public String vote(Model model, @RequestParam("id") int devoteId) throws Exception {
         List<devoteCandidateDto> list = mapService.selectByDevote(devoteId);
+
         model.addAttribute("list", list);
         model.addAttribute("devoteId", devoteId);
         model.addAttribute("center",dir+"vote");
@@ -34,16 +36,39 @@ public class VoteController {
     }
 
     @ResponseBody
-    @RequestMapping("/promiseVote")
-    public int promiseVote(devoteCandidateDto candidate, HttpSession httpSession) throws Exception {
+    @RequestMapping("/checkVote")
+    public int checkVote(VoteDto vote, HttpSession httpSession) throws Exception {
         // 이미 투표했으면 0, 처음 투표하면 1
         String userId = (String) httpSession.getAttribute("user_id");
-        Integer devoteId = candidate.getDevoteId();
-        Integer check = voteService.checkVote(userId, devoteId);
+
+        int devoteId = vote.getDevoteId();
+        VoteDto voteDto = VoteDto.builder().userId(userId).devoteId(devoteId).build();
+        Integer check = voteService.checkVote(voteDto);
+
         if (check == 1) {
             return 0;
         } else {
             return 1;
         }
     }
+
+//    @ResponseBody
+//    @RequestMapping("/candidateVote")
+//    public int candidateVote(VoteDto vote, HttpSession httpSession) throws Exception {
+//        // 투표 성공: 1, 투표 실패: 0
+//        String userId = (String) httpSession.getAttribute("user_id");
+//
+//        int devoteId = vote.getDevoteId();
+//        int candidateId = vote
+//        VoteDto voteDto = VoteDto.builder().userId(userId).devoteId(devoteId).build();
+//        Integer check = voteService.checkVote(voteDto);
+//
+//        if (check == 1) {
+//            return 0;
+//        } else {
+//            return 1;
+//        }
+//    }
+
+
 }
