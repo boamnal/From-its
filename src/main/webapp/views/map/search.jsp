@@ -12,8 +12,8 @@ http://suldo.com/411-->
         $('#list').on('click', 'button', function() {
             let hiddenValue = $(this).parent().prev('input[type="hidden"]').val();
             data = map_data.find(item => item.id === hiddenValue);
-            console.log(data)
             let devoteId = $('#devote').val()
+            console.log(devoteId)
             $.ajax({
                 url: '/map/addcandidate', // 서버의 URL
                 type: 'POST', // 데이터 전송 방식
@@ -41,6 +41,7 @@ http://suldo.com/411-->
                     console.error('Data sending failed:', error);
                 }
             });
+
         });
     });
 </script>

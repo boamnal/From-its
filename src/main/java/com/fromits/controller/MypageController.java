@@ -1,7 +1,9 @@
 package com.fromits.controller;
 
 import com.fromits.app.dto.CustDto;
+import com.fromits.app.dto.FriendsDto;
 import com.fromits.app.service.CustService;
+import com.fromits.app.service.FriendsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import java.util.List;
 public class MypageController {
   String dir = "my/";
   final CustService custService;
+  final FriendsService friendsService;
 
   @RequestMapping("/mypage")
   public String mypage(Model model, HttpSession session) throws Exception {
@@ -43,5 +46,14 @@ public class MypageController {
     custService.modifyAddress(custDto);
 
     return "주소가 업데이트되었습니다.";
+  }
+
+  // 친구 목록 조회(group에서 정의한 함수로 매핑)
+  @ResponseBody
+  @RequestMapping("/group/getAllFriends")
+  public List<FriendsDto> getAllFriends(HttpSession httpSession) throws Exception {
+    String userId = (String) httpSession.getAttribute("user_id");
+    List<FriendsDto> myFriends = friendsService.getMyFriends(userId);
+    return myFriends;
   }
 }

@@ -26,16 +26,17 @@
             max-width: 1500px;
         }
         @media (max-width: 575px) {
-            #myPageButton {
+            #myPageButton, #logOutButton {
                 display: none;
             }
-            #mypageLink {
+            #mypageLink, #logOutButton {
                 pointer-events: none;
             }
             .navbar-nav {
                 padding: 10px;
             }
         }
+
     </style>
 </head>
 <script>
@@ -90,7 +91,6 @@
                 <li>
                     <c:choose>
                         <c:when test="${sessionScope.user_id == null}">
-                             <a class="nav-link" href="<c:url value="/logoutimple"/>">로그아웃</a>
                         </c:when>
                         <c:otherwise>
                             <div id="userInfo" style="position: relative;">
@@ -100,8 +100,13 @@
                                 <ul id="myPageButton" class="text-center d-none position-absolute" style="background-color: #FEF4F2; padding: 10px; border-radius: 12px; z-index: 99; top: 100%; left: 0; list-style: none;">
                                     <li class="text-nowrap"><a class="text-decoration-none fw-medium" href="<c:url value='/mypage' />" style="color: #FF9494">마이페이지</a></li>
                                 </ul>
+                                <ul id="logOutButton" class="text-center d-none position-absolute" style="background-color: #FEF4F2; padding: 10px; border-radius: 12px; z-index: 99; top: 100%; left: 0; list-style: none;">
+                                    <li class="text-nowrap"><a class="text-decoration-none fw-medium" href="<c:url value='/mypage' />" style="color: #FF9494">로그아웃</a></li>
+                                </ul>
                             </div>
                             <a class="nav-link d-md-none d-sm-none" href="<c:url value="/mypage"/>">마이페이지</a>
+                            <a class="nav-link d-md-none d-sm-none" href="<c:url value="/logoutimple"/>">로그아웃</a>
+
                         </c:otherwise>
                     </c:choose>
                 </li>
