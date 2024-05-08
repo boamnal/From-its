@@ -72,13 +72,13 @@
                     color = "red";
                 }
                 $('#check_msg').html(msg).css("color", color);
-
             });
         }
     }
     $(function () {
         pwd_check.init();
     });
+
     // 회원가입 폼 전송
     let join = {
         init: function (url) {
@@ -102,7 +102,6 @@
         send: function () {
             // html에서의 attribute -> 태그의 여러 속성 의미
             // 여러개 보낼때는 object 형식으로
-
             $('#reg_form').attr({
                 'method': 'post',
                 'action': this.url
@@ -111,8 +110,14 @@
         }
     };
 
-
     $(function () {
+        // 각 입력 필드에서 Enter 키 눌렀을 때 폼 전송 방지
+        $('#reg_form input').keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault(); // Enter 키의 기본 동작을 막습니다.
+                return false;
+            }
+        });
         join.init('<c:url value="/member/addimpl"/>');
     });
 </script>
