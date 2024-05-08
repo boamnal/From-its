@@ -62,7 +62,7 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
 
   // 친구 추가
   public int addFriend(@Param("userId") String userId, @Param("userId2") String userId2) throws Exception {
-    repository.insertFriend(userId, userId2);
+    repository.addFriend(userId, userId2);
     return 0;
   }
 
