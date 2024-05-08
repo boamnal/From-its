@@ -10,6 +10,12 @@
 <script>
     let promiseschedule = {
         init: function () {
+            $('#makeProm').on('click', function() {
+                location.href = '<c:url value="/initial"/>'
+            })
+            $('#makeProm2').on('click', function() {
+                location.href = '<c:url value="/initial"/>'
+            })
         }
     };
     $(function () {
@@ -25,11 +31,11 @@
 
 <div>
     <div class="fw-bold" style="font-size: 22px" >${sessionScope.user.name}님 어서오세요</div>
-    <button class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder"  style="padding: 12px 0; margin: 16px 0; background-color: #FEF4F2; color: #FF9494; font-size: 16px" >생성하기</button>
+    <button id = "makeProm2" class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder"  style="padding: 12px 0; margin: 16px 0; background-color: #FEF4F2; color: #FF9494; font-size: 16px" >약속 만들기</button>
     <c:if test="${list == null}">
         <div class="fw-medium" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px; font-size: 16px; text-align: center">
             <div>약속이 아직 없어요!</div>
-            <div class="btn btn-primary fw-bold" style="padding: 12px 20px; margin-top: 32px">약속 만들러가기</div>
+            <div id = "makeProm" class="btn btn-primary fw-bold" style="padding: 12px 20px; margin-top: 32px">약속 만들러가기</div>
         </div>
     </c:if>
     <c:forEach items="${list}" var="item">
