@@ -1,5 +1,3 @@
 spring:
   profiles:
     active: dev
-  session:
-    timeout: 3600
