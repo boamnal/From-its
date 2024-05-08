@@ -67,4 +67,20 @@ public class VoteController {
         return devoteCheck;
     }
 
+    @ResponseBody
+    @RequestMapping("/voteConfirm")
+    public int voteConfirm(HttpSession httpSession) throws Exception {
+        // 약속 후보 확정 가능: 1, 약속 후보 확정 불가능: 0
+
+        // 투표 안한 사람 수
+        Integer notVoteCount = voteService.getVoteCount();
+        // 투표 해야하는 사람 수
+        Integer groupMemberCount = voteService.groupMemberCount();
+
+        if (notVoteCount.equals(groupMemberCount)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

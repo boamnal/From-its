@@ -45,4 +45,12 @@ public class VoteService implements HanaService<Integer, VoteDto>  {
     public Integer checkVote(VoteDto voteDto) throws Exception {
         return voteRepository.checkVote(voteDto);
     }
+
+    public Integer getVoteCount() throws Exception {
+        return voteRepository.getVoteCount();
+    }
+
+    public Integer groupMemberCount() throws Exception {
+        return voteRepository.groupMemberCount();
+    }
 }

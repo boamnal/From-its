@@ -46,6 +46,16 @@
                     }
                 });
             })
+
+            $('#vote').click(() => {
+                $.ajax({
+                    url: '/voteConfirm',
+                    type: 'GET',
+                    success: function (res) {
+                        console.log(res)
+                    },
+                })
+            })
         }
     };
     $(function () {
@@ -72,6 +82,6 @@
             </div>
         </c:forEach>
     </div>
-    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; font-size: 16px" >투표하기</button>
+    <button id="vote" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; font-size: 16px" >투표하기</button>
 
 </div>

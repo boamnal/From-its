@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface VoteRepository extends HanaRepository<Integer, VoteDto> {
     Integer checkVote(VoteDto voteDto) throws Exception;
+    Integer getVoteCount() throws Exception;
+    Integer groupMemberCount() throws Exception;
 }
