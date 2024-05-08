@@ -106,6 +106,34 @@
     // 장소 검색 객체를 생성합니다
     const ps = new kakao.maps.services.Places();
 
+    let getprom = function (place){
+        $.ajax({
+            url: '<c:url value="/map/getprom"/>', // 서버의 데이터를 가져올 URL
+            type: 'GET', // 요청 방식
+            data: { option: place }, // 서버로 전송할 데이터
+            success: function(response) {
+
+                var bounds = new kakao.maps.LatLngBounds();
+                bounds.extend(new kakao.maps.LatLng(response.proLat, response.proLon));
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(response.proLat, response.proLon)
+                });
+                // 마커에 클릭이벤트를 등록합니다
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                    infowindow.setContent('<div style="padding:5px;font-size:12px;">' + 중앙 + '</div>');
+                    infowindow.open(map, marker);
+                });
+
+                map.setBounds(bounds);
+            },
+            error: function() {
+                alert('Error fetching data.'); // 에러 발생시 알림
+            }
+        });
+    }
+
     // 지도에 마커를 표시하는 함수입니다
     // 마커 클릭 시 관련 리스트 포커스 on
     function displayMarker(place) {
@@ -132,21 +160,22 @@
         });
     }
     $(document).ready(function() {
+
         $('#getBtn').click(function (){
-            let devoteId = $('#devoteId').val(); // 선택된 옵션 값
+            var devoteId = $('#optionsDropdown').val(); // 선택된 옵션 값
             let url = '<c:url value="/map"/>'+ "?id="+ devoteId
             location.href =url
         });
 
 
         $('#getVote').click(function (){
-            let devoteId = $('#devoteId').val(); // 선택된 옵션 값
+            var devoteId = $('#optionsDropdown').val(); // 선택된 옵션 값
             let url = '<c:url value="/vote"/>'+ "?id="+ devoteId
             location.href =url
         });
 
         $('#getStart').click(function (){
-            let devoteId = $('#devoteId').val();
+            var devoteId = $('#optionsDropdown').val(); // 선택된 옵션 값
             $.ajax({
                 url: '<c:url value="/getCount"/>', // 서버의 데이터를 가져올 URL
                 type: 'GET', // 요청 방식
@@ -154,6 +183,7 @@
                 success: function(response) {
                     if(response === 0){
                         startDevote()
+                        location.href = '<c:url value="/vote"/>'+ "?id="+ devoteId
                     }else {
                         alert("아직 다른 친구가 후보를 추가하지 않았어요")
                     }
@@ -165,8 +195,7 @@
         });
 
         let startDevote = function (){
-
-            let devoteId = $('#devoteId').val();
+            var devoteId = $('#optionsDropdown').val(); // 선택된 옵션 값
             $.ajax({
                 url: '<c:url value="/getStart"/>', // 서버의 데이터를 가져올 URL
                 type: 'GET', // 요청 방식
@@ -180,13 +209,12 @@
             });
         }
 
-        let getdevote = function (){
-
-            let devoteId = $('#devoteId').val();
+        let getDevote = function (selectedOption){
+            console.log(selectedOption)
             $.ajax({
                 url: '<c:url value="/map/getdevote"/>', // 서버의 데이터를 가져올 URL
                 type: 'GET', // 요청 방식
-                data: { devoteId: devoteId }, // 서버로 전송할 데이터
+                data: { devoteId: selectedOption }, // 서버로 전송할 데이터
                 success: function(response) {
                     console.log(response)
                     if(response.devoteState == 1) {
@@ -201,7 +229,8 @@
                         $('#getVote').css('display', 'none');
                     }
                 },
-                error: function() {
+                error: function(response) {
+                    console.log(response)
                     alert('Error fetching data.'); // 에러 발생시 알림
                 }
             });
@@ -209,6 +238,9 @@
 
         $('#optionsDropdown').change(function() {
             var selectedOption = $(this).val(); // 선택된 옵션 값
+            var lon = $("#lon").val(); // 선택된 옵션 값
+            var lat = $("#lat").val(); // 선택된 옵션 값
+            console.log(lon, lat)
             if(selectedOption === 'none'){
                 $('#getBtn').css('display', 'none');
                 $("#list").empty();
@@ -228,9 +260,9 @@
                         displayMarker(response[i]);
                         bounds.extend(new kakao.maps.LatLng(response[i].log, response[i].lat));
                     }
-                    map.setBounds(bounds);
-                    getdevote()
-
+                    getprom(selectedOption)
+                    console.log(response)
+                    getDevote(selectedOption)
                 },
                 error: function() {
                     alert('Error fetching data.'); // 에러 발생시 알림

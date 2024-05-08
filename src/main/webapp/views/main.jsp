@@ -53,8 +53,6 @@
         $(document).click(() => {
             $("#myPageButton").removeClass("d-block");
             $("#myPageButton").addClass("d-none");
-
-            console.log("click")
         });
 
         // 마이페이지 버블을 클릭해도 문서 전체에 대한 클릭 이벤트가 발생하지 않도록 방지합니다.
@@ -79,7 +77,7 @@
                     <a class="nav-link" href="<c:url value="/search"/> ">친구맺기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/map"/>">내 지도</a>
+                    <a class="nav-link" href="<c:url value="/map/groupmp"/>">내 지도</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/mygroup"/>">내 그룹</a>

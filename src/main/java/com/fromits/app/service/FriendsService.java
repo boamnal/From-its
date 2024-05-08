@@ -15,10 +15,7 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
 
   final FriendsRepository repository;
 
-  public int addFriend(String userId, String userId2) throws Exception {
-    repository.addFriend(userId, userId2);
-    return 0;
-  }
+
 
   @Override
   public int add(FriendsDto friendsDto) throws Exception {
@@ -61,6 +58,13 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
   public List<FriendsDto> searchOther(String userId, String searchText) throws Exception {
     return repository.searchOther(userId, searchText);
   }
+
+  // 친구 추가
+  public int addFriend(@Param("userId") String userId, @Param("userId2") String userId2) throws Exception {
+    repository.addFriend(userId, userId2);
+    return 0;
+  }
+
 
   // 친구 절교
   public int byeFriend(String userId) throws Exception {
