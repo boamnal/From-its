@@ -12,9 +12,10 @@
         init: function () {
             $('.candidate').on('click', function() {
                 let devoteId = $(this).data("devote-id");
+                let candidateId = $(this).data("candidate-id");
 
                 let data = {
-                    "candidateId": 0,
+                    "candidateId": candidateId,
                     "userId": '',
                     "devoteId": devoteId
                 }
@@ -22,10 +23,23 @@
                     url: '/checkVote',
                     type: 'POST',
                     data: data,
-                    success: function (response) {
+                    success: function (res) {
                         // 성공적으로 요청을 처리한 후 실행할 코드를 작성합니다.
-                        console.log(response,"야호");
+                        if (res) {
+                            console.log("akakakakak",data)
+                            $.ajax({
+                                url: '/candidateVote',
+                                type: 'POST',
+                                data: data,
+                                success: function (response) {
+                                    // 성공적으로 요청을 처리한 후 실행할 코드를 작성합니다.
+                                    console.log(response,"ㅋㅋ야호");
+
+                                },
+                            })
+                        }
                     },
+
                     error: function (xhr, status, error) {
                         // 요청이 실패한 경우 실행할 코드를 작성합니다.
                         console.error(error);
@@ -48,7 +62,7 @@
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">약속 장소 투표</div>
     <div class="d-flex flex-column">
         <c:forEach items="${list}" var = "item">
-            <div id="candidate" class="candidate" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px" data-devote-id="${item.devoteId}">
+            <div id="candidate" class="candidate" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px" data-devote-id="${item.devoteId}" data-candidate-id="${item.candidateId}">
                 <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
                     <div>${item.placeName}</div>
                     <div>${item.placeAddress}</div>

@@ -52,23 +52,19 @@ public class VoteController {
         }
     }
 
-//    @ResponseBody
-//    @RequestMapping("/candidateVote")
-//    public int candidateVote(VoteDto vote, HttpSession httpSession) throws Exception {
-//        // 투표 성공: 1, 투표 실패: 0
-//        String userId = (String) httpSession.getAttribute("user_id");
-//
-//        int devoteId = vote.getDevoteId();
-//        int candidateId = vote
-//        VoteDto voteDto = VoteDto.builder().userId(userId).devoteId(devoteId).build();
-//        Integer check = voteService.checkVote(voteDto);
-//
-//        if (check == 1) {
-//            return 0;
-//        } else {
-//            return 1;
-//        }
-//    }
+    @ResponseBody
+    @RequestMapping("/candidateVote")
+    public int candidateVote(VoteDto vote, HttpSession httpSession) throws Exception {
+        // 투표 성공: 1, 투표 실패: 0
+        String userId = (String) httpSession.getAttribute("user_id");
 
+        int devoteId = vote.getDevoteId();
+        int candidateId = vote.getCandidateId();
+        VoteDto voteDto = VoteDto.builder().userId(userId).devoteId(devoteId).candidateId(candidateId).build();
+
+        Integer devoteCheck = voteService.add(voteDto);
+
+        return devoteCheck;
+    }
 
 }
