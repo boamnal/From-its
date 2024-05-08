@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
     @RequestMapping("/")
     public String main(Model model) throws Exception {
-//        model.addAttribute("center","layout");
-        return "main";
+        model.addAttribute("text1","로그인");
+        model.addAttribute("text2","회원가입");
+        return "center";
     }
     @RequestMapping("/initial")
     public String initial(Model model) throws Exception {
