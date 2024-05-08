@@ -1,6 +1,7 @@
 package com.fromits.app.repository;
 
 import com.fromits.app.dto.FinalPlaceDto;
+import com.fromits.app.dto.FinalPromiseDto;
 import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.dto.devoteCandidateDto;
 import com.fromits.app.frame.HanaRepository;
@@ -18,5 +19,6 @@ public interface PromiseRepository extends HanaRepository<Integer, PromiseDto> {
     public int getCount(String id);
     FinalPlaceDto finalplace(int devoteId) throws Exception;
     int updateResult( Map<String, Integer> updateResult) throws Exception;
+    FinalPromiseDto finalPromiseInfo(int proId) throws Exception;
 
 }

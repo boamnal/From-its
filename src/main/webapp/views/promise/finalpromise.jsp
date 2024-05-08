@@ -90,15 +90,15 @@
     <div class="d-flex flex-column">
         <div style="margin-bottom: 40px">
             <div class="fw-medium" style="font-size: 16px">약속명</div>
-            <input type="text" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우행시 모임" />
+            <div class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none">${promiseInfo.proName}</div>
         </div>
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 16px">약속장소(자동 로딩!)</div>
-            <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >서울시 동교로 33안길 35</div>
+            <div class="fw-medium" style="font-size: 16px">약속장소</div>
+            <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >${promiseInfo.placeAddress}</div>
         </div>
         <div style="margin-bottom: 40px">
-            <div class="fw-medium" style="font-size: 16px">그룹(자동 로딩?)</div>
-            <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >우행시 모임</div>
+            <div class="fw-medium" style="font-size: 16px">그룹명</div>
+            <div class="w-100" style="color: #333333; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" >${promiseInfo.groupName}</div>
         </div>
         <div style="margin-bottom: 40px">
             <div class="fw-medium" style="font-size: 16px">약속 날짜</div>
@@ -106,11 +106,11 @@
         </div>
         <div style="margin-bottom: 40px">
             <div class="fw-medium" style="font-size: 16px">약속 시간</div>
-            <input type="time" class="w-100" style="color: #CCCCCC; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="우행시 모임" />
+            <input readonly type="time" class="w-100" style="color: #CCCCCC; padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="우행시 모임" />
         </div>
         <div style="margin-bottom: 40px">
             <div class="fw-medium" style="font-size: 16px">약속 내용</div>
-            <textarea rows="5" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우리들의 행복한 시간 ^^~" ></textarea>
+            <textarea readonly rows="5" class="w-100" style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none" placeholder="ex) 우리들의 행복한 시간 ^^~" >${promiseInfo.proDesc}</textarea>
         </div>
     </div>
     <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0;" >생성하기</button>
