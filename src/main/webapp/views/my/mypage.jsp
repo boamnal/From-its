@@ -55,6 +55,11 @@
                             '<img src="/img/' + friend.profile + '.png" style="width: 40px; height: 40px; margin-right: 10px; border: 1px solid #CCCCCC; padding: 2px; border-radius: 99px" />' +
                             friend.userId + ' <span style="color: #FF9494">(' + friend.name + ')</span>' +
                             '</div>' +
+                            '<button style="border: none; background: none">' +
+                            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className = "bi bi-dash-circle-fill" style="color: #CCCCCC" viewBox = "0 0 16 16" >' +
+                            '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/>' +
+                            '</svg>' +
+                            '</button>' +
                             '</li>';
                         $(".optionList").append(friendElement);
                     });
@@ -136,12 +141,41 @@
             }
         });
 
-        $("#confirmButton").click(() => {
-            // "확인" 버튼 클릭 시, 등록 여부에 따라 다른 동작을 수행합니다.
+        // 친구 목록 클릭했을 때의 이벤트 리스너
+        $('.optionList').on('click', '.optionItem', function () {
+            let friendId = $(this).data('friendId');
+            let friendName = $(this).data('friendName');
+            let friendProfile = $(this).data('friendProfile');
+            // 모달 내용 설정
+            $('#modalContent').text(friendId + ' (' + friendName + ')' + '와 친구 끊을까요?');
+            $('#exampleModal').modal('show'); // 모달 표시
+            $('#confirmButton').off('click').on('click', function () { // 중복된 바인딩을 피하기 위해 이전 클릭 이벤트 해제
+                $.ajax({
+                    url: '/byeFriend',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    data: {friendId: friendId},
+                    success: function (response) {
+                        // 등록에 성공한 경우 모달을 닫습니다.
+                        $('#exampleModal').modal('hide');
+                        // 친구 목록을 다시 불러와서 업데이트합니다.
+                        searchFriends();
+                    },
+                    error: function (xhr, status, error) {
+                        // 필요한 경우 오류 처리
+                    }
+                });
+            });
+        });
+
+
+        // 모달 확인 버튼 클릭 이벤트 리스너
+        $('#confirmButton').click(function () {
             if (regist) {
-                $('#exampleModal').modal('hide'); // 등록되었을 때는 모달을 닫습니다.
-            } else {
-                toggleModalContent();
+                // 모달 닫기
+                $('#exampleModal').modal('hide');
+                // 등록 여부 flag 초기화
+                regist = false;
             }
         });
         $("#cancelButton").click(() => {
@@ -250,7 +284,7 @@
 
         </div>
         <div class="friend-management-content"
-             style="padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+             style="margin: 20px 0px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <input type="hidden" oninput="searchFriends()">
 
             <div class="selectBox2">
