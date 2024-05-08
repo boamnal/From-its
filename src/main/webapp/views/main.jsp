@@ -53,9 +53,6 @@
                     <a class="nav-link" href="<c:url value="/mygroup"/>">내 그룹</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/vote"/>">약속 후보</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/schedule"/>">약속 일정</a>
                 </li>
                 <span>  <a class="nav-link" href="<c:url value="/logoutimple"/>">로그아웃</a></span>
