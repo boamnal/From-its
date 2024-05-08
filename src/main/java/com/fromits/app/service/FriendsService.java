@@ -4,6 +4,7 @@ import com.fromits.app.dto.FriendsDto;
 import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.FriendsRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
     return repository.getMyFriends(userId);
   }
 
-  public List<FriendsDto> searchMyFriends(String userId, String searchText) throws Exception {
+  public List<FriendsDto> searchMyFriends(@Param("userId") String userId, @Param("searchText") String searchText) throws Exception {
     return repository.searchMyFriends(userId, searchText);
   }
 

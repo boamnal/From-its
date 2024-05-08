@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fromits.app.repository.VoteRepository">
 
+    <!--투표 상태 업데이트-->
+    <!--devote_state. 2는 투표 확정되었고 약속은 확정되지 않은 상태. 3은 약속까지 확정된 상태 -->
+    <update id="updateVoteState" parameterType="map">
+        update devote set devote_state=#{devoteState}, devote_id=#{devoteId} where devote_id=#{devoteId};
+    </update>
+
+    <!--투표여부확인-->
     <select id="checkVote" resultType="Integer">
         select count(user_id) as count_user
         from vote
@@ -16,6 +23,7 @@
     </insert>
 
     <!--최종 약속 장소 확정-->
+    <!--투표 안한 사람-->
     <select id = "getVoteCount" parameterType="VoteDto">
         SELECT count(user_id)
         FROM group_member
@@ -33,6 +41,5 @@
             FROM vote
             WHERE devote_id = 0
         );
-
     </select>
 </mapper>
