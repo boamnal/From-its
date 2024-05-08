@@ -86,6 +86,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/schedule"/>">약속 일정</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/initial"/>">약속 생성</a>
+                </li>
                 <li>
                     <c:choose>
                         <c:when test="${sessionScope.user_id == null}">
