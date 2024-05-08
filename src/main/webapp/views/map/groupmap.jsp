@@ -175,6 +175,7 @@
         });
 
         $('#getStart').click(function (){
+            var devoteId = $('#optionsDropdown').val(); // 선택된 옵션 값
             $.ajax({
                 url: '<c:url value="/getCount"/>', // 서버의 데이터를 가져올 URL
                 type: 'GET', // 요청 방식
@@ -182,6 +183,7 @@
                 success: function(response) {
                     if(response === 0){
                         startDevote()
+                        location.href = '<c:url value="/vote"/>'+ "?id="+ devoteId
                     }else {
                         alert("아직 다른 친구가 후보를 추가하지 않았어요")
                     }
