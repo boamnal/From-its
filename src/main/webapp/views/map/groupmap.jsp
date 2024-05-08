@@ -86,6 +86,8 @@
 <div id="list"></div>
 
 <button  type='button' style='width: 100%; margin-bottom: 20px; display: none' class = 'btn btn-primary' id = 'getBtn'> 후보 추가하기 </button>
+<button  type='button' style='width: 100%; margin-bottom: 20px; display: none' class = 'btn btn-primary' id = 'getStart'> 투표 시작하기 </button>
+<button  type='button' style='width: 100%; margin-bottom: 20px; display: none' class = 'btn btn-primary' id = 'getVote'> 투표하기 </button>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
 <script>
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -136,6 +138,38 @@
             location.href =url
         });
 
+        $('#getBtn').click(function (){
+            let devoteId = $('#devoteId').val(); // 선택된 옵션 값
+            let url = '<c:url value="/map"/>'+ "?id="+ devoteId
+            location.href =url
+        });
+
+        let getdevote = function (){
+
+            let devoteId = $('#devoteId').val();
+            $.ajax({
+                url: '<c:url value="/getdevote"/>', // 서버의 데이터를 가져올 URL
+                type: 'GET', // 요청 방식
+                data: { devoteId: devoteId }, // 서버로 전송할 데이터
+                success: function(response) {
+                    if(response.devote_state == 1) {
+                        $('#getBtn').css('display', 'none');
+                        $('#getStart').css('display', 'none');
+                        $('#getVote').css('display', 'block');
+                    }
+
+                    else if(response.devote_state == 0) {
+                        $('#getBtn').css('display', 'block');
+                        $('#getStart').css('display', 'block');
+                        $('#getVote').css('display', 'none');
+                    }
+                },
+                error: function() {
+                    alert('Error fetching data.'); // 에러 발생시 알림
+                }
+            });
+        }
+
         $('#optionsDropdown').change(function() {
             var selectedOption = $(this).val(); // 선택된 옵션 값
             if(selectedOption === 'none'){
@@ -160,6 +194,7 @@
                         bounds.extend(new kakao.maps.LatLng(response[i].log, response[i].lat));
                     }
                     map.setBounds(bounds);
+                    getdevote()
 
                 },
                 error: function() {

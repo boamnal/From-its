@@ -42,7 +42,7 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
     }
 
     public List<devoteCandidateDto> getPromise2(String userId) throws Exception {
-        return promiseRepository.getPromise(userId);
+        return promiseRepository.getPromise2(userId);
     }
 
     public int getCount(String id){
