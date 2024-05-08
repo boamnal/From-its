@@ -57,7 +57,7 @@
                     let color = "blue";
 
                     if (result == '1') {
-                        msg = "아이디가 존재하지 않습니다.";
+                        msg = "아이디가 존재하지 않아요.";
                         color = "#E05938";
                     }
                     $('#check_msg').html(msg).css("color", color);
@@ -88,7 +88,7 @@
                 <input type="text" class="form-control me-2" id="userId" placeholder="ex) fromits12" name="userId" required
                        style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
             </div>
-            <span id="check_msg" style="color:#b5b6b7; margin-left: 69px;">* 회원가입 시 입력한 아이디를 입력해주세요</span>
+            <span id="check_msg" style="color:#b5b6b7; margin-left: 69px;"></span>
         </div>
 
         <div class="join_form px-4" style="margin: 20px 0px">
