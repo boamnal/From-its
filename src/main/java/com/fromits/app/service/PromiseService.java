@@ -1,6 +1,7 @@
 package com.fromits.app.service;
 
 import com.fromits.app.dto.CustDto;
+import com.fromits.app.dto.FinalPlaceDto;
 import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.dto.devoteCandidateDto;
 import com.fromits.app.frame.HanaService;
@@ -52,5 +53,10 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
     public List<PromiseDto> getPromise(String userId) throws Exception {
         return promiseRepository.getPromise(userId);
     }
+
+    public FinalPlaceDto finalplace(int devoteId) throws Exception {
+        return promiseRepository.finalplace(devoteId);
+    }
+
 
 }

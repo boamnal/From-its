@@ -1,8 +1,10 @@
 package com.fromits.controller;
 
+import com.fromits.app.dto.FinalPlaceDto;
 import com.fromits.app.dto.VoteDto;
 import com.fromits.app.dto.devoteCandidateDto;
 import com.fromits.app.service.MapService;
+import com.fromits.app.service.PromiseService;
 import com.fromits.app.service.VoteService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -72,6 +74,7 @@ public class VoteController {
     }
     final MapService mapService;
     final VoteService voteService;
+    final PromiseService promiseService;
 
 
     @RequestMapping("/vote")
@@ -129,9 +132,19 @@ public class VoteController {
             updateVote.put(devoteState, vote.getDevoteId()); // 맵에 값 넣기
 
             voteService.updateVoteState(updateVote);
+
             return 1;
         } else {
             return 0;
         }
     }
+
+    @RequestMapping("/finalplace")
+    public String finalplace(Model model, @RequestParam("devoteId") int devoteId ) throws Exception {
+        FinalPlaceDto finalPlace = promiseService.finalplace(devoteId);
+        log.info("미미미미",finalPlace);
+        model.addAttribute("center",dir+"finalvoteplace");
+        return "main";
+    }
+
 }
