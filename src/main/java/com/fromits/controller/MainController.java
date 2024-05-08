@@ -18,7 +18,8 @@ public class MainController {
     public String initial(Model model) throws Exception {
         model.addAttribute("text1","새로운 그룹을 만들래요");
         model.addAttribute("text2","이미 만든 그룹이 있어요!");
-        return "index";
+        model.addAttribute("center","index");
+        return "main";
     }
     // 로그아웃
     @RequestMapping("/logoutimple")
