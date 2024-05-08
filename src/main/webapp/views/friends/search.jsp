@@ -55,6 +55,7 @@
     .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {
         background: #303030;
     }
+
     .optionItem {
         display: flex;
         justify-content: space-between;
@@ -135,28 +136,25 @@
             let friendName = $(this).data('friendName');
             let friendProfile = $(this).data('friendProfile');
             // 모달 내용 설정
-            $('#modalContent').text(friendId + ' (' + friendName + ')' + '을(를) 등록하시겠습니까?');
-            $.ajax({
-                url: '/createNewFriend',
-                type: 'GET',
-                contentType: 'application/json',
-                data: {friendId: friendId},
-                success: function (response) {
-                    // 등록 여부 flag 업데이트
-                    regist = true;
-                    //alert("성공");
-                    // 모달을 닫지 않고 사용자가 '등록되었습니다!' 메시지를 확인한 후 다시 확인을 누를 때 닫는다
-                    toggleModalContent();
-                },
-                error: function (xhr, status, error) {
-                }
+            $('#modalContent').text(friendId + ' (' + friendName + ')' + '와 친구 맺을까요?');
+            $('#exampleModal').modal('show'); // 모달 표시
+            $('#confirmButton').off('click').on('click', function () { // 중복된 바인딩을 피하기 위해 이전 클릭 이벤트 해제
+                $.ajax({
+                    url: '/createNewFriend',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    data: {friendId: friendId},
+                    success: function (response) {
+                        // 등록에 성공한 경우 모달을 닫습니다.
+                        $('#exampleModal').modal('hide');
+                        // 친구 목록을 다시 불러와서 업데이트합니다.
+                        searchFriends();
+                    },
+                    error: function (xhr, status, error) {
+                        // 필요한 경우 오류 처리
+                    }
+                });
             });
-
-
-            // 모달 화면에 표시
-            $('#exampleModal').modal('show');
-
-
         });
 
         // 모달 확인 버튼 클릭 이벤트 리스너
@@ -220,7 +218,8 @@
 </div>
 <button id="creategroup"
         class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"
-        style="padding: 12px 0; background-color: #FF9494; color: white;" onclick="window.location.href = '/initial'">약속 생성하기
+        style="padding: 12px 0; background-color: #FF9494; color: white;" onclick="window.location.href = '/initial'">약속
+    생성하기
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
