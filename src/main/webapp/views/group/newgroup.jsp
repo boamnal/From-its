@@ -26,10 +26,11 @@
         list-style-type: none;
         padding: 0;
         border-radius: 8px;
-        overflow-y: auto; /* Enable vertical scrolling */
-        max-height: 500px; /* Set a maximum height for the list */
+        overflow-y: auto;
+        height: 200px;
         transition: .3s ease-in;
     }
+
 
 
     .selectBox2 .optionItem {

@@ -1,10 +1,8 @@
 package com.fromits.app.service;
 
-import com.fromits.app.dto.CustDto;
 import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.frame.HanaService;
-import com.fromits.app.repository.CustRepository;
 import com.fromits.app.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +48,10 @@ public class GroupService implements HanaService<Integer, PromgroupDto> {
     public int newGroup(PromgroupDto promgroupDto) {
         groupRepository.newGroup(promgroupDto);
         return promgroupDto.getGroupId();
+    }
+
+    public List<PromgroupDto> getMyGroup(String userId) {
+        return groupRepository.getMyGroup(userId);
     }
 
 }

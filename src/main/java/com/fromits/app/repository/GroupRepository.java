@@ -15,5 +15,6 @@ public interface GroupRepository extends HanaRepository<Integer, PromgroupDto> {
 
     public List<PromiseDto> getPromisebyGroupId(int groupId) throws Exception;
     void newGroup(PromgroupDto promgroupDto);
+    List<PromgroupDto> getMyGroup(String userId);
 
 }
