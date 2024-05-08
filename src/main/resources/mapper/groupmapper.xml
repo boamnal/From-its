@@ -18,9 +18,24 @@
         insert into prom_group(group_name) values(#{groupName});
     </insert>
 
-        <select id="getPromisebyGroupId" parameterType="PromiseDto">
+    <select id="getPromisebyGroupId" parameterType="PromiseDto">
         SELECT *
         FROM promise
         WHERE group_id = #{param1}
+    </select>
+
+    <select id="getGroupById" parameterType="PromgroupDto">
+        select a.group_id, a.group_name
+        from prom_group a join (SELECT distinct(group_id)
+                                FROM group_member
+                                where user_id = #{param1}) b on (a.group_id = b.group_id);
+    </select>
+
+    <select id="getCandidateGroupById" parameterType="devoteCandidateDto">
+        select * from devote_candidate a join
+                      (select devote_id from devote  a
+                                                 join (select pro_id
+                                                       from promise
+                                                       where group_id= #{param1}) b on (a.pro_id = b.pro_id)) b on (a.devote_id = b.devote_id)
     </select>
 </mapper>

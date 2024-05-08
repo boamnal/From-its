@@ -1,12 +1,10 @@
 package com.fromits.controller;
 
 import com.fromits.app.dto.DevoteDto;
+import com.fromits.app.dto.PromgroupDto;
 import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.dto.devoteCandidateDto;
-import com.fromits.app.service.DevoteService;
-import com.fromits.app.service.GroupService;
-import com.fromits.app.service.MailSender;
-import com.fromits.app.service.MapService;
+import com.fromits.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +23,7 @@ import java.util.List;
 public class MapController {
     final GroupService groupService;
     final MapService mapService;
+    final PromiseService promiseService;
     final DevoteService devoteService;
     String dir = "map/";
     @RequestMapping("")
@@ -38,6 +37,7 @@ public class MapController {
     @RequestMapping("/group")
     public String group(Model model, @RequestParam("id") int groupId) throws Exception {
         List<PromiseDto> list = groupService.getPromisebyGroupId(groupId);
+
         model.addAttribute("center", dir + "groupmap");
         model.addAttribute("options", list);
         return "main";
@@ -57,12 +57,34 @@ public class MapController {
         }
     }
 
-
+    @ResponseBody
+    @RequestMapping("/getprom")
+    public Object getprom(@RequestParam("option")int id, HttpSession session) throws Exception {
+        PromiseDto promiseDto = promiseService.get(id);
+        return promiseDto;
+    }
 
     @ResponseBody
+    @RequestMapping("/getbygroupId")
+    public Object getAll(@RequestParam("option") int groupId, HttpSession session) throws Exception {
+        List<devoteCandidateDto> list = groupService.getCandidateGroupById(groupId);
+        return list;
+    }
+
+
+    @RequestMapping("/groupmp")
+    public Object map(Model model, HttpSession session) throws Exception {
+        String userId = (String) session.getAttribute("user_id");
+        List<PromgroupDto> list = groupService.getGroupById(userId);
+        model.addAttribute("list", list);
+        model.addAttribute("center", dir + "map");
+        return "main";
+    }
+    @ResponseBody
     @RequestMapping("/getdevote")
-    public DevoteDto getdevote(Model model, @RequestParam("devoteId") int devoteId) throws Exception {
+    public DevoteDto getdevote(@RequestParam("devoteId") int devoteId) throws Exception {
         DevoteDto status = devoteService.get(devoteId);
+        log.info("애" + status.toString());
         return status;
     }
 }
