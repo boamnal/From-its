@@ -1,7 +1,9 @@
 package com.fromits.controller;
 
+import com.fromits.app.dto.DevoteDto;
 import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.dto.devoteCandidateDto;
+import com.fromits.app.service.DevoteService;
 import com.fromits.app.service.GroupService;
 import com.fromits.app.service.MapService;
 import jakarta.servlet.http.HttpSession;
@@ -22,10 +24,12 @@ import java.util.List;
 public class MapController {
     final GroupService groupService;
     final MapService mapService;
+    final DevoteService devoteService;
     String dir = "map/";
     @RequestMapping("")
     public String map(Model model, @RequestParam("id") int id) throws Exception {
         model.addAttribute("center", dir + "search");
+        DevoteDto dto = devoteService.get(id);
         model.addAttribute("devote", id);
         return "main";
     }

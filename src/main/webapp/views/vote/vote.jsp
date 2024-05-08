@@ -24,7 +24,6 @@
 
 <div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">약속 장소 투표</div>
-    <c:if test="${list == null }"></c:if>
     <div class="d-flex flex-column">
         <c:forEach items="${list}" var = "item">
             <div class="candidate" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px">

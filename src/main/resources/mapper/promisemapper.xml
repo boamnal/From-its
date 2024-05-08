@@ -19,4 +19,23 @@
         where group_id = (SELECT group_id FROM group_member
                           where user_id=#{param})
     </select>
+
+    <select id="getCount" resultType="Integer">
+        SELECT count(user_id)
+        FROM group_member
+        WHERE group_id = (
+            SELECT group_id
+            FROM promise
+            WHERE pro_id = (
+                SELECT pro_id
+                FROM devote
+                WHERE devote_id = #{param1}
+            )
+        )
+          AND user_id NOT IN (
+            SELECT DISTINCT user_id
+            FROM devote_candidate
+            WHERE devote_id = #{param1}
+        );
+    </select>
 </mapper>

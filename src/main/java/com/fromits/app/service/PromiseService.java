@@ -43,4 +43,8 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
     public List<devoteCandidateDto> getPromise(String userId) throws Exception {
         return promiseRepository.getPromise(userId);
     }
+
+    public int getCount(String id){
+        return promiseRepository.getCount(id);
+    }
 }

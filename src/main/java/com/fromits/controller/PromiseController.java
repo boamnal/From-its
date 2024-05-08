@@ -82,4 +82,11 @@ public class PromiseController {
         List<devoteCandidateDto> list = mapService.selectByDevote(devoteId);
         return list;
     }
+
+    @ResponseBody
+    @RequestMapping("/getCount")
+    public String getCount(Model model, @RequestParam("devote") String id) throws Exception {
+        int count = promiseService.getCount(id);
+        return "main";
+    }
 }

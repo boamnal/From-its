@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class DevoteDto {
     private int devoteId;
     private int proId;
+    private int devote_state;
 }
