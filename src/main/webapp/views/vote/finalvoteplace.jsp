@@ -19,16 +19,14 @@
 <div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">최종 결정된 약속 장소</div>
     <div class="d-flex flex-column">
-        <input id="devoteId" class="d-none" value="${list[0].devoteId}" />
-        <input id="candidateId" class="d-none" value="${list[0].candidateId}" />
-        <div id="candidate" class="candidate" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px" data-devote-id="${item.devoteId}" data-candidate-id="${item.candidateId}">
-            <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
-                <div>${item.placeName}</div>
-                <div>${item.placeAddress}</div>
+        <div id="candidate" class="candidate" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px" >
+            <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center; color: #333333">
+                <div class="fw-bold">${finalPlace.placeName}</div>
+                <div>${finalPlace.placeAddress}</div>
             </div>
         </div>
     </div>
-    <button id="vote" data-bs-toggle="modal" data-bs-target="#exampleModal" class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"  style="padding: 12px 0; font-size: 16px" >투표하기</button>
+    <button id="vote" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder"  style="padding: 12px 0; font-size: 16px" onclick="window.location.href='/finalpromise'" >약속 시간 정하기</button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin: 20px auto;">
         <div class="modal-dialog" style="max-width: 300px; margin: 20px auto">
             <div class="modal-content" style="max-width: 400px;">

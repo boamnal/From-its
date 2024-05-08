@@ -142,7 +142,7 @@ public class VoteController {
     @RequestMapping("/finalplace")
     public String finalplace(Model model, @RequestParam("devoteId") int devoteId ) throws Exception {
         FinalPlaceDto finalPlace = promiseService.finalplace(devoteId);
-        log.info("미미미미",finalPlace);
+        model.addAttribute("finalPlace", finalPlace);
         model.addAttribute("center",dir+"finalvoteplace");
         return "main";
     }

@@ -50,13 +50,12 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
     return repository.searchMyFriends(userId, searchText);
   }
 
-  // 친구가 아닌 사용자 조회
+  // 친구 맺기
   public List<FriendsDto> getOther(String userId) throws Exception {
     return repository.getOther(userId);
   }
 
-  // 친구가 아닌 사용자 검색
-  public List<FriendsDto> searchOther(@Param("userId") String userId, @Param("searchText") String searchText) throws Exception {
+  public List<FriendsDto> searchOther(String userId, String searchText) throws Exception {
     return repository.searchOther(userId, searchText);
   }
 
@@ -66,4 +65,10 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
     return 0;
   }
 
+
+  // 친구 절교
+  public int byeFriend(String userId) throws Exception {
+    repository.deleteFriend(userId);
+    return 0;
+  }
 }
