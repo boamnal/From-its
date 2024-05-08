@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -69,15 +71,17 @@ public class VoteController {
 
     @ResponseBody
     @RequestMapping("/voteConfirm")
-    public int voteConfirm(HttpSession httpSession) throws Exception {
+    public int voteConfirm(VoteDto vote, HttpSession httpSession) throws Exception {
         // 약속 후보 확정 가능: 1, 약속 후보 확정 불가능: 0
 
         // 투표 안한 사람 수
         Integer notVoteCount = voteService.getVoteCount();
-        // 투표 해야하는 사람 수
-        Integer groupMemberCount = voteService.groupMemberCount();
+        Integer devoteState = 2;
+        if (notVoteCount == 0) {
+            Map<Integer, Integer> updateVote = new HashMap<>();
+            updateVote.put(devoteState, vote.getDevoteId()); // 맵에 값 넣기
 
-        if (notVoteCount.equals(groupMemberCount)) {
+            voteService.updateVoteState(updateVote);
             return 1;
         } else {
             return 0;

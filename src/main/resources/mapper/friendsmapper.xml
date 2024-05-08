@@ -19,7 +19,7 @@
 
 
     <!-- 사용자가 입력한 텍스트를 포함하는 친구 아이디, 이름 검색 -->
-    <select id="searchMyFriends" parameterType="String">
+    <select id="searchMyFriends" parameterType="map">
         SELECT u.user_id as user_id, u.name as name, u.profile as profile
         FROM user u, friends f
         WHERE u.user_id = f.user_id

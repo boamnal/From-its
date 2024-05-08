@@ -6,9 +6,11 @@ import com.fromits.app.frame.HanaService;
 import com.fromits.app.repository.PromiseRepository;
 import com.fromits.app.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +52,7 @@ public class VoteService implements HanaService<Integer, VoteDto>  {
         return voteRepository.getVoteCount();
     }
 
-    public Integer groupMemberCount() throws Exception {
-        return voteRepository.groupMemberCount();
+    public void updateVoteState(Map<Integer, Integer> updateVote) throws Exception {
+        voteRepository.updateVoteState(updateVote);
     }
 }
