@@ -11,10 +11,17 @@
         <result column="profile" property="profile" />
     </resultMap>
 
+    <!-- friends 테이블에 userId가 없을 경우에는 join을 하지 않아서 반환 데이터가 없도록-->
     <select id="getMyFriends" parameterType="String" resultMap="friendsResult">
         SELECT u.user_id as user_id, u.name as name, u.profile as profile
-        FROM user u, friends f
-        WHERE u.user_id = f.user_id AND u.user_id != #{userId}
+        FROM user u
+        WHERE u.user_id IN (SELECT CASE
+                                       WHEN f.user_id = #{userId} THEN f.user_id2
+                                       ELSE f.user_id
+                                       END
+                            FROM friends f
+                            WHERE f.user_id = #{userId}
+                               OR f.user_id2 = #{userId})
     </select>
 
 
