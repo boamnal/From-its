@@ -7,6 +7,7 @@ import com.fromits.app.service.VoteService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,58 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.List;
+import java.util.Properties;
+import com.sun.mail.util.MailLogger;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class VoteController {
     String dir = "vote/";
 
+    @Value("${app.key.username}")
+    String mail;
+    @Value("${app.key.password}")
+    String pwd;
+    public static void sendEmail(String to, String from, String host, String subject, String text, String pwd) {
+        // 메일 서버 연결을 위한 프로퍼티 설정
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+        properties.setProperty("mail.smtp.port", "587"); // 대부분의 SMTP 서버는 587 포트 사용
+        properties.setProperty("mail.smtp.auth", "true");
+        properties.setProperty("mail.smtp.starttls.enable", "true"); // TLS 사용 설정
+
+        // 인증 정보
+        Session session = Session.getInstance(properties, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication(from, pwd); // 발신자 이메일 계정과 비밀번호 입력
+            }
+        });
+
+        try {
+            // 메일 생성
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject(subject);
+            message.setText(text);
+
+            // 메일 전송
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+
+
+//        sendEmail("rkdalswn0833@gmail.com", mail, "smtp.gmail.com", "From-its", "투표가 완료되었습니다. 확인하세요", pwd);
+
+    }
     final MapService mapService;
     final VoteService voteService;
 

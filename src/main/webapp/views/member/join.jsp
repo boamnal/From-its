@@ -45,7 +45,9 @@
                         msg = "아이디 사용 가능해요.";
                         color = "#0819B8";
                     }
-                    $('#check_id_msg').html(msg).css("color", color);
+                    $('#check_id_msg').html(msg).css({
+                        "color": color,
+                    });
                 }
             })
         }
@@ -62,16 +64,19 @@
 
             passwordInput.addEventListener('input', function () {
                 let password = passwordInput.value;
-                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_+=])[a-zA-Z0-9!@#$%^&*()-_+=]{8,16}$/;
+                // 수정된 비밀번호 정규식
+                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,12}$/;
 
                 let msg = "비밀번호 사용 가능해요!";
-                let color = "blue";
+                let color = "#0819B8";
 
-                if (!passwordRegex.test(password)) {
-                    msg = "영문/숫자/특수문자 조합으로 8~12자리만 가능해요.";
-                    color = "red";
+                if (password.length > 12 || !passwordRegex.test(password)) {
+                    msg = "영문/숫자로 8~12자리여야 해요.";
+                    color = "#E05938";
                 }
-                $('#check_msg').html(msg).css("color", color);
+                $('#check_msg').html(msg).css({
+                    "color": color,
+                });
             });
         }
     }
@@ -85,18 +90,47 @@
             // jsp에서 만든 c태그를 url로 던져준다
             this.url = url;
 
-            $('#join_ok_btn').click(function () { // 로그인 버튼
-                console.log("확인 버튼  함수");
+            $('#join_ok_btn').click(function (event) { // 회원가입 버튼
+                console.log("회원가입 버튼 클릭");
 
+                // 모든 필드 유효성 검사
+                event.preventDefault(); // 기본 폼 제출 동작 방지
+
+                // 모든 입력 필드 가져오기
+                let inputs = $('#reg_form input');
+
+                // 모든 필드가 채워져 있는지 여부를 추적하는 플래그
+                let allFieldsFilled = true;
+
+                // 각 입력 필드를 반복
+                inputs.each(function () {
+                    // 입력 필드가 필수이고 비어 있는지 확인
+                    if ($(this).prop('required') && $(this).val().trim() === '') {
+                        // 필수 필드 중 하나라도 비어 있으면 플래그를 false로 설정
+                        allFieldsFilled = false;
+
+                    } else {
+                        // 이전에 발생한 유효하지 않은 상태 제거 (선택 사항)
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+
+                // 회원가입 시 랜덤 캐릭터 프사 배정
                 const profiles = [1, 2, 3];
 
                 let randomIndex = Math.floor(Math.random() * profiles.length);
                 let selectedProfile = profiles[randomIndex];
 
                 document.getElementById('profile').value = selectedProfile;
-                console.log("selectedProfile");
+                console.log("랜덤 캐릭터 프사 배정 완!");
 
-                join.send();
+                // 모든 필수 필드가 채워져 있으면 API 호출 진행
+                if (allFieldsFilled) {
+                    join.send();
+                } else {
+                    // 모든 필드가 필수임을 나타내는 메시지 표시 (선택 사항)
+                    alert('모든 정보를 입력해주세요');
+                }
             });
         },
         send: function () {
@@ -140,7 +174,7 @@
                        name="name"
                        required style="margin:12px 40px; padding: 12px; background-color: #F8F8FA; border-style: none">
             </div>
-            <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
+            <span id="" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
 
         </div>
 
@@ -154,6 +188,8 @@
                         style="padding: 12px; ">확인
                 </button>
             </div>
+            <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;"></span>
+
         </div>
 
         <div class="join_form px-4" style="margin: 20px 0px">
