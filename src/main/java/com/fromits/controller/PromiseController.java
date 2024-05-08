@@ -10,9 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
 import java.util.List;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -81,7 +84,17 @@ public class PromiseController {
     public String finalpromise(Model model, @RequestParam("devoteId") int devoteId) throws Exception {
 
         DevoteDto devoteDto = devoteService.getProId(devoteId);
+        Map<String, Integer> placeresult = new HashMap<>();
+        FinalPlaceDto finalPlace = promiseService.finalplace(devoteId);
+
         Integer proId = devoteDto.getProId();
+        Integer candidateId = finalPlace.getCandidateId();
+
+        placeresult.put("proId", proId);
+        placeresult.put("candidateId", candidateId);
+
+        Integer ss = promiseService.updateResult(placeresult);
+
         model.addAttribute("center",dir+"finalpromise");
         return "main";
     }

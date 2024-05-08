@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -64,6 +65,7 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
     public FinalPlaceDto finalplace(int devoteId) throws Exception {
         return promiseRepository.finalplace(devoteId);
     }
-
-
+    public int updateResult( Map<String, Integer> updateResult) throws Exception {
+        return promiseRepository.updateResult(updateResult);
+    }
 }
