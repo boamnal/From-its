@@ -1,8 +1,5 @@
 package com.fromits.controller;
-import com.fromits.app.dto.CustDto;
-import com.fromits.app.dto.PromgroupDto;
-import com.fromits.app.dto.PromiseDto;
-import com.fromits.app.dto.devoteCandidateDto;
+import com.fromits.app.dto.*;
 import com.fromits.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +24,7 @@ public class PromiseController {
     final PromiseService promiseService;
     final FriendsService friendsService;
     final GroupmemberService groupmemberService;
+    final DevoteService devoteService;
     final CustService custService;
 //
 //
@@ -49,7 +47,7 @@ public class PromiseController {
 
     @RequestMapping("/schedulepromise")
     public String schedulepromise(Model model, HttpSession session) throws Exception {
-        List<devoteCandidateDto> list = promiseService.getPromise("id01");
+        List<devoteCandidateDto> list = promiseService.getPromise2("id01");
         model.addAttribute("list", list);
         model.addAttribute("center",dir+"schedulepromise");
         return "main";
@@ -79,10 +77,11 @@ public class PromiseController {
         return memberAddress;
     }
 
+    //확정된 약속 가져오는 query
     @RequestMapping("/finalpromise")
     public String finalpromise(Model model, HttpSession session) throws Exception {
         String userId = (String) session.getAttribute("user_id");
-        List<devoteCandidateDto> list = promiseService.getPromise(userId);
+        List<devoteCandidateDto> list = promiseService.getPromise2(userId);
         model.addAttribute("center",dir+"finalpromise");
         model.addAttribute("list",list);
         return "main";
@@ -96,16 +95,23 @@ public class PromiseController {
 
     @ResponseBody
     @RequestMapping("/getpromise")
-    public Object getpromise(Model model, @RequestParam("option") int proId) throws Exception {
+    public Object getpromise(@RequestParam("option") int proId) throws Exception {
         int devoteId = mapService.getDevoteId(proId);
         List<devoteCandidateDto> list = mapService.selectByDevote(devoteId);
         return list;
     }
 
     @ResponseBody
+    @RequestMapping("/getdevote")
+    public Object getdevote(Model model, @RequestParam("devoteId") int devoteId) throws Exception {
+        DevoteDto dto = devoteService.get(devoteId);
+        return dto;
+    }
+
+    @ResponseBody
     @RequestMapping("/getCount")
-    public String getCount(Model model, @RequestParam("devote") String id) throws Exception {
+    public Object getCount(Model model, @RequestParam("devote") String id) throws Exception {
         int count = promiseService.getCount(id);
-        return "main";
+        return count;
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 @Mapper
 public interface PromiseRepository extends HanaRepository<Integer, PromiseDto> {
-    List<devoteCandidateDto> getPromise(String userId) throws Exception;
+    List<devoteCandidateDto> getPromise2(String userId) throws Exception;
+    List<PromiseDto> getPromise(String userId) throws Exception;
     public int getCount(String id);
 }
