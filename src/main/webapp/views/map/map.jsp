@@ -68,13 +68,13 @@
     <div class="input-group mb-3">
         <select id = "optionsDropdown" class="form-select" aria-label="Default select example">
             <c:choose>
-                <c:when test="${options == null or options == []}">
-                    <option value="none">아직 약속이 없습니다. 약속을 만들어주세요</option>
+                <c:when test="${list == null or list == []}">
+                    <option value="none">아직 그룹이 없습니다. 약속을 만들어주세요</option>
                 </c:when>
                 <c:otherwise>
-                    <option value="none">약속을 선택하세요</option>
-                    <c:forEach var="option" items="${options}">
-                        <option value="${option.proId}">${option.proName}</option>
+                    <option value="none">그룹을 선택하세요</option>
+                    <c:forEach var="option" items="${list}">
+                        <option value="${option.groupId}">${option.groupName}</option>
                     </c:forEach>
                 </c:otherwise>
             </c:choose>
@@ -85,9 +85,6 @@
 
 <div id="list"></div>
 
-<button  type='button' style='width: 100%; margin-bottom: 20px; display: none' class = 'btn btn-primary' id = 'getBtn'> 후보 추가하기 </button>
-<button  type='button' style='width: 100%; margin-bottom: 20px; display: none' class = 'btn btn-primary' id = 'getStart'> 투표 시작하기 </button>
-<button  type='button' style='width: 100%; margin-bottom: 20px; display: none' class = 'btn btn-primary' id = 'getVote'> 투표하기 </button>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
 <script>
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -145,7 +142,7 @@
             if(selectedOption === 'none')
                 return
             $.ajax({
-                url: '<c:url value="/getAllpromise"/>', // 서버의 데이터를 가져올 URL
+                url: '<c:url value="/map/getbygroupId"/>', // 서버의 데이터를 가져올 URL
                 type: 'GET', // 요청 방식
                 data: { option: selectedOption }, // 서버로 전송할 데이터
                 success: function(response) {

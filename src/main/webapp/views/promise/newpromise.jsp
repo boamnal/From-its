@@ -132,7 +132,7 @@
                                     success: function (res) {
                                         toggleModalContent();
                                         setTimeout(() => {
-                                            window.location.href ="/map?groupId="+groupId
+                                            window.location.href ="/map/group?id="+groupId
                                         }, 1500);
 
                                     }

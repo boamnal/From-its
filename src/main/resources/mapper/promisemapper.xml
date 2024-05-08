@@ -3,18 +3,20 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fromits.app.repository.PromiseRepository">
-    <insert id="insert" parameterType="PromiseDto" useGeneratedKeys="true"
-            keyProperty="proId">
-        insert into promise(group_id, pro_name, pro_desc, pro_lat, pro_lon, pro_date, candidate_id) values(#{groupId}, #{proName},#{proDesc}, #{proLat}, #{proLon}, NOW(), null);
-        <selectKey keyProperty="proId" resultType="Integer">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+    <insert id="insert" parameterType="PromiseDto" useGeneratedKeys="true" keyProperty="proId" >
+        insert into promise(pro_id, group_id, pro_name, pro_desc, pro_lat, pro_lon, pro_date, candidate_id) values(0, #{groupId}, #{proName},#{proDesc}, #{proLat}, #{proLon}, NOW(), null);
     </insert>
     <!--확정된 약속 후보들 가져오는 거-->
     <select id = "getPromise2" parameterType="devoteCandidateDto">
         SELECT * from devote_candidate d join (SELECT candidate_id from promise
                                                where group_id = (SELECT group_id FROM group_member
                                                                  where user_id= #{param1})) b on (d.candidate_id = b.candidate_id)
+    </select>
+
+    <select id="selectOne" resultType="PromiseDto">
+        SELECT *
+        FROM promise
+        WHERE pro_id = #{param1}
     </select>
 
     <select id = "getPromise" parameterType="PromiseDto">
