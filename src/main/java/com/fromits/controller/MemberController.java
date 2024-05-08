@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -70,12 +72,13 @@ public class MemberController {
       //  세션에 id, user 정보 저장
       httpSession.setAttribute("user_id", custDto.getUserId());
       httpSession.setAttribute("user", custDto);
+      // 10분이 최대(600)
+      log.info("getMaxInactiveInterval={}", httpSession.getMaxInactiveInterval());
+
       return "success";
     } catch (Exception e) {
       return "비밀번호가 다릅니다.";
     }
   }
-
-
 }
 
