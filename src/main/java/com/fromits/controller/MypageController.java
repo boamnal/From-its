@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,5 +52,19 @@ public class MypageController {
     String userId = (String) httpSession.getAttribute("user_id");
     List<FriendsDto> myFriends = friendsService.getMyFriends(userId);
     return myFriends;
+  }
+  // 친구 절교
+  @ResponseBody
+  @RequestMapping("/byeFriend")
+  public int createNewFriend(@RequestParam("friendId") String friendId, HttpSession session) {
+    log.info("-------------------선택한 친구 아이디: ", friendId);
+
+    String loggedInUserId = (String) session.getAttribute("user_id");
+    try {
+      friendsService.byeFriend(friendId);
+      return 1;
+    } catch (Exception e) {
+      return 0;
+    }
   }
 }

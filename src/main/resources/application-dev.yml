@@ -5,7 +5,7 @@ server:
       charset: UTF-8
       force: true
     session:
-      timeout: 10m
+      timeout: 60m
 spring:
   messages:
     basename: messages/message

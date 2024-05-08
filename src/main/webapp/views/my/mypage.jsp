@@ -55,20 +55,23 @@
                             '<img src="/img/' + friend.profile + '.png" style="width: 40px; height: 40px; margin-right: 10px; border: 1px solid #CCCCCC; padding: 2px; border-radius: 99px" />' +
                             friend.userId + ' <span style="color: #FF9494">(' + friend.name + ')</span>' +
                             '</div>' +
+                            '<button style="border: none; background: none">' +
+                            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className = "bi bi-dash-circle-fill" style="color: #CCCCCC" viewBox = "0 0 16 16" >' +
+                            '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/>' +
+                            '</svg>' +
+                            '</button>' +
                             '</li>';
                         $(".optionList").append(friendElement);
                     });
                 } else {
                     // 검색 결과가 비어있는 경우
-                    let noResult = `
-
-                        <div className="text-center" style="font-size: 16px; color: #333333">친구가 존재하지 않아요!</div>
-                        <button className="fw-bold align-items-center"
-                                style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none"
-                                onClick="window.location.href='/search'">친구 만들러가기
-                        </button>
-                    </div>
-                    `
+                    let noResult =
+                        `
+                        <div class="noResult-container">
+                        <div class="noResult-message">친구가 존재하지 않아요!</div>
+                        <button class="noResult-button" onclick="window.location.href='/search'">친구 만들러가기</button>
+                        </div>
+                        `;
                     $(".optionList").append(noResult);
                 }
             }
@@ -136,12 +139,41 @@
             }
         });
 
-        $("#confirmButton").click(() => {
-            // "확인" 버튼 클릭 시, 등록 여부에 따라 다른 동작을 수행합니다.
+        // 친구 목록 클릭했을 때의 이벤트 리스너
+        $('.optionList').on('click', '.optionItem', function () {
+            let friendId = $(this).data('friendId');
+            let friendName = $(this).data('friendName');
+            let friendProfile = $(this).data('friendProfile');
+            // 모달 내용 설정
+            $('#modalContent').text(friendId + ' (' + friendName + ')' + '와 친구 끊을까요?');
+            $('#exampleModal').modal('show'); // 모달 표시
+            $('#confirmButton').off('click').on('click', function () { // 중복된 바인딩을 피하기 위해 이전 클릭 이벤트 해제
+                $.ajax({
+                    url: '/byeFriend',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    data: {friendId: friendId},
+                    success: function (response) {
+                        // 등록에 성공한 경우 모달을 닫습니다.
+                        $('#exampleModal').modal('hide');
+                        // 친구 목록을 다시 불러와서 업데이트합니다.
+                        searchFriends();
+                    },
+                    error: function (xhr, status, error) {
+                        // 필요한 경우 오류 처리
+                    }
+                });
+            });
+        });
+
+
+        // 모달 확인 버튼 클릭 이벤트 리스너
+        $('#confirmButton').click(function () {
             if (regist) {
-                $('#exampleModal').modal('hide'); // 등록되었을 때는 모달을 닫습니다.
-            } else {
-                toggleModalContent();
+                // 모달 닫기
+                $('#exampleModal').modal('hide');
+                // 등록 여부 flag 초기화
+                regist = false;
             }
         });
         $("#cancelButton").click(() => {
@@ -168,22 +200,29 @@
         display: none;
     }
 
+    /*noResult: 조회 결과가 없을 때의 CSS*/
+    .friend-management-content {
+        width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+    }
+
     .selectBox2 {
         position: relative;
+        width: 100%; /* 부모 요소와 동일한 너비로 설정 */
+
     }
 
     .selectBox2 .optionList {
         /*position: absolute;*/
         /*top: 60px;*/
         left: 0;
-        width: 100%;
+        width: 100%; /* 부모 요소와 동일한 너비로 설정 */
         background: white;
         color: #333333;
         list-style-type: none;
         padding: 0;
         border-radius: 8px;
         overflow-y: auto;
-        height: 200px;
+        /*height: 200px;*/
         transition: .3s ease-in;
     }
 
@@ -223,6 +262,36 @@
         align-items: center; /* 세로 중앙 정렬을 위해 추가 */
     }
 
+    .noResult-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .noResult-message {
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .noResult-button {
+        font-weight: bold;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin-top: 32px;
+        background-color: #FEF4F2;
+        color: #FF9494;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .noResult-button:hover {
+        background-color: #FF9494;
+        color: white;
+    }
+
 </style>
 
 <div>
@@ -249,9 +318,9 @@
             </svg>
 
         </div>
+
         <div class="friend-management-content"
-             style="padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <input type="hidden" oninput="searchFriends()">
+             style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
             <div class="selectBox2">
                 <ul class="optionList">
