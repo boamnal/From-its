@@ -80,7 +80,7 @@
                     <a class="nav-link" href="<c:url value="/map/groupmp"/>">내 지도</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/mygroup"/>">내 그룹</a>
+                    <a class="nav-link" href="<c:url value="/mygroup"/>">그룹 지도</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/schedule"/>">약속 일정</a>
