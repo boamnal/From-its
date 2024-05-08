@@ -10,12 +10,20 @@
 <script>
     let mygroup = {
         init: function () {
-            console.log(mygroup)
+
+            $('.gobtn').click(function() {
+                let value = ($(this).val());
+                location.href = '<c:url value="map/group"/>' + "?id=" +value
+            });
         }
+
+
     };
     $(function () {
         mygroup.init();
     });
+
+
 </script>
 
 <div>
@@ -33,7 +41,7 @@
             </c:when>
             <c:otherwise>
                 <c:forEach var="g" items="${mygroup}">
-                    <button class="w-100 btn btn-primary rounded-3 fw-bolder mt-auto"  style="padding: 12px 0;">${g.groupName}</button>
+                    <button value  = "${g.groupId}" class="gobtn w-100 btn btn-primary rounded-3 fw-bolder mt-auto"  style="padding: 12px 0;">${g.groupName}</button>
                 </c:forEach>
             </c:otherwise>
         </c:choose>
