@@ -20,4 +20,6 @@ public interface FriendsRepository extends HanaRepository<String, FriendsDto> {
     List<FriendsDto> getOther(String id) throws Exception;
     List<FriendsDto> searchOther(String userId, String searchText) throws Exception;
 
+  // 친구 절교
+  void deleteFriend(String userId) throws Exception;
 }

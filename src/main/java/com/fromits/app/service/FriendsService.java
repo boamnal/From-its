@@ -61,4 +61,10 @@ public class FriendsService implements HanaService<Integer, FriendsDto> {
   public List<FriendsDto> searchOther(String userId, String searchText) throws Exception {
     return repository.searchOther(userId, searchText);
   }
+
+  // 친구 절교
+  public int byeFriend(String userId) throws Exception {
+    repository.deleteFriend(userId);
+    return 0;
+  }
 }
