@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 @Mapper
 public interface DevoteRepository extends HanaRepository<Integer, DevoteDto> {
+    public int getStart(int id);
 }

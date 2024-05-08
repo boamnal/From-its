@@ -24,8 +24,14 @@
 </style>
 
 <div>
-    <div class="fw-bold" style="font-size: 22px" >${sessionScope.user_id}님 어서오세요</div>
+    <div class="fw-bold" style="font-size: 22px" >${sessionScope.user.name}님 어서오세요</div>
     <button class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder"  style="padding: 12px 0; margin: 16px 0; background-color: #FEF4F2; color: #FF9494; font-size: 16px" >생성하기</button>
+    <c:if test="${list == null}">
+        <div class="fw-medium" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px; font-size: 16px; text-align: center">
+            <div>약속이 아직 없어요!</div>
+            <div class="btn btn-primary fw-bold" style="padding: 12px 20px; margin-top: 32px">약속 만들러가기</div>
+        </div>
+    </c:if>
     <c:forEach items="${list}" var="item">
         <div class="schedule" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px">
             <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
@@ -36,8 +42,5 @@
         </div>
     </c:forEach>
 
-    <div class="fw-medium" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px; font-size: 16px; text-align: center">
-        <div>약속이 아직 없어요!</div>
-        <div class="btn btn-primary fw-bold" style="padding: 12px 20px; margin-top: 32px">약속 만들러가기</div>
-    </div>
+
 </div>

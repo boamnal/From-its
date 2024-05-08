@@ -23,6 +23,13 @@
         WHERE userId = #{user_id}
     </update>
 
+    <update id="getStart" parameterType="Integer">
+        UPDATE devote
+        SET devote_state = 1
+        WHERE devote_id = #{param1}
+    </update>
+
+
     <delete id="delete" parameterType="Integer">
         DELETE
         FROM devote
