@@ -51,19 +51,27 @@
                     type: 'POST',
                     data: data,
                     success: function (res) {
-                        if (res) {
+                        if (res === 1) {
+                            // 투표 가능한 상태
                             $.ajax({
                                 url: '/candidateVote',
                                 type: 'POST',
                                 data: data,
                                 success: function (response) {
-                                    console.log(response,"ㅋㅋ야호");
+                                    console.log(response, "ㅋㅋ야호");
+                                    $("#modalContent").text("투표되었습니다.");
+                                    $('#exampleModal').modal('show');
                                 },
-                            })
+                            });
+                        } else {
+                            // 이미 투표한 상태
+                            $("#modalContent").text("이미 투표한 장소가 있습니다.");
+                            $('#exampleModal').modal('show');
                         }
                     }
                 });
             })
+
 
             $('#vote').click(() => {
                 $.ajax({
@@ -90,7 +98,7 @@
         },
         toggleModalContent: function (){
 
-    }
+        }
     };
     $(function () {
         vote.init();
