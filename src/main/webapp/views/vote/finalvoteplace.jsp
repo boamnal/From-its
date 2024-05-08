@@ -26,22 +26,5 @@
             </div>
         </div>
     </div>
-    <button id="vote" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder"  style="padding: 12px 0; font-size: 16px" onclick="window.location.href='/finalpromise'" >약속 시간 정하기</button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin: 20px auto;">
-        <div class="modal-dialog" style="max-width: 300px; margin: 20px auto">
-            <div class="modal-content" style="max-width: 400px;">
-                <div class="modal-header" style="border: none">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div id="modalContent" class="modal-body" style="text-align: center; padding: 30px 0; font-size: 16px; color: #333333;">
-                    등록하시겠습니까?
-                </div>
-                <div class="d-flex gap-2 w-100" style="border: none; justify-content: center; padding: 20px">
-                    <button id="confirmButton" type="button" class="w-100 btn btn-primary fw-bolder" style="background-color: #FF9494; color: white; padding: 8.5px 0">확인</button>
-                    <button id="cancelButton" type="button" class="w-100 btn fw-bolder" data-bs-dismiss="modal" style="background-color: #FEF4F2; color: #FF9494; display: none">취소</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <button class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder"  style="padding: 12px 0; font-size: 16px" onclick="window.location.href='/finalpromise?devoteId='+${finalPlace.devoteId}" >약속 시간 정하기</button>
 </div>

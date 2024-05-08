@@ -1,8 +1,5 @@
 package com.fromits.controller;
-import com.fromits.app.dto.CustDto;
-import com.fromits.app.dto.PromgroupDto;
-import com.fromits.app.dto.PromiseDto;
-import com.fromits.app.dto.devoteCandidateDto;
+import com.fromits.app.dto.*;
 import com.fromits.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -81,7 +78,10 @@ public class PromiseController {
     }
 
     @RequestMapping("/finalpromise")
-    public String finalpromise(Model model, HttpSession session) throws Exception {
+    public String finalpromise(Model model, @RequestParam("devoteId") int devoteId) throws Exception {
+
+        DevoteDto devoteDto = devoteService.getProId(devoteId);
+        Integer proId = devoteDto.getProId();
         model.addAttribute("center",dir+"finalpromise");
         return "main";
     }
