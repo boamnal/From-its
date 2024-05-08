@@ -49,7 +49,7 @@ public class PromiseController {
 
     @RequestMapping("/schedulepromise")
     public String schedulepromise(Model model, HttpSession session) throws Exception {
-        List<PromiseDto> list = promiseService.getPromise("id01");
+        List<devoteCandidateDto> list = promiseService.getPromise("id01");
         model.addAttribute("list", list);
         model.addAttribute("center",dir+"schedulepromise");
         return "main";
@@ -80,8 +80,9 @@ public class PromiseController {
     }
 
     @RequestMapping("/finalpromise")
-    public String finalpromise(Model model) throws Exception {
-        List<PromiseDto> list = promiseService.getPromise("id01");
+    public String finalpromise(Model model, HttpSession session) throws Exception {
+        String userId = (String) session.getAttribute("user_id");
+        List<devoteCandidateDto> list = promiseService.getPromise(userId);
         model.addAttribute("center",dir+"finalpromise");
         model.addAttribute("list",list);
         return "main";
@@ -99,5 +100,12 @@ public class PromiseController {
         int devoteId = mapService.getDevoteId(proId);
         List<devoteCandidateDto> list = mapService.selectByDevote(devoteId);
         return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("/getCount")
+    public String getCount(Model model, @RequestParam("devote") String id) throws Exception {
+        int count = promiseService.getCount(id);
+        return "main";
     }
 }

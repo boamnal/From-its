@@ -86,6 +86,7 @@
 
 <div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">약속 만들기</div>
+
     <div class="d-flex flex-column">
         <div style="margin-bottom: 40px">
             <div class="fw-medium" style="font-size: 16px">약속명</div>

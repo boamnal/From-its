@@ -24,14 +24,14 @@
 </style>
 
 <div>
-    <div class="fw-bold" style="font-size: 22px" >000님 어서오세요</div>
+    <div class="fw-bold" style="font-size: 22px" >${sessionScope.user_id}님 어서오세요</div>
     <button class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder"  style="padding: 12px 0; margin: 16px 0; background-color: #FEF4F2; color: #FF9494; font-size: 16px" >생성하기</button>
     <c:forEach items="${list}" var="item">
         <div class="schedule" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px">
             <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
-                <div>${item.proName}</div>
-                <div>2024.04.29</div>
-                <div style="color: #999999;">서울 마포구 동교로 38안길 22</div>
+                <div>${item.placeName}</div>
+                <div>${item.proNow}</div>
+                <div style="color: #999999;">${item.placeAddress}</div>
             </div>
         </div>
     </c:forEach>

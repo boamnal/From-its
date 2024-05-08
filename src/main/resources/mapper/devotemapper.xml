@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fromits.app.repository.DevoteRepository">
+
+
+    <select id="select" resultType="DevoteDto">
+        SELECT *
+        FROM devote
+    </select>
+
+
+
+    <insert id="insert" parameterType="DevoteDto">
+        INSERT INTO devote VALUES (0, #{proId}, 0)
+    </insert>
+
+    <update id="update" parameterType="DevoteDto">
+        UPDATE user
+        SET password=#{password},
+            email=#{email}
+        WHERE userId = #{user_id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM devote
+        WHERE devote_id = #{param1}
+    </delete>
+
+    <select id="getDevoteId" resultType="Integer">
+        SELECT devote_id
+        FROM devote
+        where pro_id = #{param1}
+    </select>
+
+    <select id="selectOne" parameterType="Integer" resultType="DevoteDto">
+        SELECT *
+        FROM devote
+        WHERE devote_id = #{param1}
+    </select>
+</mapper>
