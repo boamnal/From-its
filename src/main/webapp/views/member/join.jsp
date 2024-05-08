@@ -136,23 +136,24 @@
         <div class="join_form px-4" style="margin: 20px 0px">
             <div class="form-group d-flex align-items-center">
                 <label for="name" class="flex-grow-1 mb-0 text-nowrap fw-medium">이름</label>
-                <input type="text" class="form-control me-2" id="name" placeholder="ex) 홍길동"
+                <input type="text" class="form-control me-2" id="name" placeholder="ex) 김약속"
                        name="name"
                        required style="margin:12px 40px; padding: 12px; background-color: #F8F8FA; border-style: none">
             </div>
+            <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
+
         </div>
 
         <div class="join_form px-4" style="margin: 20px 0px">
             <div class="form-group d-flex align-items-center">
                 <label for="id" class="flex-grow-1 mb-0 text-nowrap fw-medium">아이디</label>
-                <input type="text" class="form-control me-2" id="id" placeholder="ex) 삼식이" name="userId" required
+                <input type="text" class="form-control me-2" id="id" placeholder="ex) fromits12" name="userId" required
                        style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
 
                 <button id="btn_check" type="button" class="btn btn-primary rounded-3 fw-bolder text-nowrap"
                         style="padding: 12px; ">확인
                 </button>
             </div>
-            <span id="check_id_msg" style="color:#b5b6b7; margin-left: 69px;">* 친구에게 보여질 닉네임이에요</span>
         </div>
 
         <div class="join_form px-4" style="margin: 20px 0px">

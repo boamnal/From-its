@@ -85,7 +85,7 @@
         <div class="join_form px-4" style="margin: 20px 0px">
             <div class="form-group d-flex align-items-center">
                 <label for="userId" class="flex-grow-1 mb-0 text-nowrap fw-medium">아이디</label>
-                <input type="text" class="form-control me-2" id="userId" placeholder="ex) 삼식이" name="userId" required
+                <input type="text" class="form-control me-2" id="userId" placeholder="ex) fromits12" name="userId" required
                        style="margin:12px 24px; padding: 12px; background-color: #F8F8FA; border-style: none">
             </div>
             <span id="check_msg" style="color:#b5b6b7; margin-left: 69px;">* 회원가입 시 입력한 아이디를 입력해주세요</span>
