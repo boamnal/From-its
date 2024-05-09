@@ -66,6 +66,10 @@ public class CustService implements HanaService<String, CustDto> {
     return memberAddress;
   }
 
+  public List<CustDto> getMemberPromiseId(int proId) throws Exception {
+    return custRepository.getMemberPromiseId(proId);
+  }
+
   public void modifyAddress(CustDto custDto) throws Exception {
     custRepository.updateAddress(custDto);
   }

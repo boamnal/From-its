@@ -16,9 +16,10 @@
             $('#makeProm2').on('click', function() {
                 location.href = '<c:url value="/initial"/>'
             })
-            $('.proDiv').on('click', function() {
-                alert($(this).val())
-            })
+            $('.proDiv').click(function() {
+                var hiddenValue = $(this).find('input[type="hidden"]').val();
+                location.href= '<c:url value="/detailpromise"/>?id=' + hiddenValue;
+            });
         }
     };
     $(function () {
@@ -45,7 +46,7 @@
         <c:otherwise>
             <c:forEach items="${promise}" var="p">
                 <div class="schedule" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px">
-                    <div value="${p.proId}" class="proDiv fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center; color:#333333">
+                    <div class="proDiv fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center; color:#333333">
                         <div>${p.proName}<span style="color: #FF9494">(${p.groupName})</span></div>
                         <div>${p.proDate}</div>
                         <input type="hidden" value="${p.proId}">
