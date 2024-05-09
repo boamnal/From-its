@@ -20,4 +20,12 @@ public interface PromiseRepository extends HanaRepository<Integer, PromiseDto> {
     int finalPromiseSchedule(Map<String, Object> scheduler) throws Exception;
     List<String> getEmailsbyProId(int proId) throws Exception;
 
+    // 업데이트
+    void updateMeeting(Map<String, Object> updateResult) throws Exception;
+
+    // 삭제
+    void deleteMeeting(int proId) throws Exception;
+
+
+
 }
