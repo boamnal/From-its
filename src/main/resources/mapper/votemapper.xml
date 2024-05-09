@@ -24,7 +24,7 @@
 
     <!--최종 약속 장소 확정-->
     <!--투표 안한 사람-->
-    <select id = "getVoteCount" parameterType="VoteDto">
+    <select id = "getVoteCount" parameterType="Integer">
         SELECT count(user_id)
         FROM group_member
         WHERE group_id = (
@@ -33,13 +33,13 @@
             WHERE pro_id = (
                 SELECT pro_id
                 FROM devote
-                WHERE devote_id = 0
+                WHERE devote_id = #{param1}
             )
         )
           AND user_id NOT IN (
             SELECT DISTINCT user_id
             FROM vote
-            WHERE devote_id = 0
+            WHERE devote_id = #{param1}
         );
     </select>
 

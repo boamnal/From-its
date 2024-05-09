@@ -48,8 +48,8 @@ public class VoteService implements HanaService<Integer, VoteDto>  {
         return voteRepository.checkVote(voteDto);
     }
 
-    public Integer getVoteCount() throws Exception {
-        return voteRepository.getVoteCount();
+    public Integer getVoteCount(int integer) throws Exception {
+        return voteRepository.getVoteCount(integer);
     }
 
     public void updateVoteState(Map<String, Object> updateVote) throws Exception {
