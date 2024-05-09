@@ -69,9 +69,6 @@ public class PromiseController {
             mex.printStackTrace();
         }
 
-
-//
-
     }
 
     final VoteService voteService;
