@@ -82,4 +82,7 @@
         update promise set pro_date=#{proDate} where pro_id=#{proId};
     </update>
 
+    <!-- 최종 약속에서 약속 생성한 그룹 사용자 목록 가져와야 함-->
+
+
 </mapper>

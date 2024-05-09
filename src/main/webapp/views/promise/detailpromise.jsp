@@ -84,7 +84,7 @@
 </head>
 
 <div class="min-vh-100">
-    <div class="fw-bold" style="color: #333333; font-size: 22px; padding-bottom: 16px" >약속명 신촌 약속</div>
+    <div class="fw-bold" style="color: #333333; font-size: 22px; padding-bottom: 16px" >약속명: ${promiseInfo.proName}</div>
     <div class="d-flex scroll" style="">
         <div class="d-flex align-items-center " style="background-color: #FFFCFC; border-radius: 8px; border: 2px solid #FEF4F2; padding: 10px 10px; margin: 16px 0; margin-right: 20px;">
             <img src="<c:url value="/img/1.png"/>" style="width: 40px; height: 40px; margin-right: 10px"  />

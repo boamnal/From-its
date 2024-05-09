@@ -69,7 +69,7 @@ public class PromiseController {
     }
 
     @RequestMapping("/finalpromise")
-    public String finalpromise(Model model, @RequestParam("devoteId") int devoteId) throws Exception {
+    public String finalpromise(Model model, @RequestParam("devoteId") int devoteId, HttpSession session) throws Exception {
 
         DevoteDto devoteDto = devoteService.getProId(devoteId);
         Map<String, Integer> placeresult = new HashMap<>();
@@ -87,6 +87,12 @@ public class PromiseController {
         model.addAttribute("proId",proId );
         model.addAttribute("devoteId",devoteId );
         model.addAttribute("promiseInfo",finalPromiseInfo );
+
+        session.setAttribute("pInfo", finalPromiseInfo);
+        Object pInfo = session.getAttribute("pInfo");
+
+        log.info("^^^^^^^^^^"+pInfo);
+
         model.addAttribute("center",dir+"finalpromise");
         return "main";
     }
