@@ -268,15 +268,32 @@
                       d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
             </svg>
         </div>
-        <div class="friend-management-content"
-             style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <div class="text-center" style="font-size: 16px; color: #333333">약속이 아직 없어요!</div>
-            <button class="fw-bold align-items-center"
-                    style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none">
-                약속 만들러가기
-            </button>
 
-        </div>
+            <c:choose>
+                <c:when test="${empty promise}">
+                    <div class="friend-management-content"
+                         style="border: 1px solid #EEEEEE; border-radius: 12px; margin-top: 16px; padding: 20px; display: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <div class="text-center" style="font-size: 16px; color: #333333">약속이 아직 없어요!</div>
+                                <button class="fw-bold align-items-center"
+                                        style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none">
+                                    약속 만들러가기
+                                </button>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach items="${promise}" var="p">
+                        <div class="schedule" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px">
+                            <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
+                                <div>${p.proName}</div>
+                                <div>${p.proDate}</div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+
+
+
         <div class="d-flex justify-content-between align-items-center fw-bold friend-management"
              style="background-color: #FF9494; color: white; border-radius: 8px; padding: 12px 20px; margin-top: 24px; cursor: pointer;">
             주소록

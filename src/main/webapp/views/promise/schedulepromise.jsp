@@ -38,14 +38,14 @@
             <div id = "makeProm" class="btn btn-primary fw-bold" style="padding: 12px 20px; margin-top: 32px">약속 만들러가기</div>
         </div>
     </c:if>
-    <c:forEach items="${promise}" var="p">
-        <div class="schedule" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px">
-            <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
-                <div>${p.proName}</div>
-                <div>${p.proDate}</div>
+    <c:otherwise>
+        <c:forEach items="${promise}" var="p">
+            <div class="schedule" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px">
+                <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
+                    <div>${p.proName}</div>
+                    <div>${p.proDate}</div>
+                </div>
             </div>
-        </div>
-    </c:forEach>
-
-
+        </c:forEach>
+    </c:otherwise>
 </div>
