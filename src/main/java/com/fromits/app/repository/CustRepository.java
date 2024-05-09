@@ -24,4 +24,6 @@ public interface CustRepository extends HanaRepository<String, CustDto> {
   // 주소록 업데이트
   void updateAddress(CustDto custDto);
 
+  public List<CustDto> getMemberPromiseId(int proId) throws Exception;
+
 }
