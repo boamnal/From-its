@@ -16,7 +16,7 @@ public class PromiseListDto {
     private String proName;
     private int groupId;
     private String groupName;
-    private LocalDate proDate;
+    private String proDate;
     private String placeAddress;
     private String placeName;
 }
