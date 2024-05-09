@@ -140,6 +140,7 @@ public class PromiseController {
         PromiseDto dto = promiseService.get(id);
         List<CustDto> cust = custService.getMemberPromiseId(id);
         model.addAttribute("center",dir+"detailpromise");
+
         model.addAttribute("promise", dto);
         model.addAttribute("member",cust);
         return "main";
