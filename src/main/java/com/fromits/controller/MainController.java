@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class MainController {
     @RequestMapping("/")
-    public String main(Model model) throws Exception {
+    public String main(Model model, HttpSession session) throws Exception {
+        String s = (String) session.getAttribute("user_id");
         model.addAttribute("text1","로그인");
         model.addAttribute("text2","회원가입");
         return "center";

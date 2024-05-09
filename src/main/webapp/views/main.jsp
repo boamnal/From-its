@@ -66,7 +66,14 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-white navbar-light">
     <div class="container-fluid w-100" >
-        <a class="navbar-brand" href="<c:url value="/"/> "><img style="width: 50px" src="<c:url value="/img/Logo.PNG"/>"></a>
+        <c:choose>
+            <c:when  test="${user_id == null}">
+                <a class="navbar-brand" href="<c:url value="/"/> "><img style="width: 50px" src="<c:url value="/img/Logo.PNG"/>"></a>
+            </c:when>
+            <c:otherwise>
+                <a class="navbar-brand" href="<c:url value="/schedule"/> "><img style="width: 50px" src="<c:url value="/img/Logo.PNG"/>"></a>
+            </c:otherwise>
+        </c:choose>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>

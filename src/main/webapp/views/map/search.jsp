@@ -8,6 +8,8 @@ http://suldo.com/411-->
 
 <script>
     $(document).ready(function() {
+
+
         // "#list" 내의 버튼에 클릭 이벤트 위임
         $('#list').on('click', 'button', function() {
             let hiddenValue = $(this).parent().prev('input[type="hidden"]').val();
