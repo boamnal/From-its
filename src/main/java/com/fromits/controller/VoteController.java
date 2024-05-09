@@ -85,16 +85,14 @@ public class VoteController {
     @RequestMapping("/voteConfirm")
     public int voteConfirm(VoteDto vote, HttpSession httpSession) throws Exception {
         // 약속 후보 확정 가능: 1, 약속 후보 확정 불가능: 0
-
+        int num = vote.getDevoteId();
         // 투표 안한 사람 수
-        Integer notVoteCount = voteService.getVoteCount();
+        Integer notVoteCount = voteService.getVoteCount(num);
         if (notVoteCount == 0) {
             Map<String, Object> updateVote = new HashMap<>();
             updateVote.put("devoteState", 2);
             updateVote.put("devoteId", vote.getDevoteId());
-
             voteService.updateVoteState(updateVote);
-
             return 1;
         } else {
             return 0;
