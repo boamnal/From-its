@@ -84,8 +84,6 @@ public class PromiseController {
         promiseService.updateResult(placeresult);
         FinalPromiseDto finalPromiseInfo = promiseService.finalPromiseInfo(proId);
 
-
-
         model.addAttribute("proId",proId );
         model.addAttribute("devoteId",devoteId );
         model.addAttribute("promiseInfo",finalPromiseInfo );
