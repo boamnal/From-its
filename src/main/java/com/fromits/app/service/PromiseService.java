@@ -70,4 +70,8 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
     public int finalPromiseSchedule(Map<String, Object> scheduler) throws Exception {
         return promiseRepository.finalPromiseSchedule(scheduler);
     }
+
+    public List<String> getEmailsbyProId(int proId) throws Exception {
+        return promiseRepository.getEmailsbyProId(proId);
+    }
 }

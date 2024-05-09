@@ -21,5 +21,6 @@ public interface PromiseRepository extends HanaRepository<Integer, PromiseDto> {
     int updateResult( Map<String, Integer> updateResult) throws Exception;
     FinalPromiseDto finalPromiseInfo(int proId) throws Exception;
     int finalPromiseSchedule(Map<String, Object> scheduler) throws Exception;
+    List<String> getEmailsbyProId(int proId) throws Exception;
 
 }

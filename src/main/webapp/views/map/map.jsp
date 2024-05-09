@@ -147,14 +147,15 @@
                 data: { option: selectedOption }, // 서버로 전송할 데이터
                 success: function(response) {
                     var bounds = new kakao.maps.LatLngBounds();
+                    if(response == null || response === []){
+                        bounds.extend(new kakao.maps.LatLng(response[i].log, response[i].lat));
+                    }
                     $("#list").empty();
                     for (let i=0; i<response.length; i++) {
                         displayMarker(response[i]);
                         bounds.extend(new kakao.maps.LatLng(response[i].log, response[i].lat));
                     }
                     map.setBounds(bounds);
-                    getdevote()
-
                 },
                 error: function() {
                     alert('Error fetching data.'); // 에러 발생시 알림
