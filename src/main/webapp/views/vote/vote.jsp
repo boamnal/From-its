@@ -103,7 +103,7 @@
         <c:forEach items="${list}" var = "item">
             <div id="candidate" class="candidate" style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px" data-devote-id="${item.devoteId}" data-candidate-id="${item.candidateId}">
                 <div class="fw-medium" style="font-size: 16px; border-radius: 12px; border: 3px solid #FEF4F2; background-color: #FFFCFC; padding: 20px; text-align: center;">
-                    <div>${item.placeName}</div>
+                    <div><a href="https://place.map.kakao.com/${item.placeId}">${item.placeName}</a></div>
                     <div>${item.placeAddress}</div>
                 </div>
             </div>
