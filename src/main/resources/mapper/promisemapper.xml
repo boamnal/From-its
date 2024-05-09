@@ -95,7 +95,20 @@
         update promise set pro_date=#{proDate} where pro_id=#{proId};
     </update>
 
-    <!-- 최종 약속에서 약속 생성한 그룹 사용자 목록 가져와야 함-->
+    <!-- 최종 약속 수정-->
+    <update id="updateMeeting" parameterType="map">
+        UPDATE promise
+        SET pro_desc = #{proDesc}
+        WHERE pro_id = #{proId}
+    </update>
+
+    <!-- 약속 삭제 -->
+    <delete id="deleteMeeting" parameterType="int">
+        DELETE FROM promise
+        WHERE pro_id = #{proId}
+    </delete>
+
+
 
 
 </mapper>

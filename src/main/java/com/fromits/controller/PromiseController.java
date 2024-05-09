@@ -7,9 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -18,7 +16,6 @@ import java.util.*;
 
 import java.util.List;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -190,5 +187,29 @@ public class PromiseController {
         int result = promiseService.finalPromiseSchedule(params);
 
         return result;
+    }
+
+
+    // 상세 수정
+
+    @PostMapping("/updateProDesc")
+    @ResponseBody
+    public void updateProDesc(@RequestBody Map<String, Object> requestData) throws Exception {
+//        Integer proId = (Integer) requestData.get("proId");
+//        String proDesc = (String) requestData.get("proDesc");
+//
+//        Map<String, Object> updateResult = new HashMap<>();
+//        updateResult.put("proId", proId);
+//        updateResult.put("proDesc", proDesc);
+
+        promiseService.updateMeeting(requestData);
+    }
+
+
+    // 상세 삭제
+    @PostMapping("/deleteMeeting")
+    @ResponseBody
+    public void deleteMeeting(@RequestParam("proId") int proId) throws Exception {
+        promiseService.deleteMeeting(proId);
     }
 }
