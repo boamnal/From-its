@@ -38,7 +38,7 @@
 
         $('#confirmButton').click(function() {
             $('#exampleModal').modal('hide');
-            window.location.href = '/newpromise?gruopId='+groupId;
+            window.location.href = '/newpromise?groupId='+groupId;
         });
     });
 </script>
