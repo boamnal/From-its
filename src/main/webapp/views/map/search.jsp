@@ -55,7 +55,6 @@ http://suldo.com/411-->
                     "devoteId" : devoteId
                 }, // 전송할 데이터
                 success: function(response) {
-                    getprom(devoteId)
                     console.log('Data sent successfully', response);
                     if(response == 1) {
                         alert("추가에 성공했습니다.")
@@ -143,6 +142,34 @@ http://suldo.com/411-->
 <div id="list"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18804eb288163725a4242773721f7eee&libraries=services"></script>
 <script>
+
+    let getprom = function (place){
+        $.ajax({
+            url: '<c:url value="/map/getprom"/>', // 서버의 데이터를 가져올 URL
+            type: 'GET', // 요청 방식
+            data: { option: place }, // 서버로 전송할 데이터
+            success: function(response) {
+
+                var bounds = new kakao.maps.LatLngBounds();
+                bounds.extend(new kakao.maps.LatLng(response.proLat, response.proLon));
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(response.proLat, response.proLon)
+                });
+                // 마커에 클릭이벤트를 등록합니다
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                    infowindow.setContent('<div style="padding:5px;font-size:12px;">' + "중앙" + '</div>');
+                    infowindow.open(map, marker);
+                });
+
+                map.setBounds(bounds);
+            },
+            error: function() {
+                alert('Error fetching data.'); // 에러 발생시 알림
+            }
+        });
+    }
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
     const infowindow = new kakao.maps.InfoWindow({zIndex: 1});
     let map_data = [];
@@ -168,6 +195,8 @@ http://suldo.com/411-->
 
     // 키워드 검색 완료 시 호출되는 콜백함수 입니다
     function placesSearchCB (data, status, pagination) {
+        let devoteId = $('#devote').val()
+        getprom(devoteId)
         if (status === kakao.maps.services.Status.OK) {
             map_data = data;
             console.log(map_data)
@@ -181,8 +210,6 @@ http://suldo.com/411-->
                 bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
             }
 
-            // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-            map.setBounds(bounds);
         }
     }
 
@@ -212,6 +239,8 @@ http://suldo.com/411-->
             infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
             infowindow.open(map, marker);
         });
+
+
     }
 
 </script>
