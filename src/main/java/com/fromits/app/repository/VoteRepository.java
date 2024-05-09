@@ -12,5 +12,5 @@ import java.util.Map;
 public interface VoteRepository extends HanaRepository<Integer, VoteDto> {
     Integer checkVote(VoteDto voteDto) throws Exception;
     Integer getVoteCount() throws Exception;
-    void updateVoteState(Map<Integer, Integer> updateVote) throws Exception;
+    void updateVoteState(Map<String, Object> updateVote) throws Exception;
 }

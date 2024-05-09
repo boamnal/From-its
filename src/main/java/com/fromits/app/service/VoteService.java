@@ -52,7 +52,7 @@ public class VoteService implements HanaService<Integer, VoteDto>  {
         return voteRepository.getVoteCount();
     }
 
-    public void updateVoteState(Map<Integer, Integer> updateVote) throws Exception {
+    public void updateVoteState(Map<String, Object> updateVote) throws Exception {
         voteRepository.updateVoteState(updateVote);
     }
 }

@@ -15,7 +15,7 @@ import java.util.Map;
 @Mapper
 public interface PromiseRepository extends HanaRepository<Integer, PromiseDto> {
     List<devoteCandidateDto> getPromise2(String userId) throws Exception;
-    List<PromiseDto> getPromise(String userId) throws Exception;
+    List<PromiseDto> getConfirmPromise(String userId) throws Exception;
     public int getCount(String id);
     FinalPlaceDto finalplace(int devoteId) throws Exception;
     int updateResult( Map<String, Integer> updateResult) throws Exception;
