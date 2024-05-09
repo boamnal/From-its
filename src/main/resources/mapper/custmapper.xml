@@ -10,6 +10,14 @@
         WHERE user_id = #{userId}
     </select>
 
+    <select id="getMemberPromiseId" parameterType="int" resultType="custDto">
+        SELECT u.*
+        FROM user u
+                 JOIN group_member gm ON u.user_id = gm.user_id
+                 JOIN promise p ON gm.group_id = p.group_id
+        WHERE pro_id = #{param1}
+    </select>
+
     <!-- 마이페이지 주소록 업데이트 -->
     <update id="updateAddress" parameterType="custDto">
         UPDATE user
