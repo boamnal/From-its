@@ -129,8 +129,6 @@
         });
     }
     $(document).ready(function() {
-
-
         $('#optionsDropdown').change(function() {
             var selectedOption = $(this).val(); // 선택된 옵션 값
             if(selectedOption === 'none'){
