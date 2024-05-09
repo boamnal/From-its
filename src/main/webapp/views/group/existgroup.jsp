@@ -8,45 +8,27 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-    const exsitGruop = {
-        init: function() {
-            let nowGroup = null
-            $('#confirmButton').click(function() {
-                $('#exampleModal').modal('hide'); // 모달 닫기
-                window.location.href = '/newpromise?groupId='+nowGroup;
+    $(document).ready(function() {
+        const $label = $('.label');
+        const $options = $('.optionItem');
+        const handleSelect = function(item) {
+            $label.text($(item).text());
+            $label.parent().removeClass('active');
+        };
+        $options.each(function() {
+            $(this).on('click', function() {
+                handleSelect(this);
             });
-
-            const $label = $('.label');
-            const $options = $('.optionItem');
-            nowGroup = $options[0].id
-
-            const handleSelect = function(item) {
-                $label.text($(item).text());
-                $label.parent().removeClass('active');
-                nowGroup = item.id
-            };
-
-            $options.each(function() {
-                $(this).on('click', function() {
-                    handleSelect(this);
-                });
-            });
-
-            $label.on('click', function() {
-                const $parent = $label.parent();
-                if ($parent.hasClass('active')) {
-                    $parent.removeClass('active');
-                } else {
-                    $parent.addClass('active');
-                }
-            });
-        }
-    };
-
-    $(function() {
-        exsitGruop.init();
+        });
+        $label.on('click', function() {
+            const $parent = $label.parent();
+            if ($parent.hasClass('active')) {
+                $parent.removeClass('active');
+            } else {
+                $parent.addClass('active');
+            }
+        });
     });
-
 </script>
 <style>
     .selectBox2 {
@@ -58,7 +40,6 @@
         margin-top: 8px;
         cursor: pointer;
     }
-
     .selectBox2:after {
         content: '';
         display: block;
@@ -69,7 +50,6 @@
         right: 35px;
         /*background: #FF9494;*/
     }
-
     .selectBox2 .label {
         display: flex;
         align-items: center;
@@ -81,7 +61,6 @@
         cursor: pointer;
         font-size: 16px;
     }
-
     .selectBox2 .optionList {
         position: absolute;
         top: 60px;
@@ -92,16 +71,13 @@
         list-style-type: none;
         padding: 0;
         border-radius: 8px;
-        overflow-y: auto;
-        height: 200px;
+        overflow: hidden;
+        max-height: 0;
         transition: .3s ease-in;
     }
-
     .selectBox2.active .optionList {
         max-height: fit-content;
-        /*block-size: fit-content;*/
     }
-
     .selectBox2 .optionItem {
         border: 1px solid #EEEEEE;
         border-radius: 8px;
@@ -110,7 +86,6 @@
         margin-bottom: 5px;
         font-size: 16px;
     }
-
     .selectBox2 .optionItem:hover {
         background: #FEF4F2;
         color: #FF9494;
@@ -121,7 +96,6 @@
     .selectBox2 .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
     .selectBox2 .optionList::-webkit-scrollbar-thumb:hover {background: #303030;}
 </style>
-
 <div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">기존 그룹 선택</div>
     <div class="d-flex flex-column">
