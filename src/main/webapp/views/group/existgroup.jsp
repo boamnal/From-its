@@ -38,7 +38,7 @@
 
         $('#confirmButton').click(function() {
             $('#exampleModal').modal('hide');
-            window.location.href = '/map?id='+groupId;
+            window.location.href = '/newpromise?gruopId='+groupId;
         });
     });
 </script>
