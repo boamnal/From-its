@@ -341,11 +341,13 @@
              style="background-color: #FFFCFC; border: 2px solid #FEF4F2; border-radius: 8px; margin-top: 16px; padding: 16px 20px; display: none; color: #333333; margin-bottom: 40px">
             <c:choose>
                 <c:when test="${empty promise}">
-                    <div class="text-center" style="font-size: 16px; color: #333333">약속이 아직 없어요!</div>
-                    <button class="fw-bold align-items-center"
+                    <div class="d-flex flex-column justify-content-center text-center">
+                    <div  style="font-size: 16px; color: #333333">약속이 아직 없어요!</div>
+                    <button class="fw-bold"
                             style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none" onclick="window.location.href='/initial'">
                         약속 만들러가기
                     </button>
+                    </div>
                 </c:when>
                 <c:otherwise>
                     <c:forEach items="${promise}" var="p">
@@ -419,11 +421,13 @@
              style="background-color: #FFFCFC; border: 2px solid #FEF4F2; border-radius: 8px; margin-top: 16px; padding: 16px 20px; display: none; color: #333333; margin-bottom: 40px">
         <c:choose>
             <c:when test="${empty group}">
-                    <div class="text-center" style="font-size: 16px; color: #333333">약속 그룹이 아직 없어요!</div>
-                    <button class="fw-bold align-items-center"
+            <div class="d-flex flex-column justify-content-center text-center">
+                <div style="font-size: 16px; color: #333333">약속 그룹이 아직 없어요!</div>
+                    <button class="fw-bold"
                             style="padding: 12px 20px; border-radius: 8px; margin-top: 32px; background-color: #FEF4F2; color: #FF9494; border: none" onclick="window.location.href='/initial'">
                         내 약속 그룹 만들러가기
                     </button>
+            </div>
             </c:when>
             <c:otherwise>
                 <c:forEach items="${group}" var="g">
