@@ -37,7 +37,6 @@ public class MapController {
     @RequestMapping("/group")
     public String group(Model model, @RequestParam("id") int groupId) throws Exception {
         List<PromiseDto> list = groupService.getPromisebyGroupId(groupId);
-
         model.addAttribute("center", dir + "groupmap");
         model.addAttribute("options", list);
         return "main";

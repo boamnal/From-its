@@ -8,6 +8,33 @@ http://suldo.com/411-->
 
 <script>
     $(document).ready(function() {
+        let getprom = function (place){
+            $.ajax({
+                url: '<c:url value="/map/getprom"/>', // 서버의 데이터를 가져올 URL
+                type: 'GET', // 요청 방식
+                data: { option: place }, // 서버로 전송할 데이터
+                success: function(response) {
+
+                    var bounds = new kakao.maps.LatLngBounds();
+                    bounds.extend(new kakao.maps.LatLng(response.proLat, response.proLon));
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: new kakao.maps.LatLng(response.proLat, response.proLon)
+                    });
+                    // 마커에 클릭이벤트를 등록합니다
+                    kakao.maps.event.addListener(marker, 'click', function() {
+                        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + "중앙" + '</div>');
+                        infowindow.open(map, marker);
+                    });
+
+                    map.setBounds(bounds);
+                },
+                error: function() {
+                    alert('Error fetching data.'); // 에러 발생시 알림
+                }
+            });
+        }
 
 
         // "#list" 내의 버튼에 클릭 이벤트 위임
@@ -28,6 +55,7 @@ http://suldo.com/411-->
                     "devoteId" : devoteId
                 }, // 전송할 데이터
                 success: function(response) {
+                    getprom(devoteId)
                     console.log('Data sent successfully', response);
                     if(response == 1) {
                         alert("추가에 성공했습니다.")
