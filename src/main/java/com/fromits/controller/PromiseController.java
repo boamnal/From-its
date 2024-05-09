@@ -4,7 +4,6 @@ import com.fromits.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +16,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.*;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -71,9 +73,13 @@ public class PromiseController {
 
     }
 
+    final VoteService voteService;
 
     @RequestMapping("/schedule")
-    public String promise(Model model) throws Exception {
+    public String promise(Model model, HttpSession httpSession) throws Exception {
+        String userId = (String) httpSession.getAttribute("user_id");
+        List<PromiseDto> promise = promiseService.getConfirmPromise(userId);
+        model.addAttribute("promise", promise);
         model.addAttribute("center",dir+"schedulepromise");
         return "main";
     }
@@ -85,15 +91,6 @@ public class PromiseController {
         model.addAttribute("center",dir+"newpromise");
         return "main";
     }
-
-    @RequestMapping("/schedulepromise")
-    public String schedulepromise(Model model, HttpSession session) throws Exception {
-        List<devoteCandidateDto> list = promiseService.getPromise2("id01");
-        model.addAttribute("list", list);
-        model.addAttribute("center",dir+"schedulepromise");
-        return "main";
-    }
-
     @ResponseBody
     @RequestMapping("/createpromise")
     public int createpromise(Model model, @RequestParam("promiseName") String promiseName, @RequestParam("promiseContent") String promiseContent, @RequestParam("groupId") int groupId, @RequestParam("midpointLat") double midpointLat, @RequestParam("midpointLon") double midpointLon) throws Exception {
@@ -134,6 +131,7 @@ public class PromiseController {
         FinalPromiseDto finalPromiseInfo = promiseService.finalPromiseInfo(proId);
 
         model.addAttribute("proId",proId );
+        model.addAttribute("devoteId",devoteId );
         model.addAttribute("promiseInfo",finalPromiseInfo );
         model.addAttribute("center",dir+"finalpromise");
         return "main";
@@ -170,15 +168,21 @@ public class PromiseController {
 
     @ResponseBody
     @RequestMapping("/confirmPromise")
-    public int confirmPromise(Model model, @RequestParam("proDate") String proDate, @RequestParam("proId") String proId) throws Exception {
+    public int confirmPromise(Model model, @RequestParam("proDate") String proDate, @RequestParam("proId") String proId, @RequestParam("devoteId") int devoteId) throws Exception {
         // 최종 약속 결정:1 , 이 과정 실패: 0
         Map<String, Object> params = new HashMap<>();
         params.put("proDate", proDate);
         params.put("proId", proId);
+
+        Map<String, Object> updateVote = new HashMap<>();
+        updateVote.put("devoteState", 3);
+        updateVote.put("devoteId", proId);
+
         List<String> emails = promiseService.getEmailsbyProId(Integer.parseInt(proId));
         for(String s: emails){
             sendEmail(s, mail, "smtp.gmail.com", "From-its", "투표가 완료되었습니다. 확인하세요", pwd);
         }
+        voteService.updateVoteState(updateVote);
 
         int result = promiseService.finalPromiseSchedule(params);
 

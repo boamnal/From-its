@@ -2,8 +2,12 @@ package com.fromits.controller;
 
 import com.fromits.app.dto.CustDto;
 import com.fromits.app.dto.FriendsDto;
+import com.fromits.app.dto.PromgroupDto;
+import com.fromits.app.dto.PromiseDto;
 import com.fromits.app.service.CustService;
 import com.fromits.app.service.FriendsService;
+import com.fromits.app.service.GroupService;
+import com.fromits.app.service.PromiseService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +26,19 @@ public class MypageController {
   String dir = "my/";
   final CustService custService;
   final FriendsService friendsService;
+  final PromiseService promiseService;
+  final GroupService groupService;
 
   @RequestMapping("/mypage")
   public String mypage(Model model, HttpSession session) throws Exception {
     String loggedInUserId = (String) session.getAttribute("user_id");
     CustDto custDto = custService.get(loggedInUserId);
+    List<PromiseDto> promise = promiseService.getConfirmPromise(loggedInUserId);
+    List<PromgroupDto> group = groupService.getMyGroup(loggedInUserId);
 
     model.addAttribute("custInfo", custDto);
+    model.addAttribute("promise", promise);
+    model.addAttribute("group", group);
     model.addAttribute("center", dir + "mypage");
     return "main";
   }

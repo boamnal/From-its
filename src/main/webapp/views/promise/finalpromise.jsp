@@ -167,13 +167,14 @@
                 let date = $('#promiseDate').val();
                 let time = $('#selectedTime').text();
                 let proId = $("#proId").val()
+                let devoteId = $("#devoteId").val()
 
                 let dateTime = date+'T'+time
 
                 $.ajax({
                     url: '/confirmPromise',
                     type: 'get',
-                    data: {proDate: dateTime, proId: proId},
+                    data: {proDate: dateTime, proId: proId, devoteId: devoteId},
                     success: function (res) {
                         if (res === 1) {
                             toggleModalContent();
@@ -202,6 +203,7 @@
 <div class="min-vh-100 d-flex flex-column">
     <div class="fw-bold" style="font-size: 22px; margin-bottom: 30px">약속 만들기</div>
     <input id="proId" class="d-none" value="${proId}" />
+    <input id="devoteId" class="d-none" value="${devoteId}" />
     <div class="d-flex flex-column">
         <div style="margin-bottom: 40px">
             <div class="fw-medium" style="font-size: 16px">약속명</div>

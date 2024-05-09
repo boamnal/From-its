@@ -54,8 +54,8 @@ public class PromiseService implements HanaService<Integer, PromiseDto> {
         return promiseRepository.getCount(id);
     }
 
-    public List<PromiseDto> getPromise(String userId) throws Exception {
-        return promiseRepository.getPromise(userId);
+    public List<PromiseDto> getConfirmPromise(String userId) throws Exception {
+        return promiseRepository.getConfirmPromise(userId);
     }
 
     public FinalPlaceDto finalplace(int devoteId) throws Exception {
