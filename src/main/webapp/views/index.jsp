@@ -34,10 +34,10 @@
     let groupSelect = {
         init: function () {
             $("#newgroup").click(() => {
-                window.location.href="/newgroup"
+                window.location.href = "/newgroup"
             })
             $("#existgroup").click(() => {
-                window.location.href="/existgroup"
+                window.location.href = "/existgroup"
             })
         }
     }
@@ -45,13 +45,29 @@
         groupSelect.init()
     })
 </script>
-<div class="container d-flex flex-column">
-        <div class="align-self-center">
-            <img src="<c:url value="/img/Logo2.svg"/>" style="width: 200px; height: 40px; margin-top: 50px; margin-bottom: 45px" />
-        </div>
+<div class="min-vh-100 d-flex flex-column">
+    <div class="fw-bold" style="font-size: 22px; margin-bottom: 14px">친구들과 약속을 잡아보세요!</div>
+    <div class="fw-medium" style="font-size: 16px; margin-bottom: 30px;  color: #1a1d20;">먼저 약속의 참가자들을 그룹으로 만들게요.</div>
+    <div class="container d-flex flex-column">
+        <div>
+            <div class="fw-medium"
+                 style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px; font-size: 16px; text-align: center">
+                <div>그룹을 처음 만드시나요?</div>
 
-        <div class="d-flex flex-column">
-            <button class="w-100 btn btn-primary mb-4 rounded-3 fw-bolder" style="padding: 12px 0; background-color: #FF9494; color: white" id="newgroup">${text1}</button>
-            <button class="w-100 btn btn-primary rounded-3 fw-bolder" style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494" id="existgroup">${text2}</button>
+                <button class="w-100 btn btn-primary rounded-3 fw-bolder"
+                        style="padding: 12px 0; background-color: #FF9494; color: white;  margin-top: 32px"
+                        id="newgroup">${text1}</button>
+            </div>
         </div>
+        <div>
+            <div class="fw-medium"
+                 style="border-radius: 12px; border: 1px solid #EEEEEE; padding: 20px; margin-bottom: 20px; font-size: 16px; text-align: center">
+                <div>이미 만들어진 그룹이 있다면</div>
+
+                <button class="w-100 btn btn-primary rounded-3 fw-bolder"
+                        style="padding: 12px 0; background-color: #FEF4F2; color: #FF9494; margin-top: 32px"
+                        id="existgroup">${text2}</button>
+            </div>
+        </div>
+    </div>
 </div>
