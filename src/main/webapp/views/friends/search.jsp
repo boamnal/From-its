@@ -8,6 +8,7 @@
 
     .selectBox2 {
         position: relative;
+        margin-top:20px;
     }
 
     .selectBox2 .optionList {
@@ -188,17 +189,19 @@
 </style>
 <div class="min-vh-100 d-flex flex-column">
     <div>
-        <div class="fw-medium" style="font-size: 20px; margin-bottom: 30px">친구맺기</div>
+
+        <div class="fw-bold" style="font-size: 22px; margin-bottom: 14px; color: #FF9494;">STEP1. 친구 맺기</div>
+
+        <div class="fw-medium" style="font-size: 16px; margin-bottom: 30px;  color: #1a1d20;">🔍 사용자를 검색해서 친구로 추가해주세요</div>
         <div class="d-flex scroll">
             <div id="selectedFriends" class="d-flex"></div>
-
         </div>
 
         <div style="position: relative; margin-bottom: 10px;">
             <input type="text" class="w-100"
-                   style="padding: 13px 12px; margin-top: 8px; border-radius: 8px; background-color: #F8F8FA; border: none; position: relative"
+                   style="padding: 13px 12px; margin-top: 8px;  border-radius: 8px; background-color: #F8F8FA; border: none; position: relative"
                    name="query" oninput="searchFriends()" id="searchText"
-                   placeholder="친구 아이디를 검색하세요." autocomplete="off">
+                   placeholder="이름 혹은 아이디 검색" autocomplete="off">
 
             <button style="position: absolute; right: 14px; bottom: 15px; border: none; background: none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
@@ -218,8 +221,7 @@
 </div>
 <button id="creategroup"
         class="mt-auto w-100 btn btn-primary mb-4 rounded-3 fw-bolder mt-auto"
-        style="padding: 12px 0; background-color: #FF9494; color: white;" onclick="window.location.href = '/initial'">약속
-    생성하기
+        style="padding: 12px 0; background-color: #FF9494; color: white;" onclick="window.location.href = '/initial'">다음
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
