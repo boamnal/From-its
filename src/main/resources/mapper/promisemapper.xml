@@ -8,12 +8,16 @@
     </insert>
 
     <!--확정된 약속 후보들 가져오기-->
-    <select id = "getConfirmPromise" parameterType="PromiseDto">
-        SELECT p.*
+    <select id = "getConfirmPromise" parameterType="PromiseListDto">
+        SELECT p.pro_id as pro_id, p.pro_name as pro_name, p.group_id as group_id,
+               g.group_name as group_name, p.pro_date as pro_date,
+               c.place_address as place_address, c.place_name as place_name
         FROM user u
                  JOIN group_member gm ON u.user_id = gm.user_id
+                 JOIN prom_group g ON g.group_id = gm.group_id
                  JOIN promise p ON gm.group_id = p.group_id
                  JOIN devote d ON p.pro_id = d.pro_id
+                 JOIN devote_candidate c ON p.candidate_id = c.candidate_id
         WHERE u.user_id = #{userId}
           AND d.devote_state = 3;
     </select>

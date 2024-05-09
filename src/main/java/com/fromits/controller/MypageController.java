@@ -1,9 +1,6 @@
 package com.fromits.controller;
 
-import com.fromits.app.dto.CustDto;
-import com.fromits.app.dto.FriendsDto;
-import com.fromits.app.dto.PromgroupDto;
-import com.fromits.app.dto.PromiseDto;
+import com.fromits.app.dto.*;
 import com.fromits.app.service.CustService;
 import com.fromits.app.service.FriendsService;
 import com.fromits.app.service.GroupService;
@@ -33,7 +30,7 @@ public class MypageController {
   public String mypage(Model model, HttpSession session) throws Exception {
     String loggedInUserId = (String) session.getAttribute("user_id");
     CustDto custDto = custService.get(loggedInUserId);
-    List<PromiseDto> promise = promiseService.getConfirmPromise(loggedInUserId);
+    List<PromiseListDto> promise = promiseService.getConfirmPromise(loggedInUserId);
     List<PromgroupDto> group = groupService.getMyGroup(loggedInUserId);
 
     model.addAttribute("custInfo", custDto);

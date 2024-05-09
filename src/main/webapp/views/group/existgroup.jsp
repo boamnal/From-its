@@ -9,15 +9,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
     $(document).ready(function() {
+        let groupId = null;
+
         const $label = $('.label');
         const $options = $('.optionItem');
+        groupId = $options[0].id
+
         const handleSelect = function(item) {
             $label.text($(item).text());
             $label.parent().removeClass('active');
+            nowGroup = item.id
         };
         $options.each(function() {
             $(this).on('click', function() {
                 handleSelect(this);
+                groupId = $(this).data('group-id')
             });
         });
         $label.on('click', function() {
@@ -27,6 +33,12 @@
             } else {
                 $parent.addClass('active');
             }
+        });
+
+
+        $('#confirmButton').click(function() {
+            $('#exampleModal').modal('hide');
+            window.location.href = '/map?id='+groupId;
         });
     });
 </script>
@@ -104,7 +116,7 @@
             <button class="label">${group[0].groupName}</button>
             <ul class="optionList">
                 <c:forEach var="g" items="${group}">
-                    <li class="optionItem" id="${g.groupId}">${g.groupName}</li>
+                    <li class="optionItem" id="${g.groupId}" data-group-id="${g.groupId}">${g.groupName}</li>
                 </c:forEach>
             </ul>
         </div>

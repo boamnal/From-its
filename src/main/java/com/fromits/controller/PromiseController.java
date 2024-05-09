@@ -4,6 +4,7 @@ import com.fromits.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,7 +79,7 @@ public class PromiseController {
     @RequestMapping("/schedule")
     public String promise(Model model, HttpSession httpSession) throws Exception {
         String userId = (String) httpSession.getAttribute("user_id");
-        List<PromiseDto> promise = promiseService.getConfirmPromise(userId);
+        List<PromiseListDto> promise = promiseService.getConfirmPromise(userId);
         model.addAttribute("promise", promise);
         model.addAttribute("center",dir+"schedulepromise");
         return "main";
