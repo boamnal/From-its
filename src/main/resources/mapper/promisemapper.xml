@@ -24,6 +24,15 @@
         WHERE pro_id = #{param1}
     </select>
 
+    <select id="getEmailsbyProId" resultType="String">
+        select distinct(email)
+        from user a join
+             (select user_id
+              from group_member
+              where group_id = (SELECT group_id FROM fromits.devote
+                                where pro_id = #{param1})) b on (a.user_id = b.user_id);
+    </select>
+
     <select id = "getPromise" parameterType="PromiseDto">
         SELECT * from promise
         where group_id = (SELECT group_id FROM group_member
