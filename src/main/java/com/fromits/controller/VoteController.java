@@ -126,10 +126,10 @@ public class VoteController {
 
         // 투표 안한 사람 수
         Integer notVoteCount = voteService.getVoteCount();
-        Integer devoteState = 2;
         if (notVoteCount == 0) {
-            Map<Integer, Integer> updateVote = new HashMap<>();
-            updateVote.put(devoteState, vote.getDevoteId()); // 맵에 값 넣기
+            Map<String, Object> updateVote = new HashMap<>();
+            updateVote.put("devoteState", 2);
+            updateVote.put("devoteId", vote.getDevoteId());
 
             voteService.updateVoteState(updateVote);
 
