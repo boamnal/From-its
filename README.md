@@ -72,8 +72,7 @@
 
 #### Development
 
-<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white">
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white">
+<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white"> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white">
 <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=Bootstrap&logoColor=white">
 <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=Javascript&logoColor=white">
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
@@ -95,4 +94,35 @@
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white">
 
 <br/>
+
+## 6. 팀원 소개
+<table>
+    <tr align="center">
+        <td colspan="10"><B>프론트엔드 & 백엔드 기능별 구현</B></td>
+    </tr>
+    <tr align="center">
+        <td><B>양채연</B></td>
+        <td><B>강민주</B></td>
+        <td><B>유다영</B></td>
+    </tr>
+    <tr align="center">
+        <td>
+            <img src="https://github.com/chaeyeon-yang.png?size=150" width="150">
+            <br>
+            <a href="https://github.com/chaeyeon-yang"><I>chaeyeon-yang</I></a>
+        </td>
+        <td>
+            <img src="https://github.com/Minjoo-kang123.png?size=150" width="150">
+            <br>
+            <a href="https://github.com/Minjoo-kang123"><I>Minjoo-kang123</I></a>
+        </td>
+        <td>
+            <img src="https://github.com/allzeroyou.png?size=150" width="150">
+            <br>
+            <a href="https://github.com/allzeroyou"><I>Dayeong Yoo</I></a>
+        </td>
+    </tr>
+</table>
+
+
 
